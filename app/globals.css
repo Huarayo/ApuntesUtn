@@ -1,0 +1,879 @@
+:root{
+  --bg: #f6f8f7;
+  --card: #ffffff;
+  --card2: #fbfcfb;
+  --border: #e6ebe8;
+
+  --text: #0f172a;
+  --muted: #475569;
+
+  --green: #16a34a;      /* principal */
+  --green2: #22c55e;     /* hover */
+  --greenSoft: #eaf7ef;  /* fondos suaves */
+
+  --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  --radius: 16px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--text);
+  background:
+    radial-gradient(900px 600px at 20% -10%, rgba(34,197,94,0.16), transparent 55%),
+    radial-gradient(800px 600px at 90% 0%, rgba(16,185,129,0.10), transparent 55%),
+    var(--bg);
+}
+
+a{ color:inherit; text-decoration:none; }
+button,input{ font:inherit; color:inherit; }
+
+:focus-visible{
+  outline: 2px solid rgba(34,197,94,0.55);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px;
+}
+
+/* Topbar simple, amigable */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(246,248,247,0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  justify-content: space-between;
+  padding: 14px 22px;
+}
+
+.brandBlock{ display:flex; flex-direction: column; gap: 2px; }
+
+.title{ font-size: 18px; font-weight: 800; letter-spacing: 0.2px; }
+.subtitle{ font-size: 13px; color: var(--muted); }
+
+.actions{ display:flex; gap: 10px; align-items:center; }
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+.btn:hover{
+  transform: translateY(-1px);
+  background: var(--card2);
+  border-color: #dbe4df;
+  color: black
+}
+
+/* CTA verde */
+
+/* Breadcrumb */
+.breadcrumbs{
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 22px 14px 22px;
+}
+
+.crumb{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.crumb a{
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background .12s ease, border-color .12s ease;
+}
+.crumb a:hover{
+  background: var(--greenSoft);
+  border-color: rgba(34,197,94,0.25);
+}
+
+.sep{ opacity: 0.5; }
+
+/* Card */
+.card{
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+
+.folderTitle{ display:flex; flex-direction: column; gap: 2px; }
+.folderTitle h2{ margin: 0; font-size: 16px; font-weight: 800; }
+.folderTitle p{ margin: 0; font-size: 13px; color: var(--muted); }
+
+/* List */
+.list{
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease, transform .12s ease;
+}
+.row:hover{
+  background: rgba(34,197,94,0.08);
+  border-color: rgba(34,197,94,0.18);
+  transform: translateY(-1px);
+}
+
+.rowLeft{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.icon{
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--greenSoft);
+  border: 1px solid rgba(34,197,94,0.22);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+
+.icon.file{
+  background: rgba(59,130,246,0.10);
+  border-color: rgba(59,130,246,0.18);
+}
+
+.name{
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.badge{
+  font-size: 12px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--card2);
+}
+
+/* Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(15,23,42,0.12);
+  border-top-color: rgba(34,197,94,0.90);
+  border-radius: 9999px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== HOME SIMPLE ===== */
+.homeWrap{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.homeHero{
+  background: #f3f4f6;
+  border-radius: 16px;
+  padding: 22px 16px;
+  text-align: center;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05)
+}
+
+
+.homeTitle{
+  margin: 0 0 16px 0;
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.homeTitle span{
+  display:block;
+  color: #16a34a;
+  margin-top: 6px;
+}
+
+
+/* Contenedor del buscador */
+.homeSearch {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+/* El Input con espacio para la lupa */
+.homeInput {
+  width: 100%;
+  padding: 14px 50px 14px 20px; /* Padding derecho para la lupa */
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.homeInput:focus {
+  border-color: var(--green); /* Verde UTN */
+  box-shadow: 0 0 0 4px var(--greenSoft);
+}
+
+/* El Botón de la Lupa dentro del Input */
+.search-icon-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.search-icon-btn:hover {
+  color: var(--green);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* El Dropdown de sugerencias */
+.searchResultsDropdown {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 100;
+  overflow: hidden;
+  text-align: left;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.2s;
+}
+
+.searchResultItem:hover {
+  background: var(--greenSoft);
+}
+
+.searchResultIcon { font-size: 18px; }
+
+.searchResultInfo { display: flex; flex-direction: column; }
+
+.searchResultName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.searchResultMeta {
+  font-size: 11px;
+  color: var(--muted);
+}
+.homeInput:focus{
+  border-color: rgba(22,163,74,0.45);
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
+}
+
+.search-icon{
+  position: absolute;
+  right: 15px;
+  top:50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none; /* hace que el click en la lupa se haga foco en el input*/
+}
+
+
+.homeSearchBtn{
+  padding: 14px 14px;
+  border-radius: 12px;
+  border: 0;
+  background: var(--green);
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.homeSearchBtn:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.96);
+}
+
+.homeSectionTitle{
+  margin: 14px 0 10px;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+
+
+.homeList{
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.homeRow{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 14px 14px;
+  border-radius: 16px;
+
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+
+  font-weight: 900;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+.homeRow:hover{
+  background: rgba(34,197,94,0.06);
+  border-color: rgba(22,163,74,0.22);
+  transform: translateY(-1px);
+}
+
+
+.homeRowLeft{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.homeFolderIcon{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: var(--greenSoft);
+  border: 1px solid rgba(22,163,74,0.18);
+  font-size: 20px;
+  flex: 0 0 auto;
+}
+
+
+.homeRowText{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.homeRowRight{
+  opacity: .35;
+  font-size: 18px;
+}
+.homeRow:hover .homeRowRight{
+  opacity: .6;
+}
+
+
+@media (max-width: 520px){
+  .homeTitle{ font-size: 38px; }
+  .homeBtn{ padding: 10px 12px; }
+}
+
+/* -----Page navigation---- */
+/* Estilo de la página de navegación */
+.mini {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.folderHeaderTitle {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 10px 0 20px 0;
+  color: var(--text);
+}
+
+.miniCrumbs {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--card); /* Blanco */
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease; /* Transición suave para todo */
+  margin-bottom: 15px;
+}
+
+/* EFECTO HOVER PRO: 
+   En lugar de agrandar la letra, movemos el botón y cambiamos el color
+*/
+.back:hover {
+  background-color: var(--greenSoft);
+  color: var(--green);
+  border-color: var(--green);
+  transform: translateX(-4px); /* Se mueve un poquito a la izquierda */
+  box-shadow: var(--shadow);
+}
+
+
+/* Contenedor de la ruta */
+.miniCrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+/* Estilo para todos los enlaces (Migas) */
+.miniCrumb {
+  padding: 0 5px;
+  margin: 0px 0px 0px 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.2s ease; /* Transición suave de color y fondo */
+  font-weight: 500;
+}
+
+/* Evitamos el margen en el primer elemento (Inicio) */
+.miniCrumbs > a:first-child,
+.miniCrumbs > div:first-child .miniCrumb {
+  margin-left: 0;
+}
+
+/* Hover: Fondo verde muy clarito y texto verde UTN */
+.miniCrumb:hover {
+  background-color: var(--greenSoft);
+  color: var(--green);
+}
+
+/* El último nivel (donde estás) se ve más sólido */
+.miniCrumb.active {
+  color: var(--text);
+  background-color: transparent;
+  font-weight: 700;
+  pointer-events: none; /* No clickeable si ya estás ahí */
+}
+
+/* Separador elegante */
+.miniSep {
+  color: #888;
+  font-size: 12px;
+  margin: 0 2px;
+  user-select: none;
+}
+.miniRow:hover{
+  background: #f2fbf5;
+  border-color: rgba(34,197,94,0.25);
+  transform: translateY(-1px);
+}
+
+.navBack{
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e6ebe8;
+  font-weight: 900;
+}
+
+.navTitle{
+  font-weight: 900;
+  font-size: 16px;
+  text-align:center;
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #0f172a;
+  text-wrap: wrap;
+}
+
+.navDrive, .btnPrimary{
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #16a34a;
+  color: white;
+  font-weight: 900;
+}
+
+.navbtn{
+  padding: 10px 12px;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 12px;
+}
+
+.navbtn:hover{
+  background: #16a34a;
+  color: white;
+  font-weight: 900;
+}
+
+.miniList{
+  margin-top: 14px;
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}s
+
+.miniRight{
+  opacity: .9;
+  flex: 0 0 auto;
+}
+
+/* LA CLAVE: Cambiar el azul por este diseño */
+.miniRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--card); /* Blanco */
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-weight: 700;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.miniRow:hover {
+  transform: translateY(-2px);
+  border-color: var(--green);
+  background: var(--greenSoft);
+  box-shadow: var(--shadow);
+}
+
+.miniName {
+  font-size: 16px;
+  color: var(--text);
+}
+
+.miniIcon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+/* Navbar superior de la sección */
+.navBar {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-radius: 0; /* Quitamos el fondo grisáceo del anterior */
+}
+
+
+
+/* Responsive Disign */
+
+
+/* 1) Celulares chicos */
+@media (max-width: 520px){
+  .container{ padding: 12px; }
+
+  .navBar{ padding: 10px 12px; gap: 8px; }
+  .navBack, .navDrive{ padding: 9px 10px; border-radius: 12px; font-size: 14px; }
+
+  .navTitle{ font-size: 14px; }
+
+  .miniList{ gap: 8px; }
+  .miniRow{ padding: 11px 12px; border-radius: 12px; }
+  .miniIcon{ width: 32px; height: 32px; border-radius: 10px; font-size: 16px; }
+  .miniRight{ display: none; } /* menos ruido */
+}
+
+
+/* --- ESTILOS BASE --- */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 1000;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display:none; /* Solo se ve en mobile si lo rodeas con un media query */
+}
+
+.navMenu{
+  display: none;
+}
+
+/* --- MENÚ MOBILE (Por defecto oculto a la derecha) --- */
+@media (max-width: 768px) {
+  .actions{
+    display: none;
+  }
+
+  .container{ max-width: 100%; }
+
+  .navTitle{ max-width: 55vw; } /* evita desbordes */
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px; /* Ancho del menú lateral */
+    height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 30px;
+    gap: 10px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    /* TRUCO PRO: Lo movemos fuera de la pantalla y usamos transición */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  .menuBtn{
+    display: block;
+    z-index: 1100;
+   
+  }
+
+  .navMenu.active {
+    transform: translateX(0); /* Entra a la pantalla */
+  }
+
+  /* Overlay para oscurecer el fondo */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px); /* Efecto de desenfoque moderno */
+    z-index: 998;
+  }
+}
+
+/* --- EL ÍCONO DE HAMBURGUESA ANIMADO --- */
+
+
+.hamburger {
+  width: 25px;
+  height: 2px;
+  background: var(--text);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before, .hamburger::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s ease;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Transformación a "X" cuando está abierto */
+.hamburger.open { background: transparent; }
+.hamburger.open::before { transform: rotate(45deg); top: 0; }
+.hamburger.open::after { transform: rotate(-45deg); top: 0; }
+/* 3) Notebooks chicas */
+@media (max-width: 1024px){
+  .container{ max-width: 960px; }
+}
+
+/* Mobile */
+@media (max-width: 520px){
+
+  .navBar{ padding: 12px 12px; border-radius: 14px; }
+  .miniList{ gap: 8px; }
+  .miniRow{ padding: 11px 12px; border-radius: 14px; }
+  .miniIcon{ width: 34px; height: 34px; border-radius: 12px; }
+  .miniRight{ display:none; }
+
+  .actions{
+    position: relative;
+    width: 100%;
+    max-width: 100px;
+    right: 10px;
+
+  }
+  .actions a {
+    position: absolute;
+
+  }
+
+  
+}
+
+
+
+ /* BUSQUEDA DE ELEMENTOS */
+.searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 100;
+  overflow: hidden;
+  text-align: left;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.searchResultItem:hover {
+  background: var(--greenSoft);
+}
+
+.searchResultIcon { font-size: 18px; }
+
+.searchResultInfo { display: flex; flex-direction: column; }
+
+.searchResultName {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.searchResultMeta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Estilo para el enlace que contiene el ícono */
+.logo-icon-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit; /* Hereda el color del texto por defecto */
+}
+
+/* Estilo para el ícono SVG */
+.header-logo-icon {
+  color: var(--green); /* Usa el color verde de tu paleta */
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Efecto hover para que sea interactivo */
+.logo-icon-link:hover .header-logo-icon {
+  transform: scale(1.05); /* Un pequeño zoom */
+  color: var(--green2); /* Un verde un poco más oscuro si lo tienes definido */
+}
+
+/* Ajuste para móviles: el ícono un poco más chico si es necesario */
+@media (max-width: 768px) {
+  .header-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+}

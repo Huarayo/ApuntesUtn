@@ -1,0 +1,6 @@
+node_modules
+.next
+keys/
+scripts/keys/
+drive-reader.json
+data
