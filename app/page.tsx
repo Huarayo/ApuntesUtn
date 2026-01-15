@@ -12,6 +12,12 @@ type Node = {
   url?: string;
   children?: Node[];
 };
+type SearchResult = {
+  id?: string;
+  name: string;
+  href: string;
+  isFolder: boolean;
+};
 
 const tree = treeRaw as Node[];
 
@@ -28,6 +34,7 @@ function slugify(s: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+
 function segOfFolder(n: Node) {
   return `${slugify(n.name)}--${n.id}`;
 }
@@ -38,8 +45,12 @@ function cleanName(name: string) {
 }
 
 export default function Home() {
-  // Estado para los resultados de búsqueda. null = no se buscó nada.
-  const [searchResults, setSearchResults] = useState<any[] | null>(null);
+    // Estado para los resultados de búsqueda. null = no se buscó nada.
+
+
+  const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
+
+  // const [searchResults, setSearchResults] = useState<any[] | null>(null);
 
   const topFolders = tree
     .filter((n) => isFolder(n) && n.id)
@@ -52,7 +63,7 @@ export default function Home() {
           Apuntes UTN <span>Mendoza</span>
         </h1>
         {/* Pasamos la función para actualizar los resultados al buscador */}
-        <SearchBox onSearch={(data) => setSearchResults(data)} />
+        <SearchBox onSearch={(data: SearchResult[] | null) => setSearchResults(data)} />
       </section>
 
       {/* RENDERIZADO CONDICIONAL */}

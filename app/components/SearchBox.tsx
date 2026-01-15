@@ -12,34 +12,48 @@ function cleanName(name: string) {
 function slugify(s: string) {
   return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
+type Node = {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+};
 
-interface SearchBoxProps {
-  onSearch: (results: any[] | null) => void;
+//usamos node para menos repetición
+type SearchResult = Node & {
+  href: string;
+  isFolder: boolean;
 }
 
+
+
+interface SearchBoxProps {
+  onSearch: (results: SearchResult[] | null) => void
+}
 export default function SearchBox({ onSearch }: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
   // 1. Aplanamos el árbol JSON para buscar en todo el contenido
-  const flatList = useMemo(() => {
-    const results: any[] = [];
-    const flatten = (nodes: any[], path: string[] = []) => {
+  const flatList = useMemo<SearchResult[]>(() => {
+    const results: SearchResult[] = [];
+    const flatten = (nodes: Node[], path: string[] = []) => {
       nodes.forEach(node => {
         const isF = node.type === "folder" || node.type === "application/vnd.google-apps.folder";
-        const segment = `${slugify(node.name)}--${node.id}`;
+        const segment = `${slugify(node.name)}--${node.id ?? ""}`;
         const currentPath = [...path, segment];
         
         results.push({
           ...node,
-          href: isF ? "/browse/" + currentPath.map(encodeURIComponent).join("/") : node.url,
+          href: isF ? "/browse/" + currentPath.map(encodeURIComponent).join("/") : (node.url ?? "#"),
           isFolder: isF
         });
         
         if (node.children) flatten(node.children, currentPath);
       });
     };
-    flatten(treeRaw as any[]);
+    flatten(treeRaw as Node[]);
     return results;
   }, []);
 
@@ -93,10 +107,11 @@ export default function SearchBox({ onSearch }: SearchBoxProps) {
         <div className="searchResultsDropdown">
           {suggestions.map((res, i) => (
             <Link 
-              key={i} 
-              href={res.href || "#"} 
+              key={res.id ?? res.href} 
+              href={res.href}
               className="searchResultItem"
               target={res.isFolder ? "_self" : "_blank"}
+              rel={res.isFolder ? undefined : "noopener norferrer"}
             >
               <span className="searchResultIcon">{res.isFolder ? "📁" : "📄"}</span>
               <div className="searchResultInfo">
