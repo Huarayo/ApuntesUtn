@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import treeRaw from "@/scripts/data/drive-tree.json";
 import SearchBox from "@/app/components/SearchBox";
+import FolderHome from "@/app/components/icons/FolderHome"
 
 type Node = {
   id?: string;
@@ -77,7 +78,7 @@ export default function Home() {
               return (
                 <Link key={f.id} href={href} prefetch={false} className="homeRow">
                   <div className="homeRowLeft">
-                    <div className="homeFolderIcon">📁</div>
+                    <div className="homeFolderIcon"><FolderHome size={40}/></div>
                     <div className="homeRowText">{cleanName(f.name)}</div>
                   </div>
                   <div className="homeRowRight">▾</div>
@@ -87,8 +88,10 @@ export default function Home() {
           </section>
         </>
       ) : (
+        // se muestra cuando se toca enter en el buscador
         /* VISTA DE RESULTADOS: Reemplaza a la lista de materias */
         <>
+        
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
             <h2 className="homeSectionTitle">Resultados ({searchResults.length})</h2>
             <button 
@@ -105,12 +108,14 @@ export default function Home() {
               searchResults.map((res, i) => (
                 <Link 
                   key={i} 
-                  href={res.href} 
+                  href={res.href}
+                  prefetch={false}
                   className="homeRow"
                   target={res.isFolder ? "_self" : "_blank"}
+                  rel={res.isFolder ? undefined: "noopener noreferrer"}
                 >
                   <div className="homeRowLeft">
-                    <div className="homeFolderIcon">{res.isFolder ? "📁" : "📄"}</div>
+                    <div className="homeFolderIcon">{res.isFolder ? <FolderHome size={35}/> : "📄"}</div>
                     <div className="homeRowText">{cleanName(res.name)}</div>
                   </div>
                   <div className="homeRowRight">{res.isFolder ? "→" : "↗"}</div>

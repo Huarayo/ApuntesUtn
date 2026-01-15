@@ -10,7 +10,6 @@
   --green: #16a34a;      /* principal */
   --green2: #22c55e;     /* hover */
   --greenSoft: #eaf7ef;  /* fondos suaves */
-
   --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
   --radius: 16px;
 }
@@ -36,12 +35,6 @@ button,input{ font:inherit; color:inherit; }
   border-radius: 10px;
 }
 
-.container{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 22px;
-}
-
 /* Topbar simple, amigable */
 .topbar{
   position: sticky;
@@ -52,6 +45,7 @@ button,input{ font:inherit; color:inherit; }
   border-bottom: 1px solid var(--border);
 }
 
+/* centrado */
 .header{
   display:flex;
   gap: 14px;
@@ -181,6 +175,29 @@ button,input{ font:inherit; color:inherit; }
   border-color: rgba(59,130,246,0.18);
 }
 
+/* iconos de navegación */
+.iconIcon{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+ 
+
+.iconIcon.folder{
+  background: var(--greenSoft);
+  border-color: rgba(34,197,94,0.22);
+}
+
+.iconIcon.file svg{
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+
+}
+
+
 .name{
   font-size: 14px;
   font-weight: 700;
@@ -267,9 +284,9 @@ button,input{ font:inherit; color:inherit; }
   box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.homeInput:focus {
-  border-color: var(--green); /* Verde UTN */
-  box-shadow: 0 0 0 4px var(--greenSoft);
+.homeInput:focus{
+  border-color: rgba(22,163,74,0.45);
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
 }
 
 /* El Botón de la Lupa dentro del Input */
@@ -295,9 +312,8 @@ button,input{ font:inherit; color:inherit; }
 }
 
 /* El Dropdown de sugerencias */
-.searchResultsDropdown {
+.searchResultsBox{
   position: absolute;
-  top: 105%;
   left: 0;
   right: 0;
   background: white;
@@ -307,6 +323,10 @@ button,input{ font:inherit; color:inherit; }
   z-index: 100;
   overflow: hidden;
   text-align: left;
+}
+
+.searchResultsDropdown {
+  top:105%;
 }
 
 .searchResultItem {
@@ -319,9 +339,19 @@ button,input{ font:inherit; color:inherit; }
   transition: background 0.2s;
 }
 
+
 .searchResultItem:hover {
   background: var(--greenSoft);
 }
+.searchResultItem:last-child{
+  border-bottom: none;
+}
+
+.searchResultItem:focus-visible{
+  outline: 2px solid rgba(34,197,94,.45);
+  outline-offset: -2px;
+}
+
 
 .searchResultIcon { font-size: 18px; }
 
@@ -341,35 +371,8 @@ button,input{ font:inherit; color:inherit; }
   font-size: 11px;
   color: var(--muted);
 }
-.homeInput:focus{
-  border-color: rgba(22,163,74,0.45);
-  box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
-}
 
-.search-icon{
-  position: absolute;
-  right: 15px;
-  top:50%;
-  transform: translateY(-50%);
-  color: #888;
-  pointer-events: none; /* hace que el click en la lupa se haga foco en el input*/
-}
-
-
-.homeSearchBtn{
-  padding: 14px 14px;
-  border-radius: 12px;
-  border: 0;
-  background: var(--green);
-  color: white;
-  font-weight: 900;
-  cursor: pointer;
-  transition: transform .12s ease, filter .12s ease;
-}
-.homeSearchBtn:hover{
-  transform: translateY(-1px);
-  filter: brightness(0.96);
-}
+ 
 
 .homeSectionTitle{
   margin: 14px 0 10px;
@@ -419,15 +422,12 @@ button,input{ font:inherit; color:inherit; }
 }
 
 .homeFolderIcon{
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  padding: 3px;
+  border-radius: 10px;
   display:flex;
   align-items:center;
   justify-content:center;
   background: var(--greenSoft);
-  border: 1px solid rgba(22,163,74,0.18);
-  font-size: 20px;
   flex: 0 0 auto;
 }
 
@@ -447,10 +447,7 @@ button,input{ font:inherit; color:inherit; }
 }
 
 
-@media (max-width: 520px){
-  .homeTitle{ font-size: 38px; }
-  .homeBtn{ padding: 10px 12px; }
-}
+
 
 /* -----Page navigation---- */
 /* Estilo de la página de navegación */
@@ -465,14 +462,6 @@ button,input{ font:inherit; color:inherit; }
   font-weight: 900;
   margin: 10px 0 20px 0;
   color: var(--text);
-}
-
-.miniCrumbs {
-  display: flex;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 10px;
 }
 
 
@@ -553,11 +542,6 @@ button,input{ font:inherit; color:inherit; }
   margin: 0 2px;
   user-select: none;
 }
-.miniRow:hover{
-  background: #f2fbf5;
-  border-color: rgba(34,197,94,0.25);
-  transform: translateY(-1px);
-}
 
 .navBack{
   padding: 10px 12px;
@@ -577,6 +561,7 @@ button,input{ font:inherit; color:inherit; }
   text-overflow: ellipsis;
   color: #0f172a;
   text-wrap: wrap;
+
 }
 
 .navDrive, .btnPrimary{
@@ -603,8 +588,15 @@ button,input{ font:inherit; color:inherit; }
   margin-top: 14px;
   display:flex;
   flex-direction: column;
+}
+
+.miniRowLeft{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
   gap: 12px;
-}s
+  min-width: 0;
+}
 
 .miniRight{
   opacity: .9;
@@ -616,17 +608,28 @@ button,input{ font:inherit; color:inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 16px 20px;
-  background: var(--card); /* Blanco */
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  margin-bottom: 8px;
+
+  background: var(--card);
   color: var(--text);
   font-weight: 700;
-  transition: all 0.2s ease;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
 
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+/* Hover */
 .miniRow:hover {
   transform: translateY(-2px);
   border-color: var(--green);
@@ -634,15 +637,26 @@ button,input{ font:inherit; color:inherit; }
   box-shadow: var(--shadow);
 }
 
-.miniName {
-  font-size: 16px;
-  color: var(--text);
+/* Click */ 
+/* da efecto de que le haces click y se baja un poco */
+.miniRow:active {
+  transform: translateY(-1px);
 }
 
-.miniIcon {
-  font-size: 20px;
-  margin-right: 12px;
+/* Accesibilidad (teclado) */
+/* solo cuando se hace foco cuando haces tab como va a ser los estilos */
+.miniRow:focus-visible {
+  outline: 2px solid rgba(34,197,94,0.55);
+  outline-offset: 2px;
+  border-radius: 12px;
 }
+.miniName{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ 
 
 /* Navbar superior de la sección */
 .navBar {
@@ -655,34 +669,9 @@ button,input{ font:inherit; color:inherit; }
 
 
 
-/* Responsive Disign */
-
-
-/* 1) Celulares chicos */
-@media (max-width: 520px){
-  .container{ padding: 12px; }
-
-  .navBar{ padding: 10px 12px; gap: 8px; }
-  .navBack, .navDrive{ padding: 9px 10px; border-radius: 12px; font-size: 14px; }
-
-  .navTitle{ font-size: 14px; }
-
-  .miniList{ gap: 8px; }
-  .miniRow{ padding: 11px 12px; border-radius: 12px; }
-  .miniIcon{ width: 32px; height: 32px; border-radius: 10px; font-size: 16px; }
-  .miniRight{ display: none; } /* menos ruido */
-}
-
-
 /* --- ESTILOS BASE --- */
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  position: relative;
-  z-index: 1000;
-}
+
+
 
 .menuBtn {
   background: none;
@@ -696,56 +685,9 @@ button,input{ font:inherit; color:inherit; }
   display: none;
 }
 
-/* --- MENÚ MOBILE (Por defecto oculto a la derecha) --- */
-@media (max-width: 768px) {
-  .actions{
-    display: none;
-  }
+ 
 
-  .container{ max-width: 100%; }
 
-  .navTitle{ max-width: 55vw; } /* evita desbordes */
-  .navMenu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 280px; /* Ancho del menú lateral */
-    height: 100vh;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    padding: 80px 30px;
-    gap: 10px;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    /* TRUCO PRO: Lo movemos fuera de la pantalla y usamos transición */
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1050;
-  }
-  body {
-    overflow: hidden ;
-  }
-
-  .menuBtn{
-    display: block;
-    padding: 20px;
-    z-index: 1100;
-  }
-
-  .navMenu.active {
-    transform: translateX(0); /* Entra a la pantalla */
-  }
-
-  /* Overlay para oscurecer el fondo */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    height: 100vh;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(4px); /* Efecto de desenfoque moderno */
-    z-index: 998;
-  }
-}
 
 /* --- EL ÍCONO DE HAMBURGUESA ANIMADO --- */
 
@@ -774,85 +716,10 @@ button,input{ font:inherit; color:inherit; }
 .hamburger.open { background: transparent; }
 .hamburger.open::before { transform: rotate(45deg); top: 0; }
 .hamburger.open::after { transform: rotate(-45deg); top: 0; }
-/* 3) Notebooks chicas */
-@media (max-width: 1024px){
-  .container{ max-width: 960px; }
-}
-
-/* Mobile */
-@media (max-width: 520px){
-
-  .navBar{ padding: 12px 12px; border-radius: 14px; }
-  .miniList{ gap: 8px; }
-  .miniRow{ padding: 11px 12px; border-radius: 14px; }
-  .miniIcon{ width: 34px; height: 34px; border-radius: 12px; }
-  .miniRight{ display:none; }
-
-  .actions{
-    position: relative;
-    width: 100%;
-    max-width: 100px;
-    right: 10px;
-
-  }
-  .actions a {
-    position: absolute;
-
-  }
-
-  
-}
 
 
 
  /* BUSQUEDA DE ELEMENTOS */
-.searchResults {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border-radius: 12px;
-  margin-top: 8px;
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  z-index: 100;
-  overflow: hidden;
-  text-align: left;
-}
-
-.searchResultItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  text-decoration: none;
-  color: var(--text);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s;
-}
-
-.searchResultItem:hover {
-  background: var(--greenSoft);
-}
-
-.searchResultIcon { font-size: 18px; }
-
-.searchResultInfo { display: flex; flex-direction: column; }
-
-.searchResultName {
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 250px;
-}
-
-.searchResultMeta {
-  font-size: 11px;
-  color: var(--muted);
-}
 
 /* Estilo para el enlace que contiene el ícono */
 .logo-icon-link {
@@ -874,10 +741,80 @@ button,input{ font:inherit; color:inherit; }
   color: var(--green2); /* Un verde un poco más oscuro si lo tienes definido */
 }
 
-/* Ajuste para móviles: el ícono un poco más chico si es necesario */
+ 
+
+
+@media (max-width: 520px){
+  .homeTitle{ font-size: 38px; }
+  .homeBtn{ padding: 10px 12px; }
+
+  
+  .navBar{ padding: 12px 12px; border-radius: 14px; }
+  /* .miniList{ gap: 8px; } */
+  .miniRow{ padding: 11px 12px; border-radius: 14px; }
+  .miniIcon{ width: 34px; height: 34px; border-radius: 12px; }
+  .miniRight{ display:none; }
+
+  .actions{
+    position: relative;
+    width: 100%;
+    max-width: 100px;
+    right: 10px;
+
+  }
+  .actions a {
+    position: absolute;
+
+  }
+
+}
+/* --- MENÚ MOBILE (Por defecto oculto a la derecha) --- */
 @media (max-width: 768px) {
+
   .header-logo-icon {
     width: 32px;
     height: 32px;
+  }
+  .actions{
+    display: none;
+  }
+
+  .navTitle{ max-width: 55vw; } /* evita desbordes */
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px; /* Ancho del menú lateral */
+    height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 30px;
+    gap: 10px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    /* TRUCO PRO: Lo movemos fuera de la pantalla y usamos transición */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1050;
+  }
+
+  .menuBtn{
+    display: block;
+    padding: 20px;
+    z-index: 1100;
+  }
+
+  .navMenu.active {
+    transform: translateX(0); /* Entra a la pantalla */
+  }
+
+  /* Overlay para oscurecer el fondo */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px); /* Efecto de desenfoque moderno */
+    z-index: 998;
   }
 }

@@ -11,7 +11,7 @@ export default function SiteHeader() {
 
   return (
     <header className="topbar">
-      <div className="header container">
+      <div className="header">
         {/* REEMPLAZO DEL TEXTO POR UN ÍCONO */}
         <Link href="/" className="logo-icon-link" aria-label="Volver al inicio">
           <svg 
@@ -39,26 +39,20 @@ export default function SiteHeader() {
         <nav className={`navMenu ${isOpen ? 'active' : ''}`}>
           <Link href="/" className="navbtn" onClick={() => setIsOpen(false)}>Inicio</Link>
           <Link href="/browse" className="navbtn" onClick={() => setIsOpen(false)}>Materias</Link>
-          <Link href="/subir" className="navbtn btnSubir">Subir Apunte</Link>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="navbtn btnSubir" rel="noopener noreferrer">Subir Apunte</a>
         </nav>
         
-        {/* OVERLAY: Fondo oscuro cuando el menú está abierto */}
+        {/* OVERLAY: Fondo oscuro cuando el menú está abierto cosa del hamburger */}
         {isOpen && <div className="overlay" onClick={() => setIsOpen(false)}></div>}
+
+
         <div className="actions">
-          <a 
-            href="https://drive.google.com" 
-            target="_blank" 
-            className={isHome ? "btn" : "btn btnPrimary"}
-            >
-            Ir al Drive
-          </a>
           
-          {/* Solo aparece en el Home y con la clase de color verde */}
-          {isHome && (
-            <Link href="/subir" className="btn btnPrimary">
+    
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="btn btnPrimary" rel="noopener noreferrer">
               Subí tu apunte
-            </Link>
-          )}
+            </a>
+         
         </div>
       </div>
     </header>
