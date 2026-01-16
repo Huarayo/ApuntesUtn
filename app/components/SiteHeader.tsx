@@ -28,13 +28,13 @@ export default function SiteHeader() {
         <nav className={`navMenu ${isOpen ? 'active' : ''}`}>
           <Link href="/" className="navbtn" onClick={() => setIsOpen(false)}>Inicio</Link>
           <Link href="/browse" className="navbtn" onClick={() => setIsOpen(false)}>Materias</Link>
-          <a href="https://docs.google.com/forms/..." className="navbtn btnSubir" rel="noopener noreferrer">Subir Apunte</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="navbtn btnSubir" rel="noopener noreferrer">Subir Apunte</a>
         </nav>
         
         {isOpen && <div className="overlay" onClick={() => setIsOpen(false)}></div>}
 
         <div className="actions">
-            <a href="https://docs.google.com/forms/..." className="btn btnPrimary" rel="noopener noreferrer">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="btn btnPrimary" rel="noopener noreferrer">
               Subí tu apunte
             </a>
         </div>

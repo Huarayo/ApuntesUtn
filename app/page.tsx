@@ -1,20 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import treeRaw from "@/scripts/data/drive-tree.json";
 import SearchBox from "@/app/components/SearchBox";
 import FolderHome from "@/app/components/icons/FolderHome";
 import FolderIcons from "./components/icons/FolderIcons";
-
-// --- TIPOS ---
-type Node = {
-  id?: string;
-  name: string;
-  type: string;
-  url?: string;
-  children?: Node[];
-};
+import { useTree, type TreeNode } from "@/app/components/TreeLoader";
 
 type SearchResult = {
   id?: string;
@@ -23,10 +14,7 @@ type SearchResult = {
   isFolder: boolean;
 };
 
-const tree = treeRaw as Node[];
-
-// --- HELPERS ---
-function isFolder(n: Node) {
+function isFolder(n: TreeNode) {
   return n.type === "folder" || n.type === "application/vnd.google-apps.folder";
 }
 
@@ -39,7 +27,7 @@ function slugify(s: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-function segOfFolder(n: Node) {
+function segOfFolder(n: TreeNode) {
   return `${slugify(n.name)}--${n.id}`;
 }
 
@@ -47,13 +35,31 @@ function cleanName(name: string) {
   return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
 }
 
-// --- COMPONENTE PRINCIPAL ---
 export default function Home() {
+  const tree = useTree();
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
-  const topFolders = tree
-    .filter((n) => isFolder(n) && n.id)
-    .sort((a, b) => a.name.localeCompare(b.name, "es"));
+  // ✅ Hook SIEMPRE llamado
+  const topFolders = useMemo(() => {
+    if (!tree) return [];
+    return tree
+      .filter((n) => isFolder(n) && n.id)
+      .sort((a, b) => a.name.localeCompare(b.name, "es"));
+  }, [tree]);
+
+  // ✅ ahora sí, loading abajo
+  if (!tree) {
+    return (
+      <main className="homeWrap">
+        <section className="homeHero">
+          <h1 className="homeTitle">
+            Apuntes UTN <span>Mendoza</span>
+          </h1>
+          <p style={{ opacity: 0.7 }}>Cargando materias…</p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="homeWrap">
@@ -64,7 +70,6 @@ export default function Home() {
         <SearchBox onSearch={(data) => setSearchResults(data)} />
       </section>
 
-      {/* RENDERIZADO CONDICIONAL */}
       {searchResults === null ? (
         <>
           <h2 className="homeSectionTitle">Materias</h2>
@@ -72,9 +77,11 @@ export default function Home() {
             {topFolders.map((f) => {
               const href = "/browse/" + encodeURIComponent(segOfFolder(f));
               return (
-                <Link key={f.id} href={href} prefetch={false} className="homeRow">
+                <Link key={f.id} href={href} className="homeRow">
                   <div className="homeRowLeft">
-                    <div className="homeFolderIcon"><FolderHome size={40} /></div>
+                    <div className="homeFolderIcon">
+                      <FolderHome size={40} />
+                    </div>
                     <div className="homeRowText">{cleanName(f.name)}</div>
                   </div>
                   <div className="homeRowRight">▾</div>
@@ -85,12 +92,18 @@ export default function Home() {
         </>
       ) : (
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
             <h2 className="homeSectionTitle">Resultados ({searchResults.length})</h2>
             <button
               onClick={() => setSearchResults(null)}
               className="btnLimpiar"
-              style={{ background: 'none', border: 'none', color: 'var(--green)', fontWeight: 'bold', cursor: 'pointer' }}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--green)",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
             >
               Volver a materias
             </button>
@@ -102,15 +115,17 @@ export default function Home() {
                 <Link
                   key={i}
                   href={res.href}
-                  prefetch={false}
                   className="homeRow"
                   target={res.isFolder ? "_self" : "_blank"}
                   rel={res.isFolder ? undefined : "noopener noreferrer"}
                 >
                   <div className="homeRowLeft">
-                    {/* FIJATE AQUÍ: El cierre correcto del div homeFolderIcon */}
                     <div className="homeFolderIcon">
-                      {res.isFolder ? <FolderHome size={35} /> : <FolderIcons name={res.name} size={35} />}
+                      {res.isFolder ? (
+                        <FolderHome size={35} />
+                      ) : (
+                        <FolderIcons name={res.name} size={35} />
+                      )}
                     </div>
                     <div className="homeRowText">{cleanName(res.name)}</div>
                   </div>
@@ -118,7 +133,7 @@ export default function Home() {
                 </Link>
               ))
             ) : (
-              <p style={{ textAlign: 'center', padding: '40px', color: 'var(--muted)' }}>
+              <p style={{ textAlign: "center", padding: "40px", color: "var(--muted)" }}>
                 No encontramos nada con ese nombre. 😕
               </p>
             )}

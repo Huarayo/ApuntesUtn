@@ -1,11 +1,11 @@
-import { Metadata } from "next";
-import treeRaw from "@/scripts/data/drive-tree.json";
-// Si el error de "Module not found" persiste, asegurate de que el archivo 
-// exista en: app/components/BrowseClient.tsx
+import type { Metadata } from "next";
 import BrowseClient from "@/app/components/BrowseClient";
 
-// --- INTERFAZ (El "Contrato") ---
-// Esto elimina todos los errores de "any"
+import fs from "fs";
+import path from "path";
+import { cache } from "react";
+
+// --- INTERFAZ ---
 interface Node {
   id: string;
   name: string;
@@ -17,63 +17,166 @@ interface Node {
 // --- HELPERS ---
 const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
 
-const slugify = (s: string) => 
-  s.toLowerCase()
-   .normalize("NFD")
-   .replace(/[\u0300-\u036f]/g, "")
-   .replace(/[^a-z0-9]+/g, "-")
-   .replace(/(^-|-$)/g, "");
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 const parseSeg = (seg: string) => {
   const idx = seg.indexOf("--");
   return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
 };
 
-const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+const isFolder = (n: Node) =>
+  n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// ✅ lee el JSON desde public y lo cachea (para metadata/static params)
+const getTree = cache((): Node[] => {
+  const filePath = path.join(process.cwd(), "public", "data", "drive-tree.json");
+  const raw = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(raw) as Node[];
+});
+
+const findName = (nodes: Node[], targetId: string): string | null => {
+  for (const n of nodes) {
+    if (n.id === targetId) return n.name;
+    if (n.children) {
+      const res = findName(n.children, targetId);
+      if (res) return res;
+    }
+  }
+  return null;
+};
 
 // --- SEO ---
-export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ segments?: string[] }>;
+}): Promise<Metadata> {
   const { segments } = await params;
+
   if (!segments || segments.length === 0) return { title: "Materias" };
-  
+
   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
   const { id } = parseSeg(lastSeg);
-  
-  // Reemplazamos 'any' por 'Node' o 'Node[]'
-  const findName = (nodes: Node[], targetId: string): string | null => {
-    for (const n of nodes) {
-      if (n.id === targetId) return n.name;
-      if (n.children) {
-        const res = findName(n.children, targetId);
-        if (res) return res;
-      }
-    }
-    return null;
-  };
 
-  const name = findName(treeRaw as Node[], id);
+  const tree = getTree();
+  const name = findName(tree, id);
+
   return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
 }
 
-// --- GENERACIÓN ESTÁTICA ---
+// --- GENERACIÓN ESTÁTICA (SOLO PRINCIPALES) ---
 export async function generateStaticParams() {
-  // Tipamos el mapeo para evitar errores
-  return (treeRaw as Node[])
-    .filter(isFolder)
-    .map((node: Node) => ({
-      segments: [`${slugify(node.name)}--${node.id}`],
+  const tree = getTree();
+
+  return tree
+    .filter((n) => isFolder(n) && n.id)
+    .map((n) => ({
+      segments: [`${slugify(n.name)}--${n.id}`],
     }));
 }
 
 export const dynamicParams = true;
 
 // --- LA PÁGINA ---
-export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ segments?: string[] }>;
+}) {
   const { segments } = await params;
-  
-  // Usamos el casteo (as Node[]) para que TypeScript esté tranquilo
-  return <BrowseClient fullTree={treeRaw as Node[]} segs={segments ?? []} />;
+  return <BrowseClient segs={segments ?? []} />;
 }
+
+  // ... acá sigue tu código actual tal como lo tenías
+
+//--------------------------------------------------
+
+// import { Metadata } from "next";
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// // Si el error de "Module not found" persiste, asegurate de que el archivo 
+// // exista en: app/components/BrowseClient.tsx
+// import BrowseClient from "@/app/components/BrowseClient";
+
+
+
+// // --- INTERFAZ (El "Contrato") ---
+// // Esto elimina todos los errores de "any"
+// interface Node {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+//   children?: Node[];
+// }
+
+// // --- HELPERS ---
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+// const slugify = (s: string) => 
+//   s.toLowerCase()
+//    .normalize("NFD")
+//    .replace(/[\u0300-\u036f]/g, "")
+//    .replace(/[^a-z0-9]+/g, "-")
+//    .replace(/(^-|-$)/g, "");
+
+// const parseSeg = (seg: string) => {
+//   const idx = seg.indexOf("--");
+//   return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
+// };
+
+// const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// // --- SEO ---
+// export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+//   const { segments } = await params;
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+  
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+  
+//   // Reemplazamos 'any' por 'Node' o 'Node[]'
+//   const findName = (nodes: Node[], targetId: string): string | null => {
+//     for (const n of nodes) {
+//       if (n.id === targetId) return n.name;
+//       if (n.children) {
+//         const res = findName(n.children, targetId);
+//         if (res) return res;
+//       }
+//     }
+//     return null;
+//   };
+
+//   const name = findName(treeRaw as Node[], id);
+//   return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
+// }
+
+// // --- GENERACIÓN ESTÁTICA ---
+// export async function generateStaticParams() {
+//   // Tipamos el mapeo para evitar errores
+//   return (treeRaw as Node[])
+//     .filter(isFolder)
+//     .map((node: Node) => ({
+//       segments: [`${slugify(node.name)}--${node.id}`],
+//     }));
+// }
+
+// export const dynamicParams = true;
+
+// // --- LA PÁGINA ---
+// export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
+//   const { segments } = await params;
+  
+//   // Usamos el casteo (as Node[]) para que TypeScript esté tranquilo
+//   return <BrowseClient fullTree={treeRaw as Node[]} segs={segments ?? []} />;
+// }
+
+//-----------------------------------------------------------
 
 // import { Metadata } from "next";
 // import Link from "next/link";
