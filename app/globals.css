@@ -770,6 +770,13 @@ button,input{ font:inherit; color:inherit; }
 }
 /* --- MENÚ MOBILE (Por defecto oculto a la derecha) --- */
 @media (max-width: 768px) {
+  .header {
+    overflow: hidden;
+  }
+
+  body{
+    overflow-x: hidden;
+  }
 
   .header-logo-icon {
     width: 32px;
@@ -817,4 +824,75 @@ button,input{ font:inherit; color:inherit; }
     backdrop-filter: blur(4px); /* Efecto de desenfoque moderno */
     z-index: 998;
   }
+}
+
+/* Animación de brillo */
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+.skeleton-box {
+  background: #f6f7f8;
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  display: inline-block;
+  position: relative;
+  animation: shimmer 1.2s infinite linear;
+  border-radius: 8px;
+}
+
+/* Estilo para las filas fantasma */
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.skeleton-icon { width: 35px; height: 35px; border-radius: 4px; }
+.skeleton-text { width: 60%; height: 20px; }
+
+
+
+.install-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 2px solid #2e7d32;
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { bottom: -100px; opacity: 0; }
+  to { bottom: 20px; opacity: 1; }
+}
+
+.btn-install {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }

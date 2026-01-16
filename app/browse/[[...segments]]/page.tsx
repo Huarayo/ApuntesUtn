@@ -1,160 +1,134 @@
+import { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import {
-  getNodeById,
-  getRootChildren,
-  getRootId,
-  isChildOf,
-  isFolder,
-  type Node,
-} from "@/app/lib/driveIndex";
+import { notFound } from "next/navigation"; // Importación que faltaba
+import treeRaw from "@/scripts/data/drive-tree.json";
+import AnimatedList from "@/app/components/AnimatedList"; // Importación que faltaba
 
-import FolderIcon from "../../components/icons/Folder";
-import FileIcon from "../../components/icons/FileIcon";
-
-function cleanName(name: string) {
-  return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// --- INTERFACES ---
+interface Node {
+  id: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[]; // Esto soluciona el error de 'children'
 }
 
-function slugify(s: string) {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
+// --- FUNCIONES HELPER (Tus herramientas de trabajo) ---
+const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const segOfFolder = (n: Node) => `${slugify(n.name)}--${n.id}`;
+
+function parseSeg(seg: string) {
+  const idx = seg.indexOf("--");
+  if (idx === -1) return { slug: "", id: seg };
+  return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
 }
 
-function segOfFolder(n: Node) {
-  return `${slugify(n.name)}--${n.id}`;
+// --- EL HASH MAP (Búsqueda Instantánea O(1)) ---
+const nodeMap = new Map<string, Node>();
+
+function indexNodes(nodes: Node[]) {
+  for (const node of nodes) {
+    nodeMap.set(node.id, node);
+    if (node.children) indexNodes(node.children);
+  }
 }
 
-function extractId(seg: string) {
-  const decoded = decodeURIComponent(seg);
-  const i = decoded.lastIndexOf("--");
-  return i === -1 ? null : decoded.slice(i + 2);
+// Ejecutamos el índice una sola vez
+indexNodes(treeRaw as Node[]);
+
+// --- GENERACIÓN ESTÁTICA ---
+export async function generateStaticParams() {
+  const paths: { segments: string[] }[] = [];
+  function walk(nodes: Node[], currentPath: string[]) {
+    for (const node of nodes) {
+      if (isFolder(node)) {
+        const segment = segOfFolder(node);
+        const nextPath = [...currentPath, segment];
+        paths.push({ segments: nextPath });
+        if (node.children) walk(node.children, nextPath);
+      }
+    }
+  }
+  walk(treeRaw as Node[], []);
+  return paths;
 }
 
-function sortNodes(list: Node[]) {
-  return [...list].sort((a, b) => {
-    const af = isFolder(a) ? 0 : 1;
-    const bf = isFolder(b) ? 0 : 1;
-    if (af !== bf) return af - bf;
-    return a.name.localeCompare(b.name, "es", { sensitivity: "base" });
-  });
+// --- SEO ---
+export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+  const { segments } = await params;
+  if (!segments || segments.length === 0) return { title: "Materias" };
+  const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+  const { id } = parseSeg(lastSeg);
+  const node = nodeMap.get(id);
+  return { title: node ? cleanName(node.name).toUpperCase() : "Carpeta" };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ segments?: string[] }>;
-}) {
+// --- LA PÁGINA ---
+export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
   const { segments } = await params;
   const segs = segments ?? [];
-
-  // validar ruta completa
-  let parentId = getRootId();
-  let currentChildren: Node[] = getRootChildren();
+  
+  const breadcrumbs = [{ name: "Inicio", href: "/" }];
+  let pathAccumulator = "/browse";
   let currentNode: Node | null = null;
 
-  for (const s of segs) {
-    const id = extractId(s);
-    if (!id) redirect("/browse");
-
-    if (!isChildOf(parentId, id)) redirect("/browse");
-
-    const node = getNodeById(id);
-    if (!node || !isFolder(node)) redirect("/browse");
-
-    currentNode = node;
-    parentId = id;
-    currentChildren = node.children ?? [];
+  for (const seg of segs) {
+    const decoded = decodeURIComponent(seg);
+    const { id } = parseSeg(decoded);
+    const found = nodeMap.get(id);
+    
+    if (!found) return notFound(); // Esto ahora funcionará
+    
+    currentNode = found;
+    pathAccumulator += `/${encodeURIComponent(decoded)}`;
+    breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
   }
 
-  const children = sortNodes(currentChildren);
+  // Obtenemos los hijos del nodo actual o la raíz
+  const currentNodes = currentNode ? (currentNode.children ?? []) : (treeRaw as Node[]);
 
-  const breadcrumbs = segs.map((seg, index) => {
-    const id = extractId(seg);
-    const node = id ? getNodeById(id) : null;
-
-    return {
-      name: node ? cleanName(node.name) : "Carpeta",
-      href: "/browse/" + segs.slice(0, index + 1).map(encodeURIComponent).join("/"),
-    };
+  // Ordenamos: Carpetas primero, luego Alfabético
+  const sortedNodes = [...currentNodes].sort((a, b) => {
+    const aIsF = isFolder(a);
+    const bIsF = isFolder(b);
+    if (aIsF && !bIsF) return -1;
+    if (!aIsF && bIsF) return 1;
+    return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: 'base' });
   });
 
-  const currentTitle = currentNode ? cleanName(currentNode.name) : "Inicio";
-
-  const backHref =
-    segs.length <= 1
-      ? "/"
-      : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+  const backHref = segs.length <= 1 ? "/" : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
 
   return (
     <main className="mini">
-      <Link className="back" href={backHref}>
-        ← Volver
-      </Link>
+      <Link className="back" href={backHref}>← Volver</Link>
 
       <nav className="miniCrumbs">
-        <Link href="/" className="miniCrumb">
-          Inicio
-        </Link>
-
         {breadcrumbs.map((crumb, i) => {
-          const last = i === breadcrumbs.length - 1;
+          const isLast = i === breadcrumbs.length - 1;
           return (
             <span key={crumb.href} className="crumbWrap">
-              <span className="miniSep">›</span>
-              {last ? (
-                <span className="miniCrumb active" aria-current="page">
-                  {crumb.name}
-                </span>
+              {i > 0 && <span className="miniSep">›</span>}
+              {isLast ? (
+                <span className="miniCrumb active">{crumb.name}</span>
               ) : (
-                <Link href={crumb.href} className="miniCrumb">
-                  {crumb.name}
-                </Link>
+                <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
               )}
             </span>
           );
         })}
       </nav>
 
-      <h1 className="folderHeaderTitle">{currentTitle}</h1>
+      <h1 className="folderHeaderTitle">
+        {currentNode ? cleanName(currentNode.name) : "Materias"}
+      </h1>
 
-      <div className="miniList">
-        {children.map((item) => {
-          const folder = isFolder(item);
-
-          const href = folder
-            ? `/browse/${[...segs, segOfFolder(item)].map(encodeURIComponent).join("/")}`
-            : item.url;
-
-          return (
-            <a
-              key={item.id ?? item.name}
-              href={href ?? "#"}
-              className="miniRow"
-              target={folder ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-            >
-              <div className="miniRowLeft">
-                <span className={`iconIcon ${folder ? "folder" : "file"}`}>
-                  {folder ? <FolderIcon size={35} /> : <FileIcon size={45} />}
-                </span>
-                <span className="miniName">{cleanName(item.name)}</span>
-              </div>
-
-              <span className="miniRight">
-                {folder ? "›" : "↗"}
-              </span>
-            </a>
-          );
-        })}
-      </div>
+      <AnimatedList childrenData={sortedNodes} segs={segs} />
     </main>
   );
 }
+
 
 
 // import Link from "next/link";

@@ -1,11 +1,13 @@
-"use client"; // Necesario para usar useState
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import treeRaw from "@/scripts/data/drive-tree.json";
 import SearchBox from "@/app/components/SearchBox";
-import FolderHome from "@/app/components/icons/FolderHome"
+import FolderHome from "@/app/components/icons/FolderHome";
+import FolderIcons from "./components/icons/FolderIcons";
 
+// --- TIPOS ---
 type Node = {
   id?: string;
   name: string;
@@ -13,6 +15,7 @@ type Node = {
   url?: string;
   children?: Node[];
 };
+
 type SearchResult = {
   id?: string;
   name: string;
@@ -22,6 +25,7 @@ type SearchResult = {
 
 const tree = treeRaw as Node[];
 
+// --- HELPERS ---
 function isFolder(n: Node) {
   return n.type === "folder" || n.type === "application/vnd.google-apps.folder";
 }
@@ -35,23 +39,17 @@ function slugify(s: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-
 function segOfFolder(n: Node) {
   return `${slugify(n.name)}--${n.id}`;
 }
 
-// Función para limpiar nombres (quitar 1_, 2_, etc)
 function cleanName(name: string) {
   return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
 }
 
+// --- COMPONENTE PRINCIPAL ---
 export default function Home() {
-    // Estado para los resultados de búsqueda. null = no se buscó nada.
-
-
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
-
-  // const [searchResults, setSearchResults] = useState<any[] | null>(null);
 
   const topFolders = tree
     .filter((n) => isFolder(n) && n.id)
@@ -63,13 +61,11 @@ export default function Home() {
         <h1 className="homeTitle">
           Apuntes UTN <span>Mendoza</span>
         </h1>
-        {/* Pasamos la función para actualizar los resultados al buscador */}
-        <SearchBox onSearch={(data: SearchResult[] | null) => setSearchResults(data)} />
+        <SearchBox onSearch={(data) => setSearchResults(data)} />
       </section>
 
       {/* RENDERIZADO CONDICIONAL */}
       {searchResults === null ? (
-        /* VISTA INICIAL: Solo se ve si no hay búsqueda activa */
         <>
           <h2 className="homeSectionTitle">Materias</h2>
           <section className="homeList">
@@ -78,7 +74,7 @@ export default function Home() {
               return (
                 <Link key={f.id} href={href} prefetch={false} className="homeRow">
                   <div className="homeRowLeft">
-                    <div className="homeFolderIcon"><FolderHome size={40}/></div>
+                    <div className="homeFolderIcon"><FolderHome size={40} /></div>
                     <div className="homeRowText">{cleanName(f.name)}</div>
                   </div>
                   <div className="homeRowRight">▾</div>
@@ -88,34 +84,34 @@ export default function Home() {
           </section>
         </>
       ) : (
-        // se muestra cuando se toca enter en el buscador
-        /* VISTA DE RESULTADOS: Reemplaza a la lista de materias */
         <>
-        
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
             <h2 className="homeSectionTitle">Resultados ({searchResults.length})</h2>
-            <button 
-              onClick={() => setSearchResults(null)} 
+            <button
+              onClick={() => setSearchResults(null)}
               className="btnLimpiar"
               style={{ background: 'none', border: 'none', color: 'var(--green)', fontWeight: 'bold', cursor: 'pointer' }}
             >
               Volver a materias
             </button>
           </div>
-          
+
           <section className="homeList animate-fade">
             {searchResults.length > 0 ? (
               searchResults.map((res, i) => (
-                <Link 
-                  key={i} 
+                <Link
+                  key={i}
                   href={res.href}
                   prefetch={false}
                   className="homeRow"
                   target={res.isFolder ? "_self" : "_blank"}
-                  rel={res.isFolder ? undefined: "noopener noreferrer"}
+                  rel={res.isFolder ? undefined : "noopener noreferrer"}
                 >
                   <div className="homeRowLeft">
-                    <div className="homeFolderIcon">{res.isFolder ? <FolderHome size={35}/> : "📄"}</div>
+                    {/* FIJATE AQUÍ: El cierre correcto del div homeFolderIcon */}
+                    <div className="homeFolderIcon">
+                      {res.isFolder ? <FolderHome size={35} /> : <FolderIcons name={res.name} size={35} />}
+                    </div>
                     <div className="homeRowText">{cleanName(res.name)}</div>
                   </div>
                   <div className="homeRowRight">{res.isFolder ? "→" : "↗"}</div>
