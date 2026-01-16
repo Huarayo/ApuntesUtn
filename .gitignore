@@ -1,6 +1,8 @@
 node_modules
 .next
 keys/
-scripts/keys/
+scripts
 drive-reader.json
 data1
+.env.local
+.env
