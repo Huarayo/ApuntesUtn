@@ -39,21 +39,17 @@ function indexNodes(nodes: Node[]) {
 indexNodes(treeRaw as Node[]);
 
 // --- GENERACIÓN ESTÁTICA ---
+// ESTO CAMBIA EL BUILD: De 563 páginas a solo ~13
 export async function generateStaticParams() {
-  const paths: { segments: string[] }[] = [];
-  function walk(nodes: Node[], currentPath: string[]) {
-    for (const node of nodes) {
-      if (isFolder(node)) {
-        const segment = segOfFolder(node);
-        const nextPath = [...currentPath, segment];
-        paths.push({ segments: nextPath });
-        if (node.children) walk(node.children, nextPath);
-      }
-    }
-  }
-  walk(treeRaw as Node[], []);
-  return paths;
+  return (treeRaw as Node[])
+    .filter(isFolder)
+    .map((node) => ({
+      segments: [segOfFolder(node)],
+    }));
 }
+
+// Agregá esta línea justo debajo para que las subcarpetas funcionen igual
+export const dynamicParams = true;
 
 // --- SEO ---
 export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
