@@ -1,129 +1,206 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation"; // Importación que faltaba
 import treeRaw from "@/scripts/data/drive-tree.json";
-import AnimatedList from "@/app/components/AnimatedList"; // Importación que faltaba
+// Si el error de "Module not found" persiste, asegurate de que el archivo 
+// exista en: app/components/BrowseClient.tsx
+import BrowseClient from "@/app/components/BrowseClient";
 
-// --- INTERFACES ---
+// --- INTERFAZ (El "Contrato") ---
+// Esto elimina todos los errores de "any"
 interface Node {
   id: string;
   name: string;
   type: string;
   url?: string;
-  children?: Node[]; // Esto soluciona el error de 'children'
+  children?: Node[];
 }
 
-// --- FUNCIONES HELPER (Tus herramientas de trabajo) ---
-const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// --- HELPERS ---
 const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
-const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-const segOfFolder = (n: Node) => `${slugify(n.name)}--${n.id}`;
 
-function parseSeg(seg: string) {
+const slugify = (s: string) => 
+  s.toLowerCase()
+   .normalize("NFD")
+   .replace(/[\u0300-\u036f]/g, "")
+   .replace(/[^a-z0-9]+/g, "-")
+   .replace(/(^-|-$)/g, "");
+
+const parseSeg = (seg: string) => {
   const idx = seg.indexOf("--");
-  if (idx === -1) return { slug: "", id: seg };
-  return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
-}
+  return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
+};
 
-// --- EL HASH MAP (Búsqueda Instantánea O(1)) ---
-const nodeMap = new Map<string, Node>();
-
-function indexNodes(nodes: Node[]) {
-  for (const node of nodes) {
-    nodeMap.set(node.id, node);
-    if (node.children) indexNodes(node.children);
-  }
-}
-
-// Ejecutamos el índice una sola vez
-indexNodes(treeRaw as Node[]);
-
-// --- GENERACIÓN ESTÁTICA ---
-// ESTO CAMBIA EL BUILD: De 563 páginas a solo ~13
-export async function generateStaticParams() {
-  return (treeRaw as Node[])
-    .filter(isFolder)
-    .map((node) => ({
-      segments: [segOfFolder(node)],
-    }));
-}
-
-// Agregá esta línea justo debajo para que las subcarpetas funcionen igual
-export const dynamicParams = true;
+const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
 
 // --- SEO ---
 export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
   const { segments } = await params;
   if (!segments || segments.length === 0) return { title: "Materias" };
+  
   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
   const { id } = parseSeg(lastSeg);
-  const node = nodeMap.get(id);
-  return { title: node ? cleanName(node.name).toUpperCase() : "Carpeta" };
+  
+  // Reemplazamos 'any' por 'Node' o 'Node[]'
+  const findName = (nodes: Node[], targetId: string): string | null => {
+    for (const n of nodes) {
+      if (n.id === targetId) return n.name;
+      if (n.children) {
+        const res = findName(n.children, targetId);
+        if (res) return res;
+      }
+    }
+    return null;
+  };
+
+  const name = findName(treeRaw as Node[], id);
+  return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
 }
+
+// --- GENERACIÓN ESTÁTICA ---
+export async function generateStaticParams() {
+  // Tipamos el mapeo para evitar errores
+  return (treeRaw as Node[])
+    .filter(isFolder)
+    .map((node: Node) => ({
+      segments: [`${slugify(node.name)}--${node.id}`],
+    }));
+}
+
+export const dynamicParams = true;
 
 // --- LA PÁGINA ---
 export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
   const { segments } = await params;
-  const segs = segments ?? [];
   
-  const breadcrumbs = [{ name: "Inicio", href: "/" }];
-  let pathAccumulator = "/browse";
-  let currentNode: Node | null = null;
-
-  for (const seg of segs) {
-    const decoded = decodeURIComponent(seg);
-    const { id } = parseSeg(decoded);
-    const found = nodeMap.get(id);
-    
-    if (!found) return notFound(); // Esto ahora funcionará
-    
-    currentNode = found;
-    pathAccumulator += `/${encodeURIComponent(decoded)}`;
-    breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
-  }
-
-  // Obtenemos los hijos del nodo actual o la raíz
-  const currentNodes = currentNode ? (currentNode.children ?? []) : (treeRaw as Node[]);
-
-  // Ordenamos: Carpetas primero, luego Alfabético
-  const sortedNodes = [...currentNodes].sort((a, b) => {
-    const aIsF = isFolder(a);
-    const bIsF = isFolder(b);
-    if (aIsF && !bIsF) return -1;
-    if (!aIsF && bIsF) return 1;
-    return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: 'base' });
-  });
-
-  const backHref = segs.length <= 1 ? "/" : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
-
-  return (
-    <main className="mini">
-      <Link className="back" href={backHref}>← Volver</Link>
-
-      <nav className="miniCrumbs">
-        {breadcrumbs.map((crumb, i) => {
-          const isLast = i === breadcrumbs.length - 1;
-          return (
-            <span key={crumb.href} className="crumbWrap">
-              {i > 0 && <span className="miniSep">›</span>}
-              {isLast ? (
-                <span className="miniCrumb active">{crumb.name}</span>
-              ) : (
-                <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
-              )}
-            </span>
-          );
-        })}
-      </nav>
-
-      <h1 className="folderHeaderTitle">
-        {currentNode ? cleanName(currentNode.name) : "Materias"}
-      </h1>
-
-      <AnimatedList childrenData={sortedNodes} segs={segs} />
-    </main>
-  );
+  // Usamos el casteo (as Node[]) para que TypeScript esté tranquilo
+  return <BrowseClient fullTree={treeRaw as Node[]} segs={segments ?? []} />;
 }
+
+// import { Metadata } from "next";
+// import Link from "next/link";
+// import { notFound } from "next/navigation"; // Importación que faltaba
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// import AnimatedList from "@/app/components/AnimatedList"; // Importación que faltaba
+
+// // --- INTERFACES ---
+// interface Node {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+//   children?: Node[]; // Esto soluciona el error de 'children'
+// }
+
+// // --- FUNCIONES HELPER (Tus herramientas de trabajo) ---
+// const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// const segOfFolder = (n: Node) => `${slugify(n.name)}--${n.id}`;
+
+// function parseSeg(seg: string) {
+//   const idx = seg.indexOf("--");
+//   if (idx === -1) return { slug: "", id: seg };
+//   return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+// }
+
+// // --- EL HASH MAP (Búsqueda Instantánea O(1)) ---
+// const nodeMap = new Map<string, Node>();
+
+// function indexNodes(nodes: Node[]) {
+//   for (const node of nodes) {
+//     nodeMap.set(node.id, node);
+//     if (node.children) indexNodes(node.children);
+//   }
+// }
+
+// // Ejecutamos el índice una sola vez
+// indexNodes(treeRaw as Node[]);
+
+// // --- GENERACIÓN ESTÁTICA ---
+// // ESTO CAMBIA EL BUILD: De 563 páginas a solo ~13
+// export async function generateStaticParams() {
+//   return (treeRaw as Node[])
+//     .filter(isFolder)
+//     .map((node) => ({
+//       segments: [segOfFolder(node)],
+//     }));
+// }
+
+// // Agregá esta línea justo debajo para que las subcarpetas funcionen igual
+// export const dynamicParams = true;
+
+// // --- SEO ---
+// export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+//   const { segments } = await params;
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+//   const node = nodeMap.get(id);
+//   return { title: node ? cleanName(node.name).toUpperCase() : "Carpeta" };
+// }
+
+// // --- LA PÁGINA ---
+// export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
+//   const { segments } = await params;
+//   const segs = segments ?? [];
+  
+//   const breadcrumbs = [{ name: "Inicio", href: "/" }];
+//   let pathAccumulator = "/browse";
+//   let currentNode: Node | null = null;
+
+//   for (const seg of segs) {
+//     const decoded = decodeURIComponent(seg);
+//     const { id } = parseSeg(decoded);
+//     const found = nodeMap.get(id);
+    
+//     if (!found) return notFound(); // Esto ahora funcionará
+    
+//     currentNode = found;
+//     pathAccumulator += `/${encodeURIComponent(decoded)}`;
+//     breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
+//   }
+
+//   // Obtenemos los hijos del nodo actual o la raíz
+//   const currentNodes = currentNode ? (currentNode.children ?? []) : (treeRaw as Node[]);
+
+//   // Ordenamos: Carpetas primero, luego Alfabético
+//   const sortedNodes = [...currentNodes].sort((a, b) => {
+//     const aIsF = isFolder(a);
+//     const bIsF = isFolder(b);
+//     if (aIsF && !bIsF) return -1;
+//     if (!aIsF && bIsF) return 1;
+//     return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: 'base' });
+//   });
+
+//   const backHref = segs.length <= 1 ? "/" : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+
+//   return (
+//     <main className="mini">
+//       <Link className="back" href={backHref}>← Volver</Link>
+
+//       <nav className="miniCrumbs">
+//         {breadcrumbs.map((crumb, i) => {
+//           const isLast = i === breadcrumbs.length - 1;
+//           return (
+//             <span key={crumb.href} className="crumbWrap">
+//               {i > 0 && <span className="miniSep">›</span>}
+//               {isLast ? (
+//                 <span className="miniCrumb active">{crumb.name}</span>
+//               ) : (
+//                 <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
+//               )}
+//             </span>
+//           );
+//         })}
+//       </nav>
+
+//       <h1 className="folderHeaderTitle">
+//         {currentNode ? cleanName(currentNode.name) : "Materias"}
+//       </h1>
+
+//       <AnimatedList childrenData={sortedNodes} segs={segs} />
+//     </main>
+//   );
+// }
 
 
 
