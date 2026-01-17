@@ -17,7 +17,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
   if (cachedTree) return cachedTree;
 
   if (!cachedPromise) {
-    cachedPromise = fetch("/data/drive-tree.json", { cache: "force-cache" })
+    cachedPromise = fetch("/data/drive-tree-v2.json", { cache: "force-cache" })
       .then((r) => r.json())
       .then((data: TreeNode[]) => {
         cachedTree = data;

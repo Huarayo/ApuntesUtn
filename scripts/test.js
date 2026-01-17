@@ -1,5 +1,7 @@
 import { google } from 'googleapis';
+
 import path from 'path';
+
 import fs from 'fs';
 
 // 1. CONFIGURACIÓN DE RUTAS
@@ -8,7 +10,7 @@ const KEY_PATH = path.join(__dirname, 'keys', 'drive-read.json');
 const OUTPUT_PATH = path.join(__dirname, 'scripts', 'data', 'drive-tree.json');
 
 // 2. ID DE LA CARPETA PÚBLICA (Viewer)
-const ROOT_FOLDER_ID = "1E4TVcYymK5-73b05_39XQW6QYiVf6b6s"; 
+const ROOT_FOLDER_ID = "1BzzTtYd64hCpvjtOCayu9vaBbjiNTX2P"; 
 
 async function generateDriveTree() {
   // Verificar si existen las credenciales

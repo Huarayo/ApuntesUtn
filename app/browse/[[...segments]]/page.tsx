@@ -35,7 +35,7 @@ const isFolder = (n: Node) =>
 
 // ✅ lee el JSON desde public y lo cachea (para metadata/static params)
 const getTree = cache((): Node[] => {
-  const filePath = path.join(process.cwd(), "public", "data", "drive-tree.json");
+  const filePath = path.join(process.cwd(), "public", "data", "drive-tree-v2.json");
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw) as Node[];
 });

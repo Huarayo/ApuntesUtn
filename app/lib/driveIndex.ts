@@ -1,4 +1,4 @@
-import treeRaw from "@/scripts/data/drive-tree.json";
+import treeRaw from "@/scripts/data/drive-tree-v2.json";
 
 export type Node = {
   id?: string;

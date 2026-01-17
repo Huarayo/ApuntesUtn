@@ -6,6 +6,7 @@ import SearchBox from "@/app/components/SearchBox";
 import FolderHome from "@/app/components/icons/FolderHome";
 import FolderIcons from "./components/icons/FolderIcons";
 import { useTree, type TreeNode } from "@/app/components/TreeLoader";
+import Loading from "./browse/[[...segments]]/loading"
 
 type SearchResult = {
   id?: string;
@@ -57,6 +58,7 @@ export default function Home() {
           </h1>
           <p style={{ opacity: 0.7 }}>Cargando materias…</p>
         </section>
+        <Loading />
       </main>
     );
   }

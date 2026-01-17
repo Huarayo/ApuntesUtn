@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import treeRaw from "@/scripts/data/drive-tree.json";
+import treeRaw from "@/scripts/data/drive-tree-v2.json";
 //LOADING PARA LA NAVEGACIÓN POR CARPETAS
 type Node = {
   id?: string;

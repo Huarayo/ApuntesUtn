@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import treeRaw from "@/scripts/data/drive-tree.json";
+import treeRaw from "@/scripts/data/drive-tree-v2.json";
 
 type Node = {
   id?: string;

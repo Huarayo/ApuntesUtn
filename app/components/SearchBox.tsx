@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import treeRaw from "@/scripts/data/drive-tree.json";
+import treeRaw from "@/scripts/data/drive-tree-v2.json";
 import FolderIcons from "./icons/FolderIcons"
 import Folder from "./icons/Folder";
 
