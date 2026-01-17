@@ -1,9 +1,7 @@
 node_modules
 .next
 keys/
-scripts
 drive-reader.json
 data1
 .env.local
 .env
-api
