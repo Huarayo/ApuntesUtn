@@ -51,36 +51,128 @@ const findName = (nodes: Node[], targetId: string): string | null => {
   return null;
 };
 
-// --- SEO ---
+// ----- generar miles de rutas para google
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ segments?: string[] }>;
 }): Promise<Metadata> {
   const { segments } = await params;
-
-  if (!segments || segments.length === 0) return { title: "Materias" };
-
-  const lastSeg = decodeURIComponent(segments[segments.length - 1]);
-  const { id } = parseSeg(lastSeg);
-
   const tree = getTree();
-  const name = findName(tree, id);
 
-  return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
+  // 1. Caso Base: /browse (Página principal de materias)
+  if (!segments || segments.length === 0) {
+    return { 
+      title: "Materias y Carreras | Apuntes UTN Mendoza",
+      description: "Explorá todas las carreras de la UTN FRM: Ingeniería Sistemas, Civil, Electromecánica y más. Todo el material organizado en un solo lugar."
+    };
+  }
+
+  // Helper interno para obtener el nombre real desde el ID del segmento
+  const getRealName = (seg: string) => {
+    const { id } = parseSeg(decodeURIComponent(seg));
+    const raw = findName(tree, id);
+    return raw ? cleanName(raw) : null;
+  };
+
+  const nombreActual = getRealName(segments[segments.length - 1]);
+  const nombreCarrera = getRealName(segments[0]);
+
+  // Si algo falla, fallback seguro
+  if (!nombreActual) return { title: "Carpeta | Apuntes UTN Mendoza" };
+
+  let tituloFinal = "";
+  let descFinal = "";
+
+  // 2. Lógica según la profundidad de la URL (lo que me pasaste en el ejemplo)
+  if (segments.length === 1) {
+    // Nivel 1: Carrera (Ej: BÁSICAS)
+    tituloFinal = `${nombreActual.toUpperCase()} | Apuntes UTN Mendoza`;
+    descFinal = `Accedé a todo el material organizado para la carrera de ${nombreActual} en la UTN Facultad Regional Mendoza.`;
+  } 
+  else if (segments.length === 2) {
+    // Nivel 2: Materia (Ej: ANÁLISIS MATEMÁTICO I)
+    tituloFinal = `${nombreActual.toUpperCase()} | ${nombreCarrera}`;
+    descFinal = `Apuntes, parciales y finales de ${nombreActual} para estudiantes de ${nombreCarrera}. La forma más fácil de estudiar.`;
+  } 
+  else {
+    // Nivel 3 o más: Subcarpeta (Ej: EXÁMENES)
+    const nombreMateria = getRealName(segments[1]);
+    tituloFinal = `${nombreActual.toUpperCase()} - ${nombreMateria} | ${nombreCarrera}`;
+    descFinal = `Sección de ${nombreActual} para la materia ${nombreMateria}. Material actualizado y organizado por la comunidad de la UTN.`;
+  }
+
+  return {
+    title: tituloFinal,
+    description: descFinal,
+    alternates: {
+      canonical: `/browse/${segments.join('/')}`,
+    },
+  };
 }
+
+
+
+// // --- SEO ---
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: Promise<{ segments?: string[] }>;
+// }): Promise<Metadata> {
+//   const { segments } = await params;
+
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+
+//   const tree = getTree();
+//   const name = findName(tree, id);
+
+//   return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
+// }
 
 // --- GENERACIÓN ESTÁTICA (SOLO PRINCIPALES) ---
+// export async function generateStaticParams() {
+//   const tree = getTree();
+
+//   return tree
+//     .filter((n) => isFolder(n) && n.id)
+//     .map((n) => ({
+//       segments: [`${slugify(n.name)}--${n.id}`],
+//     }));
+// }
+// --- 5. MOTOR DE VELOCIDAD (Generación hasta Nivel 4) ---
 export async function generateStaticParams() {
   const tree = getTree();
+  const paths: { segments: string[] }[] = [];
 
-  return tree
-    .filter((n) => isFolder(n) && n.id)
-    .map((n) => ({
-      segments: [`${slugify(n.name)}--${n.id}`],
-    }));
+  // Función recursiva que "camina" el árbol
+  function walk(nodes: Node[], currentSegments: string[], depth: number) {
+    // Si llegamos al nivel 4 o no hay más nodos, nos detenemos
+    if (depth > 4 || !nodes) return;
+
+    for (const node of nodes) {
+      if (isFolder(node)) {
+        const segment = `${slugify(node.name)}--${node.id}`;
+        const newSegments = [...currentSegments, segment];
+        
+        // Agregamos esta ruta a la lista de páginas para pre-generar
+        paths.push({ segments: newSegments });
+
+        // Si tiene hijos, seguimos bajando un nivel más
+        if (node.children) {
+          walk(node.children, newSegments, depth + 1);
+        }
+      }
+    }
+  }
+
+  // Empezamos a caminar desde la raíz (Nivel 1)
+  walk(tree, [], 1);
+
+  return paths;
 }
-
 export const dynamicParams = true;
 
 // --- LA PÁGINA ---

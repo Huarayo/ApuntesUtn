@@ -19,36 +19,48 @@ const geistMono = Geist_Mono({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
-  // CONFIGURACIÓN DINÁMICA DE TÍTULOS
+  // TÍTULO: Usamos una promesa de valor clara
   title: {
-    default: "Apuntes UTN FRM Mendoza", // Título si la página no tiene uno propio
-    template: "%s | Apuntes UTN"      // El %s será reemplazado por el nombre de la materia
+    default: "Apuntes UTN Mendoza | Tu carrera organizada en un solo lugar", 
+    template: "%s | Apuntes UTN Mendoza"
   },
-  description: "Apuntes, parciales y finales organizados por carrera y materia. UTN Mendoza.",
+
+  // DESCRIPCIÓN: Enfocada en la utilidad real para el estudiante
+  description: "Accedé de forma simple a los apuntes, parciales y finales de la UTN FRM Mendoza. Una herramienta pensada para optimizar tu tiempo de estudio con todo el material organizado por carrera.",
+
   metadataBase: new URL(siteUrl),
-  
-  // ÍCONOS PARA NAVEGADORES (Asegurá que icon.png exista en /public)
+
+  // CANONICAL: Clave para que Google no te penalice por tener www
+  alternates: {
+    canonical: "/",
+  },
+
+  // ROBOTS: Para que Google te trate como una app de alta prioridad
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
+
+  // ICONS: Aquí es donde tu icono de 144x144 brilla
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
   },
 
+  // OPENGRAPH: Lo que verán los alumnos cuando compartan el link por WhatsApp
   openGraph: {
-    title: "Apuntes UTN Mendoza",
-    description: "Apuntes y exámenes organizados por carrera y materia.",
+    title: "Apuntes UTN Mendoza - La App de la comunidad",
+    description: "Simplificá tu cursada. Encontrá parciales, finales y guías de todas las ingenierías en un solo lugar.",
     url: siteUrl,
     siteName: "Apuntes UTN Mendoza",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Plataforma Apuntes UTN" }],
     locale: "es_AR",
     type: "website",
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "Apuntes UTN",
-  },
-  formatDetection: {
-    telephone: false,
   },
 };
 
