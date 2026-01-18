@@ -21,13 +21,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   // TÍTULO: Usamos una promesa de valor clara
   title: {
-    default: "Apuntes UTN Mendoza | Tu carrera organizada en un solo lugar", 
+    default: "Apuntes UTN Mendoza", 
     template: "%s | Apuntes UTN Mendoza"
   },
 
   // DESCRIPCIÓN: Enfocada en la utilidad real para el estudiante
-  description: "Accedé de forma simple a los apuntes, parciales y finales de la UTN FRM Mendoza. Una herramienta pensada para optimizar tu tiempo de estudio con todo el material organizado por carrera.",
-
+  description: "Buscá apuntes, parciales y finales de la UTN FRM Mendoza. Material de estudio organizado por carrera y materia para preparar exámenes.",
+  
   metadataBase: new URL(siteUrl),
 
   // CANONICAL: Clave para que Google no te penalice por tener www
