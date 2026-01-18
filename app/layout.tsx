@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 
   // ICONS: Aquí es donde tu icono de 144x144 brilla
   icons: {
-    icon: "/icon.png",
+    icon: "icon.png",
     apple: "/icon.png",
   },
 
