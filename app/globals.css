@@ -629,6 +629,7 @@ button,input{ font:inherit; color:inherit; }
 
 /* LA CLAVE: Cambiar el azul por este diseño */
 .miniRow {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -653,19 +654,42 @@ button,input{ font:inherit; color:inherit; }
     border-color .15s ease,
     box-shadow .15s ease;
 }
+
+
 /* Hover */
-.miniRow:hover {
+.miniRow:not(:visited):hover,
+.miniRow:not(:visited):focus {
   transform: translateY(-2px);
   border-color: var(--green);
   background: var(--greenSoft);
   box-shadow: var(--shadow);
 }
 
+
+.miniRow:visited {
+  color: #3b82f6;
+  background-color: #f8fafc;
+  border-left-color: #c7d2fe;
+}
+
+.miniRow:visited svg, .miniRow:visited img {
+  opacity: 0.6;
+}
+
+.miniRow:visited:hover{
+  transform: none;
+  background-color: #f8fafc;
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+
 /* Click */ 
 /* da efecto de que le haces click y se baja un poco */
 .miniRow:active {
   transform: translateY(-1px);
 }
+ 
 
 /* Accesibilidad (teclado) */
 /* solo cuando se hace foco cuando haces tab como va a ser los estilos */
