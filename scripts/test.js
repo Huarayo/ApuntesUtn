@@ -10,7 +10,7 @@ const KEY_PATH = path.join(__dirname, 'keys', 'drive-read.json');
 const OUTPUT_PATH = path.join(__dirname, 'scripts', 'data', 'drive-tree.json');
 
 // 2. ID DE LA CARPETA PÚBLICA (Viewer)
-const ROOT_FOLDER_ID = "1BzzTtYd64hCpvjtOCayu9vaBbjiNTX2P"; 
+const ROOT_FOLDER_ID = "1XTM9vrEeNiXk8YAeh50TPVDzSSigBEjT"; 
 
 async function generateDriveTree() {
   // Verificar si existen las credenciales

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import BrowseClient from "@/app/components/BrowseClient";
 
+import { TREE_FILENAME } from "@/app/lib/config";
+
 import fs from "fs";
 import path from "path";
 import { cache } from "react";
@@ -35,7 +37,7 @@ const isFolder = (n: Node) =>
 
 // ✅ lee el JSON desde public y lo cachea (para metadata/static params)
 const getTree = cache((): Node[] => {
-  const filePath = path.join(process.cwd(), "public", "data", "drive-tree-v2.json");
+    const filePath = path.join(process.cwd(), "public", "data", TREE_FILENAME);
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw) as Node[];
 });

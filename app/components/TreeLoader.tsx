@@ -1,5 +1,6 @@
 "use client";
 
+import { TREE_PUBLIC_PATH } from "../lib/config";
 import { useEffect, useState } from "react";
 
 export type TreeNode = {
@@ -17,7 +18,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
   if (cachedTree) return cachedTree;
 
   if (!cachedPromise) {
-    cachedPromise = fetch("/data/drive-tree-v2.json", { cache: "force-cache" })
+    cachedPromise = fetch(TREE_PUBLIC_PATH, { cache: "force-cache" })
       .then((r) => r.json())
       .then((data: TreeNode[]) => {
         cachedTree = data;

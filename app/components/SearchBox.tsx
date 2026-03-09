@@ -1,10 +1,9 @@
 "use client";
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import treeRaw from "@/scripts/data/drive-tree-v2.json";
 import FolderIcons from "./icons/FolderIcons"
 import Folder from "./icons/Folder";
-
+import { treeData  } from "@/app/lib/config";
 // DEFINICIONES DE TIPOS (Para 0 errores)
 interface Node {
   id?: string;
@@ -64,7 +63,7 @@ export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] |
   const [showDropdown, setShowDropdown] = useState(false);
 
   // Cargamos el índice una sola vez
-  const flatData = useMemo(() => buildFlatClient(treeRaw as Node[]), []);
+  const flatData = useMemo(() => buildFlatClient(treeData as Node[]), []);
 
   // Filtramos sugerencias al vuelo (0ms de latencia)
   const suggestions = useMemo(() => {

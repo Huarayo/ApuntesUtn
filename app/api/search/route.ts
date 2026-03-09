@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import treeRaw from "@/scripts/data/drive-tree-v2.json";
-
+import { treeData } from "@/app/lib/config";
+ 
 type Node = {
   id?: string;
   name: string;
@@ -73,7 +73,7 @@ function buildFlat() {
     }
   };
 
-  walk(treeRaw as Node[]);
+  walk(treeData as Node[]);
   return out;
 }
 

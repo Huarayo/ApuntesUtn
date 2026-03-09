@@ -621,7 +621,39 @@ button,input{ font:inherit; color:inherit; }
   gap: 12px;
   min-width: 0;
 }
+.miniRowRight {
+  display: flex;         /* 1. Convierte el contenedor en un "flexible box" */
+  align-items: center;   /* 2. Alinea los hijos verticalmente en el centro */
+  gap: 10px;            /* 3. Opcional: espacio entre los iconos */
+}
 
+/* Para asegurar que los iconos dentro de los enlaces también estén centrados */
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px
+}
+.btn-icon:first-child{
+  color: var(--green);
+  
+}
+.btn-icon svg {
+  width: 1.7rem;  
+  height: 1.7rem;
+
+  /* Asegurar que no se deforme svg */
+  display: block;
+  transition: transform  300ms cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+
+.btn-icon:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Un sutil efecto al pasar el mouse */
+}
+.btn-icon:hover:first-child > svg {
+  transform: translateY(5px);
+}
 .miniRight{
   opacity: .9;
   flex: 0 0 auto;
@@ -950,4 +982,188 @@ button,input{ font:inherit; color:inherit; }
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+}
+
+
+
+
+
+
+/* PREVIEW FILE  */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.592);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  width: 90%;
+  height: 90%;
+  background: hsla(0, 0%, 0%, 0.57);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  max-height: 50px;
+}
+
+.nav-btn{
+  cursor: pointer;
+  border: none;
+  border-radius: 0 ipx 8px 0;
+  background-color: rgba(21, 179, 63, 0.708);
+  padding: 8px 10px;
+  font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn_descarga {
+  margin:20px;
+  height: 100%;
+ 
+}
+
+
+.option{
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap:10px;
+ 
+}
+
+.modal-header svg{
+  transition: transform 0.3s ease-out;
+ 
+}
+.btn_descarga:hover > svg,
+.nav-btn:hover > svg,
+.close-btn:hover > svg{
+  transform: scale(1.2);
+  
+}
+
+.btn_descarga > svg {
+  width: 25px;
+  height: 100%;
+  font-size: 40px;
+}
+
+.file-counter{
+  color: white;
+}
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background: #b43533;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index:10000;
+}
+
+
+
+
+/* Estilo para la fila de archivos con descarga */
+.file-row-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.download-icon-btn {
+  padding: 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  filter: grayscale(1);
+  transition: 0.2s;
+}
+
+.download-icon-btn:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+
+/* Contenedor del iframe y las flechas */
+.preview-body {
+  position: relative;
+  flex-grow: 1;
+  width:max-content;
+  height: max-content;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+ 
+/* Flechas laterales */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro traslúcido */
+  color: white;
+  border: none;
+  width: 50px;
+  height: 80px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 100;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Redondear un poco las flechas según el lado */
+.nav-arrow.prev { 
+  left: 0; 
+  border-radius: 0 8px 8px 0; 
+}
+.nav-arrow.next { 
+  right: 0; 
+  border-radius: 8px 0 0 8px; 
+}
+
+.nav-arrow:active {
+  background: var(--green); /* Tu color verde UTN */
+  width: 60px; /* Se agranda un poco al pasar el mouse */
+}
+
+/* Ocultar flechas si solo hay 1 archivo */
+.nav-arrow:disabled {
+  display: none;
+}
+
+/* Responsive: Flechas más pequeñas en móviles */
+@media (max-width: 768px) {
+  .nav-arrow {
+    width: 40px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
 }

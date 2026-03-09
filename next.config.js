@@ -6,8 +6,9 @@ const withPWA = require("next-pwa")({
   disable: process.env.NODE_ENV === "development",
   runtimeCaching: [
     {
-      urlPattern: /^\/data\/drive-tree\.json$/,
-      handler: "CacheFirst",
+      // CAMBIO: Ahora acepta drive-tree-v1, drive-tree-v2, etc.
+      urlPattern: /^\/data\/drive-tree-.*\.json$/, 
+      handler: "CacheFirst", // Es seguro usar CacheFirst porque el nombre cambia
       options: {
         cacheName: "tree-cache",
         expiration: {
@@ -25,7 +26,8 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/data/drive-tree.json",
+        // CAMBIO: Aplicamos el cache eterno a cualquier versión del tree
+        source: "/data/drive-tree-:version.json", 
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],

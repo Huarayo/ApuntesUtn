@@ -7979,12 +7979,7 @@
                           "type": "file",
                           "url": "https://drive.google.com/file/d/1DAXmSpXfGEygY2fuDDJzHIvVDWq-_mH4/view?usp=drivesdk"
                         },
-                        {
-                          "id": "1Cna1VfHj9iztgbNPqdveAtshYf13B67d",
-                          "name": "IMG-20250701-WA0001.jpg",
-                          "type": "file",
-                          "url": "https://drive.google.com/file/d/1Cna1VfHj9iztgbNPqdveAtshYf13B67d/view?usp=drivesdk"
-                        },
+
                         {
                           "id": "1CHOmJeo8X_Fm04EHpHpFKn2cir_F5S52",
                           "name": "IMG-20250625-WA0001.jpg",
@@ -9718,7 +9713,7 @@
             "id": "10yCxFUoS1QpXnaJPmpBkGpQ3E_h0Vclu",
             "name": "7 - ARQUITECTURA DE COMPUTADORAS",
             "type": "folder",
-            "url": "https://drive.google.com/drive/folders/10yCxFUoS1QpXnaJPmpBkGpQ3E_h0Vclu",
+            "url": " ",
             "children": [
               {
                 "id": "1Eycxp3HhgZrsQ4AR0V1gNNSulNzFUu79",
@@ -9814,692 +9809,1360 @@
                 "type": "folder",
                 "url": "https://drive.google.com/drive/folders/13AoFoB7Vx75jyJrQI1ZVtuwQ8On3KbOQ",
                 "children": [
-                  {
-                    "id": "1MVj9uxy4vkwS4N6l9UI3_57lH_uwe2ff",
-                    "name": "UNIDAD 5",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1MVj9uxy4vkwS4N6l9UI3_57lH_uwe2ff",
-                    "children": [
-                      {
-                        "id": "1pXoT1zS9MGY8V-gOaqY06122pYln29Oa",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1pXoT1zS9MGY8V-gOaqY06122pYln29Oa",
-                        "children": [
-                          {
-                            "id": "16HmEEVCeD6_imtabeAgXVY3YET34DcMV",
-                            "name": "Procesador Pentium IV.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/16HmEEVCeD6_imtabeAgXVY3YET34DcMV/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1mDHCrhFbFOoWDRdioBTkxcZvCkdu8Yc7",
-                            "name": "Evolución de los Procesadores.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1mDHCrhFbFOoWDRdioBTkxcZvCkdu8Yc7/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "16nItGXCs9_mwBibaSHRzD2U02H8QDuQN",
-                            "name": "set de intrucciones 8080.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/16nItGXCs9_mwBibaSHRzD2U02H8QDuQN/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1LhYf5qnuwQO4jODjm6V5C_K0zaLdlbrL",
-                            "name": "Set de instrucciones 8088 detallado.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1LhYf5qnuwQO4jODjm6V5C_K0zaLdlbrL/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1siTFtHdEea_HuQ1SCxP-NPg9gCMdvUsz",
-                            "name": "Set de instrucciones 808688 resumido.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1siTFtHdEea_HuQ1SCxP-NPg9gCMdvUsz/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "11BayRDj8c1STxiBoqtt--pgQYV1Dnpa1",
-                            "name": "El 8088 - Caractersiticas y programacion.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/11BayRDj8c1STxiBoqtt--pgQYV1Dnpa1/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "17uUHUGbf-Czjj7j5fCip3uVm3Kc86Lsn",
-                            "name": "El 8088 - Un Microprocesador Comercial de 8 bits.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/17uUHUGbf-Czjj7j5fCip3uVm3Kc86Lsn/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "17LDmYILQx5LAado2e89KhkyFNARYH2Pj",
-                            "name": "datasheet 8088.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/17LDmYILQx5LAado2e89KhkyFNARYH2Pj/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1CyjT2jQQI6xQtGpqRB4xkGBwQAdNbTZJ",
-                            "name": "Tutorial_Emu8086.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1CyjT2jQQI6xQtGpqRB4xkGBwQAdNbTZJ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1D2Ug_q4gocVT7Sd6cFCaIfHdbOHwsWtB",
-                            "name": "Tutorial_reducido_Emu8086.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1D2Ug_q4gocVT7Sd6cFCaIfHdbOHwsWtB/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1-0b_vgdN8oMMhvg7ucZSsb88QqyDDlzR",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1-0b_vgdN8oMMhvg7ucZSsb88QqyDDlzR",
-                        "children": [
-                          {
-                            "id": "1-1Idu1_5_tn7OkzNU5ImAi-zULuYb9kn",
-                            "name": "Guia de Trabajos Practicos Emulador EMU del Procesador 8088- 8086.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1-1Idu1_5_tn7OkzNU5ImAi-zULuYb9kn/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1wpsl11BTvQql1tlyVFRu-hkN9oCukIu1",
-                            "name": "Guia de Trabajos Practicos Programación del Procesador 8088 - Aspectos Básicos.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1wpsl11BTvQql1tlyVFRu-hkN9oCukIu1/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1egfxq7iypLOiGls9_C4Vx4AbbT647YaB",
-                            "name": "Guia de Trabajos Practicos Maquina Elemental Indexada.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1egfxq7iypLOiGls9_C4Vx4AbbT647YaB/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1wsHXrl-gcKqNmyWft5lU3WWCMTfnpdlE",
-                        "name": "Presentacion de la Maquina Elemental a la Maquina Convencional.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1wsHXrl-gcKqNmyWft5lU3WWCMTfnpdlE/view?usp=drivesdk"
-                      },
-                      {
-                        "id": "1nca2muyrkMnuaqMxVTD9QUqkQKMhy8N2",
-                        "name": "Guia didactica_tema_5 ARQUITECTURA DE COMPUTADORAS ver 21.0 101121.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1nca2muyrkMnuaqMxVTD9QUqkQKMhy8N2/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1BSBYBQS0-1rMBqJnro6YLLO4gJndgUkb",
-                    "name": "UNIDAD 1",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1BSBYBQS0-1rMBqJnro6YLLO4gJndgUkb",
-                    "children": [
-                      {
-                        "id": "1TQIKMQU-zdrG7fVzfaXXMklahxG8pGb3",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1TQIKMQU-zdrG7fVzfaXXMklahxG8pGb3",
-                        "children": [
-                          {
-                            "id": "1LHyJ7yLD3wVXczdYy1P7klfqo_20VF2V",
-                            "name": "Codigo-ASCII_completo.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1LHyJ7yLD3wVXczdYy1P7klfqo_20VF2V/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1laZ2Udpzg4Dg0FPpFN5YejEjSLFTknFW",
-                            "name": "Codigo_ASCII_hexadecimal.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1laZ2Udpzg4Dg0FPpFN5YejEjSLFTknFW/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1b8mL-vNcm9V7NyRYpOqUiV8t3GKtowYG",
-                            "name": "Punto flotante norrma 754 Ejemplo.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1b8mL-vNcm9V7NyRYpOqUiV8t3GKtowYG/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1HYU4DHr7LY_m5DIcyFPI0jT3V9UoNhZW",
-                            "name": "Codigo_ ASCII_decimal.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1HYU4DHr7LY_m5DIcyFPI0jT3V9UoNhZW/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1BVAWqVQe2cazqCPmCkogQ_nMmR-XO6G5",
-                            "name": "Punto flotante norrma 754.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1BVAWqVQe2cazqCPmCkogQ_nMmR-XO6G5/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1XAKgO5tBmW0KblP7xNRrZpO8JD9iDnjY",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1XAKgO5tBmW0KblP7xNRrZpO8JD9iDnjY",
-                        "children": [
-                          {
-                            "id": "17vc8QjyWsROn1qeIKPbZATzWdH0HQgy8",
-                            "name": "Guia de Trabajos Practicos Codigos.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/17vc8QjyWsROn1qeIKPbZATzWdH0HQgy8/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1PyFmm4RJ-vjGRkXKr1W3uKe-vnThVMQ6",
-                            "name": "Guia de Trabajos Practicos Punto Flotante.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1PyFmm4RJ-vjGRkXKr1W3uKe-vnThVMQ6/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1JQQx5IAZDCJo0fwAWMf3oBRcnDAPemCt",
-                            "name": "Guia de Trabajos Practicos Punto Fijo.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1JQQx5IAZDCJo0fwAWMf3oBRcnDAPemCt/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1Jmva7subUeBIRoDiCMUKR-YfnRpitFKR",
-                            "name": "Guia de Trabajos Practicos Sistemas de Numeracion.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1Jmva7subUeBIRoDiCMUKR-YfnRpitFKR/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1qJcH88LJ7C7k1fQ55OVfbKZsnTHe9129",
-                        "name": "Guia didactica_tema_1 ARQUITECTURA DE COMPUTADORAS ver  110020.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1qJcH88LJ7C7k1fQ55OVfbKZsnTHe9129/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1y3yZmvqoC8y9sHMObfNkRZMrmoHHYpI7",
-                    "name": "UNIDAD 6",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1y3yZmvqoC8y9sHMObfNkRZMrmoHHYpI7",
-                    "children": [
-                      {
-                        "id": "1nBAJ3BQTm4mNdApyBE7hrLeMdxGRiI_G",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1nBAJ3BQTm4mNdApyBE7hrLeMdxGRiI_G",
-                        "children": [
-                          {
-                            "id": "1y9PYZqcxIP-FwEmyN6rJ1id9G37RkpgP",
-                            "name": "Qualcomm_Samuel-Cheng.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1y9PYZqcxIP-FwEmyN6rJ1id9G37RkpgP/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1f1Yaw-3SHNdOQY5c9yq7qT3ROxQJWk0w",
-                            "name": "ARM_Processors_and_Architectures_-_Uni_Program_.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1f1Yaw-3SHNdOQY5c9yq7qT3ROxQJWk0w/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1QUXVCJ7sNzlZWM6C8ZqiTZC97w7Cocui",
-                            "name": "risc-introduction.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1QUXVCJ7sNzlZWM6C8ZqiTZC97w7Cocui/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "17vYTiOPbeferGnafE4-8WIN4h5B4Ss-U",
-                            "name": "Procesador RISC V (1).pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/17vYTiOPbeferGnafE4-8WIN4h5B4Ss-U/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1hzaFxTr55KIi5KjDWxCRaZ7Am6nuWvOy",
-                            "name": "Procesador UltraSparc IV.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1hzaFxTr55KIi5KjDWxCRaZ7Am6nuWvOy/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1pnkM7GbSx_Hu0-vvkZHsZjR6rr8KCZ-R",
-                            "name": "CPU SPARC.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1pnkM7GbSx_Hu0-vvkZHsZjR6rr8KCZ-R/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1NJQOL4URTa1JOh6noF3wujskp6DVzefj",
-                            "name": "Procesadores RISC.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1NJQOL4URTa1JOh6noF3wujskp6DVzefj/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1klxo1XXHISRhkVpgdXgrqMUO_1eXcP9J",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1klxo1XXHISRhkVpgdXgrqMUO_1eXcP9J",
-                        "children": [
-                          {
-                            "id": "1l8U_pcrHwlLW66mbejSxRhDgQ_hgJGGG",
-                            "name": "Guia de Trabajos Practicos Desarrollo de Video Emulador EMU del Procesador 8088- 8086.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1l8U_pcrHwlLW66mbejSxRhDgQ_hgJGGG/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1pcNf7v_ymZuKamUaVj6K0ZrWiSqsQkz0",
-                            "name": "Guia de Trabajos Practicos Programación del Procesador 8088 - Aspectos Avanzados.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1pcNf7v_ymZuKamUaVj6K0ZrWiSqsQkz0/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1IkrLUoT6i_3O1TgCxqw8JBRTA1VHFx_j",
-                        "name": "Guia didactica_tema_6 ARQUITECTURA DE COMPUTADORAS.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1IkrLUoT6i_3O1TgCxqw8JBRTA1VHFx_j/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1haUqKB7z3zN06lNYYR8rrDASUFYO5y0o",
-                    "name": "UNIDAD 7",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1haUqKB7z3zN06lNYYR8rrDASUFYO5y0o",
-                    "children": [
-                      {
-                        "id": "1FESnhWkRrZC0bygVHu7cPitFGTwfjesk",
-                        "name": "Guia didactica_tema_7 ARQUITECTURA DE COMPUTADORAS.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1FESnhWkRrZC0bygVHu7cPitFGTwfjesk/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1KyZcy3wpCrYS9SEP5lMjKYjCpvPJ-vsJ",
-                    "name": "UNIDAD 3",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1KyZcy3wpCrYS9SEP5lMjKYjCpvPJ-vsJ",
-                    "children": [
-                      {
-                        "id": "1V5Z9Dayf7vzzLA8dS6DvpIQQrwMfc45t",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1V5Z9Dayf7vzzLA8dS6DvpIQQrwMfc45t",
-                        "children": [
-                          {
-                            "id": "1EhCEtEDLyc45X-9xEIye692aqSxbj06Y",
-                            "name": "Memoria Flash.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1EhCEtEDLyc45X-9xEIye692aqSxbj06Y/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1Q7aDNtuG0rPS8Th-PnlvVtUdfFRgE1z9",
-                            "name": "Memoria EEPROM 8 kbytes 28C64.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1Q7aDNtuG0rPS8Th-PnlvVtUdfFRgE1z9/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1RisedU8auRjTRCHMvy6qmx3XNuVoYxNr",
-                            "name": "Memoria DRAM 1M x 4 bits 4C4001.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1RisedU8auRjTRCHMvy6qmx3XNuVoYxNr/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1nfexoDWRgouyFpiPmisEdy8q3mPp4YIZ",
-                            "name": "Memoria SRAM 2 kbytes 6116.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1nfexoDWRgouyFpiPmisEdy8q3mPp4YIZ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1AqEQa0AyvlKmER9831o1I4UO_GZAcjVG",
-                            "name": "Memorias - Conceptos y Aspectos Tecnologicos.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1AqEQa0AyvlKmER9831o1I4UO_GZAcjVG/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1dgSmscXNKt1NhorpPOz8cmfNl6n_U6Cn",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1dgSmscXNKt1NhorpPOz8cmfNl6n_U6Cn",
-                        "children": [
-                          {
-                            "id": "1lH5L_dSaoXNKGGrggIAdtySKfohKo-Yw",
-                            "name": "Guia de Ensayo Práctico Memorias Electronicas.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1lH5L_dSaoXNKGGrggIAdtySKfohKo-Yw/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1rHoilKB1TQNlud5s82X_v4yF6imTDW6D",
-                            "name": "Guia de Trabajos Prácticos Memorias Electronicas.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1rHoilKB1TQNlud5s82X_v4yF6imTDW6D/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1MqsYjzpZvMCMOOidqxRKLEZr7SbYj6eJ",
-                            "name": "ENSAYO PRÁCTICO DE MEMORIAS ELECTRÓNICAS - Grupo 13 - 1K1.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1MqsYjzpZvMCMOOidqxRKLEZr7SbYj6eJ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1LytNK8qvCqNgDzQqVkjjfmsZ6iAUjBvl",
-                            "name": "ENSAYO PRÁCTICO DE MEMORIAS ELECTRÓNICAS.docx",
-                            "type": "file",
-                            "url": "https://docs.google.com/document/d/1LytNK8qvCqNgDzQqVkjjfmsZ6iAUjBvl/edit?usp=drivesdk&ouid=107660628628935148774&rtpof=true&sd=true"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1JLS8HlCXx1TNK_rhYxwdwkOOLsoiJkL0",
-                        "name": "Guia didactica_tema_3 ARQUITECTURA DE COMPUTADORAS ver 13.0 061022.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1JLS8HlCXx1TNK_rhYxwdwkOOLsoiJkL0/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1-Xk1D_nm-aiQWRRPdrWn-sGp9i0Ob0f4",
-                    "name": "UNIDAD 2",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/1-Xk1D_nm-aiQWRRPdrWn-sGp9i0Ob0f4",
-                    "children": [
-                      {
-                        "id": "1wbVhMeiprfMAahdJaTxY9b3YSrlx-0qx",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1wbVhMeiprfMAahdJaTxY9b3YSrlx-0qx",
-                        "children": [
-                          {
-                            "id": "1uwtXHLq0Nd4L7ufuLWdXwuQZk6T3gNTX",
-                            "name": "Metodo numerico de minimizacion.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1uwtXHLq0Nd4L7ufuLWdXwuQZk6T3gNTX/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1dNuTzchQiqcH2T6k_2SIuftabps9oGMT",
-                            "name": "Circuitos Operadores en BCD Natural.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1dNuTzchQiqcH2T6k_2SIuftabps9oGMT/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "18b9f6KTSCFrjXTEsMXTO_EoNVXT0b2of",
-                            "name": "4 bit binary counter 74163.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/18b9f6KTSCFrjXTEsMXTO_EoNVXT0b2of/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1wFLx1LRUnnacpeq7J_gzgN06hZwAtpgA",
-                            "name": "Registro de Desplazamiento Paralelo-Serie 74HC165 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1wFLx1LRUnnacpeq7J_gzgN06hZwAtpgA/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1-_mwodKBDeOWegme7VFLdkAIzSAPEwaf",
-                            "name": "Registro de Desplazamiento 74HC164 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1-_mwodKBDeOWegme7VFLdkAIzSAPEwaf/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1yqyKlQZ5ssmqBkrDtc-eoe0RVgV6qoaH",
-                            "name": "Octal Biestable Tipo D 74HC273 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1yqyKlQZ5ssmqBkrDtc-eoe0RVgV6qoaH/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1HrQIYWgB5B710CkKl6XSe5qr1u3Uul7I",
-                            "name": "Dual Flip Plop D 74HC74 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1HrQIYWgB5B710CkKl6XSe5qr1u3Uul7I/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1X-b_d-mbM8_xq1B_X3vq71qYrepXVDnH",
-                            "name": "ALU de 4 bits 74HC18 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1X-b_d-mbM8_xq1B_X3vq71qYrepXVDnH/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1QVmFBBBjbSKrP_utNRbptXo5AadIhSGk",
-                            "name": "4-bit Sumador Total con acarreo paralelo 74HC283 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1QVmFBBBjbSKrP_utNRbptXo5AadIhSGk/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1H6QrrFd_qh9bwr8-831stKWnNtJ4b98z",
-                            "name": "8-bit Generador-Detector de Paridad 74HC280 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1H6QrrFd_qh9bwr8-831stKWnNtJ4b98z/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1MIiKmfmp9KTMqagcM4EGfNaV-bE_Vg9g",
-                            "name": "Comparador 4 bits 74HC85 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1MIiKmfmp9KTMqagcM4EGfNaV-bE_Vg9g/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1hiZziBiuBjq48W_OOe3jpGzW44MEW4qh",
-                            "name": "Quad 2-Input Multiplexor 74HC157 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1hiZziBiuBjq48W_OOe3jpGzW44MEW4qh/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1x3ZK3gmw1uDIQQHkqzwIwYCZSDavDgpv",
-                            "name": "Dual 4-Input Multiplexor 74HC153 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1x3ZK3gmw1uDIQQHkqzwIwYCZSDavDgpv/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1CYXt5DH6g0GB4D5aKcFQF3LAeb_qvbpf",
-                            "name": "8-Input Multiplexor 74HC151 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1CYXt5DH6g0GB4D5aKcFQF3LAeb_qvbpf/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1yHXOM0_CP9aGOzLpFnvigNThlfEPpfjQ",
-                            "name": "10-4 Codificador de Prioridad 74HC147 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1yHXOM0_CP9aGOzLpFnvigNThlfEPpfjQ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1yeO97b2aIsIabhZZERe5ufWORFCBIYhJ",
-                            "name": "3-8 Decodificador 74HC137 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1yeO97b2aIsIabhZZERe5ufWORFCBIYhJ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "19KaF4uliUQPIFvvTgPojo6JQheXjedWd",
-                            "name": "8-Input NAND gate 74HC30 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/19KaF4uliUQPIFvvTgPojo6JQheXjedWd/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1nDZbQ-knlz93bmcRD9Dj304OlTITrWvT",
-                            "name": "Dual 4-Input NAND Gate 74HC20 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1nDZbQ-knlz93bmcRD9Dj304OlTITrWvT/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1RZ7TTM8jVQQZ6M1nrpEq7-65xw_vquvQ",
-                            "name": "Triple 3-Input NAND Gate74HC10 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1RZ7TTM8jVQQZ6M1nrpEq7-65xw_vquvQ/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1l1VmSusfee3x4eiTwyB88Z3b98Il7SUK",
-                            "name": "Quad 2-Input NOR 74HC02 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1l1VmSusfee3x4eiTwyB88Z3b98Il7SUK/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1oohm9qO48lIVyaGIVuiIyti0Jp1-Xivl",
-                            "name": "Quad 2-Input NAND Gate.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1oohm9qO48lIVyaGIVuiIyti0Jp1-Xivl/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1yzgNrDidatv6wpYbHM_6nH86lGt9lYIL",
-                            "name": "Quad 2-Input OR Exclusive 74HC86 PHILIPS.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1yzgNrDidatv6wpYbHM_6nH86lGt9lYIL/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1QXM3f1orNcMpJgvHXSNbnDO-5-Hkfjk6",
-                            "name": "Hex INVERTER Gate.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1QXM3f1orNcMpJgvHXSNbnDO-5-Hkfjk6/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1_99GC8TbqM_1qT2d3p2sVZ3WOUKtm81I",
-                            "name": "Quad 2-Input OR Gate.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1_99GC8TbqM_1qT2d3p2sVZ3WOUKtm81I/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "15eG8E4YGXDKD6CWdswvdr5xcc_NJGdeo",
-                            "name": "Quad 2-Input AND Gate.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/15eG8E4YGXDKD6CWdswvdr5xcc_NJGdeo/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1_xqe5tcV4k4FFIp8FpWmN-JUaswpT74L",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1_xqe5tcV4k4FFIp8FpWmN-JUaswpT74L",
-                        "children": [
-                          {
-                            "id": "15BXkS0Z8O-M0Wy-kX3DaygonnlLaWSHL",
-                            "name": "Guia de Trabajos Practicos Sistemas Secuenciales.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/15BXkS0Z8O-M0Wy-kX3DaygonnlLaWSHL/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1VrwsWgI4q7toPZ-2kTyHAJJCeP2WAyGS",
-                            "name": "Guia de Trabajos Practicos Sistemas Combinacionales.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1VrwsWgI4q7toPZ-2kTyHAJJCeP2WAyGS/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "16lKs0imoKfo01nU8PTy32Ioz6ERt1Hg-",
-                            "name": "Guia de Trabajos Practicos Simplificacion de Funciones.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/16lKs0imoKfo01nU8PTy32Ioz6ERt1Hg-/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "135huArZY7Dt57rrnIq9Io7JyEWdF0zOe",
-                            "name": "Guia de Trabajos Practicos Alebra de Boole.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/135huArZY7Dt57rrnIq9Io7JyEWdF0zOe/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1D3GR8XpdiHSUrWb9SjguJZiZqlScUy1_",
-                        "name": "Guia didactica_tema_2 ARQUITECTURA DE COMPUTADORAS ver Aula Virtual 210916.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1D3GR8XpdiHSUrWb9SjguJZiZqlScUy1_/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "191nh84bKn9bRRrmwGeKKh0IKT959tnJ7",
-                    "name": "UNIDAD 4",
-                    "type": "folder",
-                    "url": "https://drive.google.com/drive/folders/191nh84bKn9bRRrmwGeKKh0IKT959tnJ7",
-                    "children": [
-                      {
-                        "id": "184tzKUWf_9C_76EIAnsWYUjqsV7fLIvn",
-                        "name": "COMPLEMENTO",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/184tzKUWf_9C_76EIAnsWYUjqsV7fLIvn",
-                        "children": [
-                          {
-                            "id": "1AZIdZQtnl41uRQ1G0z-uqyX9XFWHv0Jt",
-                            "name": "VonNewmann_Eniac_Edvac_Edsac.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1AZIdZQtnl41uRQ1G0z-uqyX9XFWHv0Jt/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1IZTlZZBoVENnd2PHT-kc3Cl8OwmFQ9aB",
-                            "name": "Evolucion historica de maquinas de computacion.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1IZTlZZBoVENnd2PHT-kc3Cl8OwmFQ9aB/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1YH2pyk88iLvKLoQTUPqrmhHI6RHZTafo",
-                            "name": "Descripción Breve Evolucion de las Computadoras.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1YH2pyk88iLvKLoQTUPqrmhHI6RHZTafo/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1G2Dwuke09p8RwikTl_7tKFEV_QYDgnNg",
-                            "name": "Tutorial_Blue.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1G2Dwuke09p8RwikTl_7tKFEV_QYDgnNg/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1ZXjZnwJdEztbZXxGlZLhfThP33OQjZdA",
-                        "name": "TP",
-                        "type": "folder",
-                        "url": "https://drive.google.com/drive/folders/1ZXjZnwJdEztbZXxGlZLhfThP33OQjZdA",
-                        "children": [
-                          {
-                            "id": "1qoJSst4KMZYPfL0nyP7oi8TLytLnEXeI",
-                            "name": "Guia de Trabajos Practicos Desarrollo de Video Simulador de Computadora Elemental Didáctica.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1qoJSst4KMZYPfL0nyP7oi8TLytLnEXeI/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1MwZdpTSu1j6-eI-lLuJjFrBLTubL0771",
-                            "name": "Guia de Trabajos Practicos Simulador de Computadora Elemental Didáctica.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1MwZdpTSu1j6-eI-lLuJjFrBLTubL0771/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "1aXp6VM8Magxf9oMS98v1LOeclpBa94Rp",
-                            "name": "Guia de Trabajos Practicos Programación de Computadora Elemental Didáctica.pdf",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/1aXp6VM8Magxf9oMS98v1LOeclpBa94Rp/view?usp=drivesdk"
-                          }
-                        ]
-                      },
-                      {
-                        "id": "1PrmDnNlc3Mdd-V0-San5IdHKVG_b3Hml",
-                        "name": "TP BLUE EMULADOR.txt",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1PrmDnNlc3Mdd-V0-San5IdHKVG_b3Hml/view?usp=drivesdk"
-                      },
-                      {
-                        "id": "1uBVXEApy_n7cKTLMZOf3ForvU7zX-ny8",
-                        "name": "BLUE 11.txt",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1uBVXEApy_n7cKTLMZOf3ForvU7zX-ny8/view?usp=drivesdk"
-                      },
-                      {
-                        "id": "1oT32MyrJ4_ssgzFBo_2TxWztMWIvp7Jz",
-                        "name": "Presentación Blue.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/1oT32MyrJ4_ssgzFBo_2TxWztMWIvp7Jz/view?usp=drivesdk"
-                      },
-                      {
-                        "id": "179izlHbh0j4B1YxSvdY9cdOYJys6qRXC",
-                        "name": "Guia didactica_tema_4 ARQUITECTURA DE COMPUTADORAS ver 15.0 091121.pdf",
-                        "type": "file",
-                        "url": "https://drive.google.com/file/d/179izlHbh0j4B1YxSvdY9cdOYJys6qRXC/view?usp=drivesdk"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "1QUhMJhZKm9LMYjJjVxd7xpbKq7nYxBY-",
-                    "name": "Libro Arquitectura de Computadoras Santiago Perez 260122.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1QUhMJhZKm9LMYjJjVxd7xpbKq7nYxBY-/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1o6tDouHt-cYZ2bP-4Z_mg-RUZBjkjQag",
-                    "name": "Programa_Planificacion_ Arquitectura de Computadoras 2022 290622.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1o6tDouHt-cYZ2bP-4Z_mg-RUZBjkjQag/view?usp=drivesdk"
-                  }
+                  
+                    {
+                      "id": "1i4xk1XAwadGF8Tka__W93YCLMpXL26-y",
+                      "name": "chuletas",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1i4xk1XAwadGF8Tka__W93YCLMpXL26-y",
+                      "children": [
+                        {
+                          "id": "1TOYNUeAOpTRqWXYhapnhJQPZX7H326w1",
+                          "name": "monografía",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1TOYNUeAOpTRqWXYhapnhJQPZX7H326w1/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                        },
+                        {
+                          "id": "1A-3TE2TEVnjGb9NboO6llR3Cst9IBO5LmlRhLWyhHGY",
+                          "name": "Chuleton",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1A-3TE2TEVnjGb9NboO6llR3Cst9IBO5LmlRhLWyhHGY/edit?usp=drivesdk"
+                        },
+                        {
+                          "id": "1EpNWU4slK3RQdc2HGEvDfvl9Y0ZeB-_WfEU97yCDEss",
+                          "name": "ArquitecturaBasica",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1EpNWU4slK3RQdc2HGEvDfvl9Y0ZeB-_WfEU97yCDEss/edit?usp=drivesdk"
+                        },
+                        {
+                          "id": "190Rienp5VAyJ4bb00Tj15i40disv_D15f2oOegjl5U8",
+                          "name": "repaso",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/190Rienp5VAyJ4bb00Tj15i40disv_D15f2oOegjl5U8/edit?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "1iSety3iUFd4WLWNEJEqA4I7iifPv2lCL",
+                      "name": "5_Arquitectura_Convencional",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1iSety3iUFd4WLWNEJEqA4I7iifPv2lCL",
+                      "children": [
+                        {
+                          "id": "1c8VzOmaaxlrRENfAfMQwbOm8JK3HPPzCYm9yI2OGJKs",
+                          "name": "manual Intel de 1979",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1c8VzOmaaxlrRENfAfMQwbOm8JK3HPPzCYm9yI2OGJKs/edit?usp=drivesdk"
+                        },
+                        {
+                          "id": "1p4q9fbnEtHgOdE-elTwzpgc7iCfU3X3m",
+                          "name": "resolucion MEI - 23.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1p4q9fbnEtHgOdE-elTwzpgc7iCfU3X3m/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1cga3L38-2geeddgIfxSFcN6atfiUFi2f",
+                          "name": "ejercicios resueltos de 8088 2023 BASICOS.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1cga3L38-2geeddgIfxSFcN6atfiUFi2f/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1Qq0QnmY4xNuG9IFOU-aY7mSM7VL7l9LO",
+                          "name": "Presentación10.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1Qq0QnmY4xNuG9IFOU-aY7mSM7VL7l9LO/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "14StEMA8g9oHvBEAOig03nfr1fN4qmiEZ",
+                          "name": "Presentación Unidad Tematica 5.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/14StEMA8g9oHvBEAOig03nfr1fN4qmiEZ/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1i_1t_Ut965D1UzNtT8usJnzDSduELBCo",
+                          "name": "MICROPROCESADOR 8088.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1i_1t_Ut965D1UzNtT8usJnzDSduELBCo/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1NorGabiiDNio4yY221Ed0_M_-R7mHLUg",
+                          "name": "Guia didactica_tema_5 ARQUITECTURA DE COMPUTADORAS ver 21.0 101121.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1NorGabiiDNio4yY221Ed0_M_-R7mHLUg/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1XCA2bKC_aWOOglXr_kRvcLLPzBCoKxyC",
+                          "name": "Presentacion de la Maquina Elemental a la Maquina Convencional.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1XCA2bKC_aWOOglXr_kRvcLLPzBCoKxyC/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1jSgbMoutO2XT72ImFH-_hQ_8eZyTch7A",
+                          "name": "Presentación11.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1jSgbMoutO2XT72ImFH-_hQ_8eZyTch7A/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1QsgdoJrtgIaJ-lT1GLnncTbx-FiAc2UJ",
+                          "name": "Guia de Trabajos Practicos Desarrollo de Video Emulador EMU del Procesador 8088- 8086.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1QsgdoJrtgIaJ-lT1GLnncTbx-FiAc2UJ/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1o5O-OK47hrjOO2PZ5-LseveaZSOfaW4v",
+                          "name": "Guia de Trabajos Practicos Emulador EMU del Procesador 8088- 8086.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1o5O-OK47hrjOO2PZ5-LseveaZSOfaW4v/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1STwJ9TTlkRRVv9tJq1PGwzlFJfjgDaRK",
+                          "name": "Guia de Trabajos Practicos Programación del Procesador 8088 - ver 23C.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1STwJ9TTlkRRVv9tJq1PGwzlFJfjgDaRK/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1dJSzY8x-iwpMKz0v_dBhfrAoqJyMmKtV",
+                          "name": "Guia de Trabajos Practicos Maquina Elemental Indexada ver 23C.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1dJSzY8x-iwpMKz0v_dBhfrAoqJyMmKtV/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1ocm6-Ncx7PjuR1C_R0UJTcLnU6FB2ryWPYW1iKSTHQ0",
+                          "name": "Resumen",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1ocm6-Ncx7PjuR1C_R0UJTcLnU6FB2ryWPYW1iKSTHQ0/edit?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "16lUEALGtgSKbDAN5WUAr4nADlU51QDmn",
+                      "name": "4_Arquitectura_Basica",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/16lUEALGtgSKbDAN5WUAr4nADlU51QDmn",
+                      "children": [
+                        {
+                          "id": "1-lrzYKV9dcL9NVbSyKEl3F0CKEtHcqHU",
+                          "name": "ejercicios resultos de blue .pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1-lrzYKV9dcL9NVbSyKEl3F0CKEtHcqHU/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1YvaSIB1NzWR3ICBIoW8Y6P7nMlKQAVTL",
+                          "name": "instrucciones.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1YvaSIB1NzWR3ICBIoW8Y6P7nMlKQAVTL/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1swc6mDLf3Ek2HLU0Po-KviZ9hSddfdxN",
+                          "name": "Tutorial_Blue.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1swc6mDLf3Ek2HLU0Po-KviZ9hSddfdxN/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "15ZdtUA5sdgegNxc5hHJEbtJ9zl-KPCp0",
+                          "name": "Guia de Trabajos Practicos Desarrollo de Video Simulador de Computadora Elemental Didáctica.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/15ZdtUA5sdgegNxc5hHJEbtJ9zl-KPCp0/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1mjMmdLESIWopT_wfjkhzq6IQBi8s6GPv",
+                          "name": "Guia de Trabajos Practicos Simulador de Computadora Elemental Didáctica.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1mjMmdLESIWopT_wfjkhzq6IQBi8s6GPv/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1xd9ar2nZD_WHVPLwAq3uaGZudIxxu2hN",
+                          "name": "Guia de Trabajos Practicos Programación de Computadora Elemental Didáctica ver 23C 2.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1xd9ar2nZD_WHVPLwAq3uaGZudIxxu2hN/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "17xzWJACQvlqr4SyEfWQKdTcfwjhm9VYw",
+                          "name": "5 - ARQUITECTURA de von NEUMANN.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/17xzWJACQvlqr4SyEfWQKdTcfwjhm9VYw/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1pxRCkfr2vc4zMH_pBhqxmEUl4noWWtt3",
+                          "name": "Presentación Blue.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1pxRCkfr2vc4zMH_pBhqxmEUl4noWWtt3/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1_ZK0FAT89JbUu7wY0GsyITiJY20pRvhy",
+                          "name": "Unidad Tematica 4 210723.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1_ZK0FAT89JbUu7wY0GsyITiJY20pRvhy/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "1ryJBgXsj0e5VtumxBR9-jDz5eF9LlAjR",
+                      "name": "6_Arquitectura_Avanzada",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1ryJBgXsj0e5VtumxBR9-jDz5eF9LlAjR",
+                      "children": [
+                        {
+                          "id": "1Wq4vQjiLhJafuLCiMZApItyGApQg9UL-",
+                          "name": "Guia didactica_tema_6 ARQUITECTURA DE COMPUTADORAS.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1Wq4vQjiLhJafuLCiMZApItyGApQg9UL-/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1EuJ9QM528F9hjNdfOEW0u-OK74K_jqQk",
+                          "name": "Unidad Tematica 6.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1EuJ9QM528F9hjNdfOEW0u-OK74K_jqQk/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1NhShdFxQ51izqPjIXgq6NG-KDbMhdS7J",
+                          "name": "7 - ARQUITECTURA AVANZADA.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1NhShdFxQ51izqPjIXgq6NG-KDbMhdS7J/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "1usKhNRKGrfGQnOT8GPw-3wgxHBD9HsSD",
+                      "name": "1_Representación_Numérica_y_Codificación",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1usKhNRKGrfGQnOT8GPw-3wgxHBD9HsSD",
+                      "children": [
+                        {
+                          "id": "1hxwULFY1BXxFKpSopg7qkZnpGZv5u22h",
+                          "name": "Ejercicios Resueltos",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1hxwULFY1BXxFKpSopg7qkZnpGZv5u22h",
+                          "children": [
+                            {
+                              "id": "1xNTiPGfrD8Fr7i3quroSI6faFUp94cpV",
+                              "name": "Presentación3.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1xNTiPGfrD8Fr7i3quroSI6faFUp94cpV/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1qKQXX8g_S_7RsewtfW8uojQS59hxRu89",
+                              "name": "Presentación2.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1qKQXX8g_S_7RsewtfW8uojQS59hxRu89/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1GjtH2YzZaThnU33iU4U_NSJ2b4eT0eqe",
+                              "name": "Presentación1.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1GjtH2YzZaThnU33iU4U_NSJ2b4eT0eqe/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1yBGHO1jCmNruq1Y_Eok2q5aKiXCrFd8Z",
+                              "name": "Ejercicios Resueltos Unidad Tematica 1.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1yBGHO1jCmNruq1Y_Eok2q5aKiXCrFd8Z/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1utatofjz72azljxXjfd-Hws0VOryfTKe",
+                          "name": "Guia de Trabajos Practicos Codigos ver 23 090923.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1utatofjz72azljxXjfd-Hws0VOryfTKe/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1mhwrnlcU5NBkORir8_A_yVaf2O749tlM",
+                          "name": "Guia de Trabajos Practicos Punto Flotante ver 23 050823.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1mhwrnlcU5NBkORir8_A_yVaf2O749tlM/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1u9p7Pvlq5LrAoKpS60ULxC-E1KJH9biz",
+                          "name": "Guia de Trabajos Practicos Punto Fijo ver 23 050823.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1u9p7Pvlq5LrAoKpS60ULxC-E1KJH9biz/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1SvfKqQm5Pae9u8KkG0-2Z7t5OuGdUfix",
+                          "name": "Guia de Trabajos Practicos Sistemas de Numeracion ver 23 050823.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1SvfKqQm5Pae9u8KkG0-2Z7t5OuGdUfix/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "13QS8uUcQ0uZoj_zTQdIJO55EFggIQ5Ti",
+                      "name": "3_Memorias_Electrónicas",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/13QS8uUcQ0uZoj_zTQdIJO55EFggIQ5Ti",
+                      "children": [
+                        {
+                          "id": "11z_ANIAymA0GiIc_B1PCCiZFdscLnggG",
+                          "name": "Complemento",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/11z_ANIAymA0GiIc_B1PCCiZFdscLnggG",
+                          "children": [
+                            {
+                              "id": "1tYh5OE-66S-dfnSetk6gHvoTemhvFKb1",
+                              "name": "Memoria Flash.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1tYh5OE-66S-dfnSetk6gHvoTemhvFKb1/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1wBzEH7bPMETaJn8gLkRu_asuG3Bd3xvn",
+                              "name": "Memoria EEPROM 8 kbytes 28C64.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1wBzEH7bPMETaJn8gLkRu_asuG3Bd3xvn/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1O-YHqVV-tkne4h89bBWbmQyJXcgR6OM-",
+                              "name": "Memoria DRAM 1M x 4 bits 4C4001.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1O-YHqVV-tkne4h89bBWbmQyJXcgR6OM-/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1HEowogOBjqnHnMhlTFYYHCsGPdrCMQ8p",
+                              "name": "Memoria SRAM 2 kbytes 6116.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1HEowogOBjqnHnMhlTFYYHCsGPdrCMQ8p/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1v2sJg2tNBnpfiE1GWghOoKHYPnTO5ML-",
+                              "name": "Memorias - Conceptos y Aspectos Tecnologicos.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1v2sJg2tNBnpfiE1GWghOoKHYPnTO5ML-/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "11rYYImlWdQ9z-b3Wnyx7cYJZRaZqp96n",
+                          "name": "Unidad Tematica 3 280920.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/11rYYImlWdQ9z-b3Wnyx7cYJZRaZqp96n/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1CTIuTCqC6gyo-Iru0DYsPbXnsteoCf1T",
+                          "name": "Presentación8.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1CTIuTCqC6gyo-Iru0DYsPbXnsteoCf1T/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1sHyW5-rUPi0Qwwv91aFcjBVE1DdVWCye",
+                          "name": "Ejercicios Resueltos Unidad Tematica.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1sHyW5-rUPi0Qwwv91aFcjBVE1DdVWCye/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1O8uOAwMWYM7g3oHHA2uLWmUCmNmAHle1",
+                          "name": "Guia de Ensayo Práctico Memorias Electronicas ver 23C 2.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1O8uOAwMWYM7g3oHHA2uLWmUCmNmAHle1/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1q_h-L2iQjaGHs3FQ2mKlCeSeSjBvsi-A",
+                          "name": "Guia de Trabajos Prácticos Memorias Electronicas ver 23C.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1q_h-L2iQjaGHs3FQ2mKlCeSeSjBvsi-A/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "10yoj_1iw8U0aecMNg51GFLaLcxpgHUe7",
+                          "name": "Normas Presentación de Trabajos Prácticos.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/10yoj_1iw8U0aecMNg51GFLaLcxpgHUe7/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1VwybglMXiFKna7CAmnZcgLGo46qfoLPB",
+                          "name": "4 - MEMORIA ELECTRÓNICA.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1VwybglMXiFKna7CAmnZcgLGo46qfoLPB/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1qGaU8CiMWKHKOI-p3TXDyRFPlRlvjcVT",
+                          "name": "Unidad Tematica 3 280920.ppt",
+                          "type": "file",
+                          "url": "https://docs.google.com/presentation/d/1qGaU8CiMWKHKOI-p3TXDyRFPlRlvjcVT/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                        },
+                        {
+                          "id": "1CZXdJ9SJj-gmkYcTBeggUgglLI-dhrdr",
+                          "name": "Guia didactica_tema_3 ARQUITECTURA DE COMPUTADORAS ver 13.0 061022.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1CZXdJ9SJj-gmkYcTBeggUgglLI-dhrdr/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "1pjOFJWf2r3_0aEd5ypfHqsO1mLMfYSSf",
+                      "name": "2024",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1pjOFJWf2r3_0aEd5ypfHqsO1mLMfYSSf",
+                      "children": [
+                        {
+                          "id": "1PR685pBVvSBL8cNLiGKlO910COC93MYV",
+                          "name": "Unidad 6",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1PR685pBVvSBL8cNLiGKlO910COC93MYV",
+                          "children": [
+                            {
+                              "id": "1auFFci2hEoteJco8xf1AIZsBoCUTWU9t",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1auFFci2hEoteJco8xf1AIZsBoCUTWU9t",
+                              "children": [
+                                {
+                                  "id": "10McqwW9ASjq98YyInRqjlsCMPNC332Hf",
+                                  "name": "Procesadores RISC.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/10McqwW9ASjq98YyInRqjlsCMPNC332Hf/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1WSmhxNg-UTIHz6OXgN7dNx-ltS_PZEZO",
+                                  "name": "CPU SPARC.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1WSmhxNg-UTIHz6OXgN7dNx-ltS_PZEZO/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1FKda3WTPW7C7-B-RX06vztisqEboFwwn",
+                                  "name": "Procesador UltraSparc IV.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1FKda3WTPW7C7-B-RX06vztisqEboFwwn/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1t2GBkkfQBdJ5XMFJDy5AziJLahRjGtKt",
+                                  "name": "Procesador RISC V (1).pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1t2GBkkfQBdJ5XMFJDy5AziJLahRjGtKt/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1X4Xpifstv4S4nsapKNtU3VMoQl9gJoPL",
+                                  "name": "risc-introduction.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1X4Xpifstv4S4nsapKNtU3VMoQl9gJoPL/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "10ADXr7Svl3fj_KyScSSbAwAc81OEDY3C",
+                                  "name": "ARM_Processors_and_Architectures_-_Uni_Program_.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/10ADXr7Svl3fj_KyScSSbAwAc81OEDY3C/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1i1e10ylWamr1LnpIQ4cQZJxUoXTkgvCL",
+                                  "name": "Guia didactica_tema_6 ARQUITECTURA DE COMPUTADORAS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1i1e10ylWamr1LnpIQ4cQZJxUoXTkgvCL/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1OCpUSHsP0zkUgbDj41gTQbe37PYGglfx",
+                              "name": "TP",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1OCpUSHsP0zkUgbDj41gTQbe37PYGglfx",
+                              "children": [
+                                {
+                                  "id": "1iDJvpN-Sfw8Dq4qc3XYrnFcnyQ5JA3B6",
+                                  "name": "Guia de Trabajos Practicos Programación del Procesador 8088 - Aspectos Avanzados.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1iDJvpN-Sfw8Dq4qc3XYrnFcnyQ5JA3B6/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "131RoXN47ONveqCGQr6sAGvixjVcQLd3h",
+                                  "name": "Guia de Trabajos Practicos Desarrollo de Video Emulador EMU del Procesador 8088- 8086.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/131RoXN47ONveqCGQr6sAGvixjVcQLd3h/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1aGQCyf2aSILzEgRJvma-dPiuNLpCRQWP",
+                              "name": "Guia didactica_tema_6 ARQUITECTURA DE COMPUTADORAS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1aGQCyf2aSILzEgRJvma-dPiuNLpCRQWP/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1OvxdjRQXbkBJ-_OCJ6aMUHQauJBOxwOl",
+                          "name": "Unidad 5",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1OvxdjRQXbkBJ-_OCJ6aMUHQauJBOxwOl",
+                          "children": [
+                            {
+                              "id": "1fzH4r1zpaKP-Z8mpCBt7mNM4oCxVfJNw",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1fzH4r1zpaKP-Z8mpCBt7mNM4oCxVfJNw",
+                              "children": [
+                                {
+                                  "id": "1zhrzuFLOfuluIeEPkColKGL6jhfpVc--",
+                                  "name": "Tutorial_reducido_Emu8086.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1zhrzuFLOfuluIeEPkColKGL6jhfpVc--/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1aigXEz6AQ2ZwlwOeFN7sD2RxBzYcOl0E",
+                                  "name": "Tutorial_Emu8086.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1aigXEz6AQ2ZwlwOeFN7sD2RxBzYcOl0E/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1lC-uFhNgvnz8KKyrpPWXngEzPhP7I829",
+                                  "name": "datasheet 8088.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1lC-uFhNgvnz8KKyrpPWXngEzPhP7I829/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1gPAaOEXQgMTXTnroZFEJB-LPo0aVA0pb",
+                                  "name": "El 8088 - Un Microprocesador Comercial de 8 bits.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1gPAaOEXQgMTXTnroZFEJB-LPo0aVA0pb/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1uZxNCuJFy-CP8v3S0XUPH96dqrpzOtmW",
+                                  "name": "El 8088 - Caractersiticas y programacion.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1uZxNCuJFy-CP8v3S0XUPH96dqrpzOtmW/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1d4s4k-ei4PnrWYIfSsWk87Uhe5SVdJ9G",
+                                  "name": "Set de instrucciones 808688 resumido.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1d4s4k-ei4PnrWYIfSsWk87Uhe5SVdJ9G/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Qf2d5vGT2fZ0oZHOJQbE_feyWMJ1V9fX",
+                                  "name": "Set de instrucciones 8088 detallado.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Qf2d5vGT2fZ0oZHOJQbE_feyWMJ1V9fX/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1eU5BxN-dnAtCYy4hZbw02VxnzRTsIP8g",
+                                  "name": "set de intrucciones 8080.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1eU5BxN-dnAtCYy4hZbw02VxnzRTsIP8g/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Q6dRkfhx6MPq8vHFZGBguiqIKjItjiSp",
+                                  "name": "Evolución de los Procesadores.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Q6dRkfhx6MPq8vHFZGBguiqIKjItjiSp/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1OTyIymveKhWwZPPX7YElpGIMEH0Q4RYB",
+                                  "name": "Procesador Pentium IV.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1OTyIymveKhWwZPPX7YElpGIMEH0Q4RYB/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1laGoFtz_4XxDRGMc8Z9R1XD9-h7Hgfs1",
+                              "name": "TP",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1laGoFtz_4XxDRGMc8Z9R1XD9-h7Hgfs1",
+                              "children": [
+                                {
+                                  "id": "1opvI2IGJ7Fgs9Jb4XdlmhLmY1TA-3DPj",
+                                  "name": "Guia de Trabajos Practicos Maquina Elemental Indexada.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1opvI2IGJ7Fgs9Jb4XdlmhLmY1TA-3DPj/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Rz9HTiSvVaYsxukp_oygwBY5f8TiVfFz",
+                                  "name": "Guia de Trabajos Practicos Programación del Procesador 8088 - Aspectos Básicos.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Rz9HTiSvVaYsxukp_oygwBY5f8TiVfFz/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1wLt2OII_PXsb4Z_rDpj8x3Y6t49CcJ7R",
+                                  "name": "Guia de Trabajos Practicos Emulador EMU del Procesador 8088- 8086.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1wLt2OII_PXsb4Z_rDpj8x3Y6t49CcJ7R/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1thT9ZMhrYeuZIMITf6XSWqqVoktSyDH-",
+                              "name": "Guia didactica_tema_5 ARQUITECTURA DE COMPUTADORAS ver 21.0 101121.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1thT9ZMhrYeuZIMITf6XSWqqVoktSyDH-/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1ZJ5hllx5wRlgS3nXH148_RZ9i04Ogtdl",
+                              "name": "Presentacion de la Maquina Elemental a la Maquina Convencional.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1ZJ5hllx5wRlgS3nXH148_RZ9i04Ogtdl/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1je8T8STpjZ7Y2Ns3hq8hnBBZ_9Rysyhn",
+                          "name": "Unidad 4",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1je8T8STpjZ7Y2Ns3hq8hnBBZ_9Rysyhn",
+                          "children": [
+                            {
+                              "id": "1yjRrVfMOd3gYTzZhnPqKYafU7n2CZBqn",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1yjRrVfMOd3gYTzZhnPqKYafU7n2CZBqn",
+                              "children": [
+                                {
+                                  "id": "1qLcvGT4eYqtybztP_pomYRKJbXToTDWm",
+                                  "name": "Tutorial_Blue.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1qLcvGT4eYqtybztP_pomYRKJbXToTDWm/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1RnMUVEAx79-WjPucIRbPlq3gf9150rYC",
+                                  "name": "Descripción Breve Evolucion de las Computadoras.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1RnMUVEAx79-WjPucIRbPlq3gf9150rYC/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1sw6sTmu4_MvOqcJpmYaUI-aUq9qnqIJ6",
+                                  "name": "Evolucion historica de maquinas de computacion.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1sw6sTmu4_MvOqcJpmYaUI-aUq9qnqIJ6/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "13bVzlaYZJjrKJBDUP-oswjsVi0iH8k_w",
+                                  "name": "VonNewmann_Eniac_Edvac_Edsac.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/13bVzlaYZJjrKJBDUP-oswjsVi0iH8k_w/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1IUshPSKyE2FRb9Z-GqI05KyTyIgxRG6x",
+                              "name": "TP",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1IUshPSKyE2FRb9Z-GqI05KyTyIgxRG6x",
+                              "children": [
+                                {
+                                  "id": "1G1m5rvIuD9xdhaQY-QyutwDMfZiv3e_i",
+                                  "name": "Guia de Trabajos Practicos Programación de Computadora Elemental Didáctica.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1G1m5rvIuD9xdhaQY-QyutwDMfZiv3e_i/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1zBSQIvwJCFOBor5vLgE70nC1AG8JxSgV",
+                                  "name": "Guia de Trabajos Practicos Simulador de Computadora Elemental Didáctica.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1zBSQIvwJCFOBor5vLgE70nC1AG8JxSgV/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "12ajAcbPslcZk26PbdpsTuJ_gfM0Jv6u5",
+                                  "name": "Guia de Trabajos Practicos Desarrollo de Video Simulador de Computadora Elemental Didáctica.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/12ajAcbPslcZk26PbdpsTuJ_gfM0Jv6u5/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1EoibjS0wJgP9w_FazXPIF-pBJE4TWu99",
+                              "name": "Presentación Blue.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1EoibjS0wJgP9w_FazXPIF-pBJE4TWu99/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1r2Negh1v_DJeAnQbrj51kpxzPLc4qX40",
+                              "name": "Guia didactica_tema_4 ARQUITECTURA DE COMPUTADORAS ver 15.0 091121.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1r2Negh1v_DJeAnQbrj51kpxzPLc4qX40/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "18dJoeGxDLknDIQFQFtKpLweM61qmm1Yt",
+                          "name": "Unidad 7",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/18dJoeGxDLknDIQFQFtKpLweM61qmm1Yt",
+                          "children": [
+                            {
+                              "id": "1C2UuPgK2PF4yC-6AhtIrQAMTEnII2neq",
+                              "name": "Guia didactica_tema_7 ARQUITECTURA DE COMPUTADORAS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1C2UuPgK2PF4yC-6AhtIrQAMTEnII2neq/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1BntpZAnLa_otQ0jwYJvL_kY0Qh2kG1By",
+                          "name": "Unidad 3",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1BntpZAnLa_otQ0jwYJvL_kY0Qh2kG1By",
+                          "children": [
+                            {
+                              "id": "1R_Z8tLSPUWhs0HQJVNs4qIxoWvMTYc0u",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1R_Z8tLSPUWhs0HQJVNs4qIxoWvMTYc0u",
+                              "children": [
+                                {
+                                  "id": "192yEAzmRUXA7_Sk2eBCZRAFWfTb6MPi-",
+                                  "name": "Memorias - Conceptos y Aspectos Tecnologicos.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/192yEAzmRUXA7_Sk2eBCZRAFWfTb6MPi-/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1cFBCkQ7RczKOhXpvIoR0VHZNsVnjoCpG",
+                                  "name": "Memoria SRAM 2 kbytes 6116.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1cFBCkQ7RczKOhXpvIoR0VHZNsVnjoCpG/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1PvdYv8vnc0Z70JkG4HP-AfT2q7x-j_9N",
+                                  "name": "Memoria DRAM 1M x 4 bits 4C4001.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1PvdYv8vnc0Z70JkG4HP-AfT2q7x-j_9N/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1_mqrpyvxP3ol9de6VzyL6SmblNUWjkS3",
+                                  "name": "Memoria EEPROM 8 kbytes 28C64.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1_mqrpyvxP3ol9de6VzyL6SmblNUWjkS3/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1sgOt29BInMCd-NgK22RJ58KCF8RJM8Vu",
+                                  "name": "Memoria Flash.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1sgOt29BInMCd-NgK22RJ58KCF8RJM8Vu/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1Zbq4gfdBRviD_16drPv02nO34_mmM74u",
+                              "name": "TP",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1Zbq4gfdBRviD_16drPv02nO34_mmM74u",
+                              "children": [
+                                {
+                                  "id": "1-xsb5T5rHjSyY5AwPpFMb85UIzA8A6b5",
+                                  "name": "ENSAYO PRÁCTICO DE MEMORIAS ELECTRÓNICAS - Grupo 13 - 1K1.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1-xsb5T5rHjSyY5AwPpFMb85UIzA8A6b5/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1N9x_mzQRDGauT8456ZST0_r5VHd6bwex",
+                                  "name": "Guia de Trabajos Prácticos Memorias Electronicas.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1N9x_mzQRDGauT8456ZST0_r5VHd6bwex/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1WtzkJz9sJ90WVTLktoRNq572kp0KMJPv",
+                                  "name": "Guia de Ensayo Práctico Memorias Electronicas.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1WtzkJz9sJ90WVTLktoRNq572kp0KMJPv/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1rtiQ88C4kespqaKDs9maD5LXENPMszHV",
+                              "name": "Guia didactica_tema_3 ARQUITECTURA DE COMPUTADORAS ver 13.0 061022.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1rtiQ88C4kespqaKDs9maD5LXENPMszHV/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1NTmJ0jsF_jHTxfCTUXvjDFmyZWlfcXq5",
+                          "name": "Unidad 2",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1NTmJ0jsF_jHTxfCTUXvjDFmyZWlfcXq5",
+                          "children": [
+                            {
+                              "id": "1J4MJhQX75zguwY8JBRjtkGPWZzM9qstU",
+                              "name": "TP",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1J4MJhQX75zguwY8JBRjtkGPWZzM9qstU",
+                              "children": [
+                                {
+                                  "id": "1C4Ro3kUSk5Hq7pZK9OzyXy6SPciUpxNW",
+                                  "name": "Guia de Trabajos Practicos Alebra de Boole.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1C4Ro3kUSk5Hq7pZK9OzyXy6SPciUpxNW/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1H_1iAdv-wwvmkqA9pVxj9uH7fA1Wz9_A",
+                                  "name": "Guia de Trabajos Practicos Simplificacion de Funciones.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1H_1iAdv-wwvmkqA9pVxj9uH7fA1Wz9_A/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "15cnjmqq8Ov0kFlmHhqXwHjbFFc3K3b3S",
+                                  "name": "Guia de Trabajos Practicos Sistemas Combinacionales.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/15cnjmqq8Ov0kFlmHhqXwHjbFFc3K3b3S/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1YOLCgety-A5JYJ5vP5rxaMbKv5Ky04-J",
+                                  "name": "Guia de Trabajos Practicos Sistemas Secuenciales.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1YOLCgety-A5JYJ5vP5rxaMbKv5Ky04-J/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1Z-AZd9K2hSeQLDWIh3yeCPqJzR7hLxYw",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1Z-AZd9K2hSeQLDWIh3yeCPqJzR7hLxYw",
+                              "children": [
+                                {
+                                  "id": "1MMA-5L4LtCHSrZxoq-v1mjdZun0pTd1_",
+                                  "name": "Quad 2-Input AND Gate.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1MMA-5L4LtCHSrZxoq-v1mjdZun0pTd1_/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "12kAoUV2COrxp_HETJxXsFYrt0xPPwzTo",
+                                  "name": "Quad 2-Input OR Gate.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/12kAoUV2COrxp_HETJxXsFYrt0xPPwzTo/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Ls3tW0XpgRr-MlliA7RPnbf1IdezW4eK",
+                                  "name": "Hex INVERTER Gate.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Ls3tW0XpgRr-MlliA7RPnbf1IdezW4eK/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1_y4Kw_heMQkJXhD7R2gIrdvvR4BCsvDY",
+                                  "name": "Quad 2-Input OR Exclusive 74HC86 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1_y4Kw_heMQkJXhD7R2gIrdvvR4BCsvDY/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1vUYcZE8ljDWjq_ZboE7tX-n_MxdFlB6V",
+                                  "name": "Quad 2-Input NAND Gate.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1vUYcZE8ljDWjq_ZboE7tX-n_MxdFlB6V/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1XrjzKuU1t2YtwkcKvCyBZ5oWZZrKsuY4",
+                                  "name": "Quad 2-Input NOR 74HC02 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1XrjzKuU1t2YtwkcKvCyBZ5oWZZrKsuY4/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1McI59D6Ojib_LbFjEXmvC-G3dH9Nr86d",
+                                  "name": "Triple 3-Input NAND Gate74HC10 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1McI59D6Ojib_LbFjEXmvC-G3dH9Nr86d/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Fges0YJAQ3Cse9R0_Uxhfmvmx5fV6R7J",
+                                  "name": "Dual 4-Input NAND Gate 74HC20 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Fges0YJAQ3Cse9R0_Uxhfmvmx5fV6R7J/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1WYBRnuLp5hC10IAUNDhcoWTr1oJFBBA7",
+                                  "name": "8-Input NAND gate 74HC30 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1WYBRnuLp5hC10IAUNDhcoWTr1oJFBBA7/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1TxtbdZeNI3G5MkOfwv8KbOU6to5LNY86",
+                                  "name": "3-8 Decodificador 74HC137 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1TxtbdZeNI3G5MkOfwv8KbOU6to5LNY86/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1wU5oQoDjjIk0QfwRXWGL36uCL7VeX7Ve",
+                                  "name": "10-4 Codificador de Prioridad 74HC147 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1wU5oQoDjjIk0QfwRXWGL36uCL7VeX7Ve/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1ElnJLWvKd6YIueIA-s8QQvskSSTlXmfT",
+                                  "name": "8-Input Multiplexor 74HC151 PHILIPS (1).pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1ElnJLWvKd6YIueIA-s8QQvskSSTlXmfT/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1YDyL9foIB_TW7F_kafguqq6BvDPf-Gns",
+                                  "name": "8-Input Multiplexor 74HC151 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1YDyL9foIB_TW7F_kafguqq6BvDPf-Gns/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1pVHefXZc6Jsu2IbJYJSr4ewwPClqwDwT",
+                                  "name": "Dual 4-Input Multiplexor 74HC153 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1pVHefXZc6Jsu2IbJYJSr4ewwPClqwDwT/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "14rHt6ycr5aM0VaL8SgqTJ0bW1YrbNv6m",
+                                  "name": "Quad 2-Input Multiplexor 74HC157 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/14rHt6ycr5aM0VaL8SgqTJ0bW1YrbNv6m/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1X-hdrhm6Q6SaeWvKXgP7UygIYVUUsCYx",
+                                  "name": "Comparador 4 bits 74HC85 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1X-hdrhm6Q6SaeWvKXgP7UygIYVUUsCYx/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1XR6L8SQqzEgaarcRgKW5yKmzi1HRIw83",
+                                  "name": "8-bit Generador-Detector de Paridad 74HC280 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1XR6L8SQqzEgaarcRgKW5yKmzi1HRIw83/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Rst570f-4y1mzRHIaI1wNFVygYVKL55r",
+                                  "name": "4-bit Sumador Total con acarreo paralelo 74HC283 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Rst570f-4y1mzRHIaI1wNFVygYVKL55r/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "12MuMkB94rkOb3zD1Y1Ex6fu9T0oUhoG6",
+                                  "name": "ALU de 4 bits 74HC18 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/12MuMkB94rkOb3zD1Y1Ex6fu9T0oUhoG6/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1WPjbAEfqEH-GFBEle3bo-AacyewkcBjB",
+                                  "name": "Dual Flip Plop D 74HC74 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1WPjbAEfqEH-GFBEle3bo-AacyewkcBjB/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1CNWHFrWtdpoRt-p92AQqi7hnWHuWmamf",
+                                  "name": "Octal Biestable Tipo D 74HC273 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1CNWHFrWtdpoRt-p92AQqi7hnWHuWmamf/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "12-f1MBc4CfwF0bPpON5MZTkjIb2ghXB-",
+                                  "name": "Registro de Desplazamiento 74HC164 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/12-f1MBc4CfwF0bPpON5MZTkjIb2ghXB-/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1H4SpOdG4ZG1LRRAI8GdgpT7gp4JUKzMC",
+                                  "name": "Registro de Desplazamiento Paralelo-Serie 74HC165 PHILIPS.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1H4SpOdG4ZG1LRRAI8GdgpT7gp4JUKzMC/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1A-ERg-gTbPNiCGVlQwSsYf4rjxioTVDG",
+                                  "name": "4 bit binary counter 74163.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1A-ERg-gTbPNiCGVlQwSsYf4rjxioTVDG/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1nd8U7X6SJZhbqy_t4Su9N0oHcjfVl1hi",
+                                  "name": "Circuitos Operadores en BCD Natural.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1nd8U7X6SJZhbqy_t4Su9N0oHcjfVl1hi/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1HezDKzwFx4N79e8tH8Hh4a3kl3eNbF5d",
+                                  "name": "Metodo numerico de minimizacion.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1HezDKzwFx4N79e8tH8Hh4a3kl3eNbF5d/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1V5XCoXpBNaBGU_DawjUk8V1e4lz1Jn-v",
+                              "name": "Guia didactica_tema_2 ARQUITECTURA DE COMPUTADORAS ver Aula Virtual 210916.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1V5XCoXpBNaBGU_DawjUk8V1e4lz1Jn-v/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1YKhwdJkabVuK1uyZ7rLmb07DTK2De1H-",
+                          "name": "Unidad 1",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1YKhwdJkabVuK1uyZ7rLmb07DTK2De1H-",
+                          "children": [
+                            {
+                              "id": "14_wu0OwQGiN-hSjYUzwGY3wh7gM_1PJv",
+                              "name": "Complemento",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/14_wu0OwQGiN-hSjYUzwGY3wh7gM_1PJv",
+                              "children": [
+                                {
+                                  "id": "1UtoRCgF4MdxuoPI4lOnoLndiMGZF7Yed",
+                                  "name": "Punto flotante norrma 754.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1UtoRCgF4MdxuoPI4lOnoLndiMGZF7Yed/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1QJWSQWt0AY7vzVP6gPQPXRriFyJyrRJm",
+                                  "name": "Codigo_ ASCII_decimal.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1QJWSQWt0AY7vzVP6gPQPXRriFyJyrRJm/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1QwoEoEUTkz2Op1iopqGnpND1CAC0cmcb",
+                                  "name": "Punto flotante norrma 754 Ejemplo.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1QwoEoEUTkz2Op1iopqGnpND1CAC0cmcb/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1Dp6eEC4XKzoew6bb98y8sE-UtlEl3BPP",
+                                  "name": "Codigo_ASCII_hexadecimal.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1Dp6eEC4XKzoew6bb98y8sE-UtlEl3BPP/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1I0YWL53ojsntwiupHd10nDsW2miyvxgz",
+                                  "name": "Codigo-ASCII_completo.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1I0YWL53ojsntwiupHd10nDsW2miyvxgz/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1n0ilL0TWEfBjIRhvC6Quz0mgAnMSlN_0",
+                              "name": "Tp",
+                              "type": "folder",
+                              "url": "https://drive.google.com/drive/folders/1n0ilL0TWEfBjIRhvC6Quz0mgAnMSlN_0",
+                              "children": [
+                                {
+                                  "id": "1k7Nh5btB4R3m4iq_0W-qEfZvv-ma3IbO",
+                                  "name": "Guia de Trabajos Practicos Sistemas de Numeracion.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1k7Nh5btB4R3m4iq_0W-qEfZvv-ma3IbO/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1L0IX_dL2ms-9WobEGWhx2mrN4sPmR1N1",
+                                  "name": "Guia de Trabajos Practicos Punto Fijo.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1L0IX_dL2ms-9WobEGWhx2mrN4sPmR1N1/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1PWzZ7TigxsZ48MCpDm8JI3aEu4DJXyPd",
+                                  "name": "Guia de Trabajos Practicos Punto Flotante.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1PWzZ7TigxsZ48MCpDm8JI3aEu4DJXyPd/view?usp=drivesdk"
+                                },
+                                {
+                                  "id": "1GLe2cZvf-4OshduK7BNxLOpDTgEfm5Dh",
+                                  "name": "Guia de Trabajos Practicos Codigos.pdf",
+                                  "type": "file",
+                                  "url": "https://drive.google.com/file/d/1GLe2cZvf-4OshduK7BNxLOpDTgEfm5Dh/view?usp=drivesdk"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "1X-7CmLOlZyUmhAKIOmy7xcNHpMnC4qDt",
+                              "name": "Guia didactica_tema_1 ARQUITECTURA DE COMPUTADORAS ver  110020.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1X-7CmLOlZyUmhAKIOmy7xcNHpMnC4qDt/view?usp=drivesdk"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "1ZxTvTM3hRjXXN7ShsTpBEkf64QLfBJgG",
+                      "name": "LibroPorPartes",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1ZxTvTM3hRjXXN7ShsTpBEkf64QLfBJgG",
+                      "children": [
+                        {
+                          "id": "1ifiK22sHfmpOEmTDLlB_npwdZFLaB-xOLsmhpbKAJtg",
+                          "name": "9_Arquitectura_Avanzada",
+                          "type": "file",
+                          "url": "https://docs.google.com/document/d/1ifiK22sHfmpOEmTDLlB_npwdZFLaB-xOLsmhpbKAJtg/edit?usp=drivesdk"
+                        },
+                        {
+                          "id": "1q1l586JFdDo3hrulpXpTsDm0Xq0DSBPe",
+                          "name": "10_Entradas_Salidas.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1q1l586JFdDo3hrulpXpTsDm0Xq0DSBPe/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1z27ds5S4I0qnK1TVY3ntUKqF5Z3uU92t",
+                          "name": "9_Arquitectura_Avanzada.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1z27ds5S4I0qnK1TVY3ntUKqF5Z3uU92t/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1vcxfrtrkP2HH5BGOdUaUCk5K0NUyd6YA",
+                          "name": "8_Arquitectura_Convencional.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1vcxfrtrkP2HH5BGOdUaUCk5K0NUyd6YA/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1-xUrzvTkKLMcZ5LabobpV6m0EP3UzAJw",
+                          "name": "7_Arquitectura_Básica.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1-xUrzvTkKLMcZ5LabobpV6m0EP3UzAJw/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1PEX3_i1CM6wFCG7f-wJWrCzQhB9LdV-F",
+                          "name": "6_Memorias_Electronicas.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1PEX3_i1CM6wFCG7f-wJWrCzQhB9LdV-F/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "145luYBflcH3-R9i5OE7iJzE8NJNzUnK8",
+                          "name": "5_Sistema_Secuencial.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/145luYBflcH3-R9i5OE7iJzE8NJNzUnK8/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1nua2Bioz3vxbnEQoOEPrTPu2R1jDHEyF",
+                          "name": "4_Sistema_Combinacional.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1nua2Bioz3vxbnEQoOEPrTPu2R1jDHEyF/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1QwXMmKKEznjynG9ZDe5yz5B-pvJOLDzF",
+                          "name": "1_Representación_Numérica.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1QwXMmKKEznjynG9ZDe5yz5B-pvJOLDzF/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "14hy3Iq3bnVlfSvEwl_B8nIg85VNktNK_",
+                          "name": "2_Codigo.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/14hy3Iq3bnVlfSvEwl_B8nIg85VNktNK_/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1WPE6nVOff48fdD7Eb45mMMwNEw4qsWgQ",
+                          "name": "3_Algebra_de_Boole.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1WPE6nVOff48fdD7Eb45mMMwNEw4qsWgQ/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "19Ta_HhcpzOENE-T-I_DI8uTWydpj2u-0",
+                      "name": "6_Entradas_y_Salidas",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/19Ta_HhcpzOENE-T-I_DI8uTWydpj2u-0",
+                      "children": []
+                    },
+                    {
+                      "id": "1m1QrdOrHCMcptFWlxCQTWNg1By-MBqr1",
+                      "name": "2_Sistemas_Digitales",
+                      "type": "folder",
+                      "url": "https://drive.google.com/drive/folders/1m1QrdOrHCMcptFWlxCQTWNg1By-MBqr1",
+                      "children": [
+                        {
+                          "id": "1VYU1cSSLYhg9psP7cqoV9ompINxTT3YV",
+                          "name": "Complementario",
+                          "type": "folder",
+                          "url": "https://drive.google.com/drive/folders/1VYU1cSSLYhg9psP7cqoV9ompINxTT3YV",
+                          "children": [
+                            {
+                              "id": "1Jb2A5fWgguMHGZ1M3kbJF5h-PmtOtBH3",
+                              "name": "Metodo numerico de minimizacion.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1Jb2A5fWgguMHGZ1M3kbJF5h-PmtOtBH3/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1OiD3GoORa1fTjghEJRP59QQlmK2U1-K1",
+                              "name": "Circuitos Operadores en BCD Natural.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1OiD3GoORa1fTjghEJRP59QQlmK2U1-K1/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1rm68j4QYR3-J20OGhy8TzNYYuzD5G3aa",
+                              "name": "4 bit binary counter 74163.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1rm68j4QYR3-J20OGhy8TzNYYuzD5G3aa/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1k2aAL4zSkKDcleyFKIT1X8E9oD6_-WUn",
+                              "name": "Registro de Desplazamiento Paralelo-Serie 74HC165 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1k2aAL4zSkKDcleyFKIT1X8E9oD6_-WUn/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1Xb6Mlz7TMTcORK0qzrrSzFXe2OlNLBP_",
+                              "name": "Registro de Desplazamiento 74HC164 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1Xb6Mlz7TMTcORK0qzrrSzFXe2OlNLBP_/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1lVRkCa2EUDrkht4ZN4FzLUdKBLmqO7tK",
+                              "name": "Octal Biestable Tipo D 74HC273 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1lVRkCa2EUDrkht4ZN4FzLUdKBLmqO7tK/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1ttgcGhwD_2adwBj_pu0gV7g3_HZnxeXC",
+                              "name": "Dual Flip Plop D 74HC74 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1ttgcGhwD_2adwBj_pu0gV7g3_HZnxeXC/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1DFGttWaIQakSfG8WB272wjRbu9GNlEWf",
+                              "name": "ALU de 4 bits 74HC18 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1DFGttWaIQakSfG8WB272wjRbu9GNlEWf/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1PaDcDo1yZ47vhusnFtPweFVZpoHdhw9U",
+                              "name": "4-bit Sumador Total con acarreo paralelo 74HC283 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1PaDcDo1yZ47vhusnFtPweFVZpoHdhw9U/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1yixPp33aAdZrRCaf6_AjaXBNfxix5WPW",
+                              "name": "8-bit Generador-Detector de Paridad 74HC280 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1yixPp33aAdZrRCaf6_AjaXBNfxix5WPW/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1ycWvYBI0lSBsw7AgP9xlAWk_iQo_i9_z",
+                              "name": "Comparador 4 bits 74HC85 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1ycWvYBI0lSBsw7AgP9xlAWk_iQo_i9_z/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1NH_nJFFY5rGtHL-Klt5QLzTmUZ1Xe9tY",
+                              "name": "Quad 2-Input Multiplexor 74HC157 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1NH_nJFFY5rGtHL-Klt5QLzTmUZ1Xe9tY/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "19sy9blKcU9nMfDjaMw1uvTOYA9oWSEUV",
+                              "name": "Dual 4-Input Multiplexor 74HC153 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/19sy9blKcU9nMfDjaMw1uvTOYA9oWSEUV/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1-k9ushW19ZZkvPJiSK-lJdze0z8R6HGB",
+                              "name": "8-Input Multiplexor 74HC151 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1-k9ushW19ZZkvPJiSK-lJdze0z8R6HGB/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1jjtM9BaArwCS4S-h3jHw5zrd1NMIOCFL",
+                              "name": "10-4 Codificador de Prioridad 74HC147 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1jjtM9BaArwCS4S-h3jHw5zrd1NMIOCFL/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1N51MhZRyIGdhhwJyZ_rlfLW4SkEVYYjG",
+                              "name": "3-8 Decodificador 74HC137 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1N51MhZRyIGdhhwJyZ_rlfLW4SkEVYYjG/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1pWEp4ZRcgiCIZ-F_SMMMgVNC5-UyrCIf",
+                              "name": "8-Input NAND gate 74HC30 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1pWEp4ZRcgiCIZ-F_SMMMgVNC5-UyrCIf/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "17PkttnL1ZrXowwqyayH2QKgUqZ6_k0Tw",
+                              "name": "Dual 4-Input NAND Gate 74HC20 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/17PkttnL1ZrXowwqyayH2QKgUqZ6_k0Tw/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1unlxBN4klB4nW53nOlhflcXhdtcXJNw0",
+                              "name": "Triple 3-Input NAND Gate74HC10 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1unlxBN4klB4nW53nOlhflcXhdtcXJNw0/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1tLsWMiy922XUmDh0ZjZY9s92ZbIHqHlJ",
+                              "name": "Quad 2-Input NOR 74HC02 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1tLsWMiy922XUmDh0ZjZY9s92ZbIHqHlJ/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1Eo90iFWVvv0dvfs6r2ty0HraiZ7N6j_z",
+                              "name": "Quad 2-Input NAND Gate.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1Eo90iFWVvv0dvfs6r2ty0HraiZ7N6j_z/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1mAtks-qvFZMkvjNcqyr8hXjV4ZwR5oUs",
+                              "name": "Quad 2-Input OR Exclusive 74HC86 PHILIPS.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1mAtks-qvFZMkvjNcqyr8hXjV4ZwR5oUs/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1BWPYVzKCc5ob4g_Rr2Osef2l8JBWVWzx",
+                              "name": "Hex INVERTER Gate.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1BWPYVzKCc5ob4g_Rr2Osef2l8JBWVWzx/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "1sdxEq8BzpaDIhtaJVcNaOhi3VwIv4dQ_",
+                              "name": "Quad 2-Input OR Gate.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/1sdxEq8BzpaDIhtaJVcNaOhi3VwIv4dQ_/view?usp=drivesdk"
+                            },
+                            {
+                              "id": "144lvRZ4QLQMIQOMRH-h2fDpQ5BJzR4la",
+                              "name": "Quad 2-Input AND Gate.pdf",
+                              "type": "file",
+                              "url": "https://drive.google.com/file/d/144lvRZ4QLQMIQOMRH-h2fDpQ5BJzR4la/view?usp=drivesdk"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1wtj6ah0Xr6Pdo2F9aJSxnsccoPtK-gu-",
+                          "name": "Presentación7.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1wtj6ah0Xr6Pdo2F9aJSxnsccoPtK-gu-/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1GGCPIJnp_91_evOy4XBvZ61d4k4CRhmC",
+                          "name": "Presentación6.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1GGCPIJnp_91_evOy4XBvZ61d4k4CRhmC/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1YpVCg1QrU1JblpLyn4KyIfpsj0XHtpiS",
+                          "name": "Presentación4.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1YpVCg1QrU1JblpLyn4KyIfpsj0XHtpiS/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1_BBtpJMO6Aaef8skvTpyNpNzqEQK1bpA",
+                          "name": "Ejercicios Resueltos Unidad Tematica 2.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1_BBtpJMO6Aaef8skvTpyNpNzqEQK1bpA/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "123iLRSBjUmCFNj5n_SXo4GbgnFMSlrvf",
+                          "name": "Guia de Trabajos Practicos Sistemas Secuenciales ver 23C.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/123iLRSBjUmCFNj5n_SXo4GbgnFMSlrvf/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1CcHGKRV3p8etCsF4Wn7ngC_k-ztT5rv2",
+                          "name": "Guia de Trabajos Practicos Sistemas Combinacionales  ver 23 130923.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1CcHGKRV3p8etCsF4Wn7ngC_k-ztT5rv2/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1geGS9eNcqelsl2WX6OAXgezkoq4Ljkoe",
+                          "name": "Guia de Trabajos Practicos Simplificacion de Funciones ver 23 270823.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1geGS9eNcqelsl2WX6OAXgezkoq4Ljkoe/view?usp=drivesdk"
+                        },
+                        {
+                          "id": "1gBNVGLjSUa9mIogqfO6gNxiJbXMMxKg8",
+                          "name": "Guia de Trabajos Practicos Algebra de Boole ver 23 050923.pdf",
+                          "type": "file",
+                          "url": "https://drive.google.com/file/d/1gBNVGLjSUa9mIogqfO6gNxiJbXMMxKg8/view?usp=drivesdk"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "11ojdMjrm-kjN_CEGFRIUl2VJB8zsmdy2",
+                      "name": "SANTO GRIAL LIONEL MESSI.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/11ojdMjrm-kjN_CEGFRIUl2VJB8zsmdy2/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1RI2w_hMOjTuQ5pBY2jItR4W37C0tfSPg",
+                      "name": "Prog y Planif UTN-FRM-ISI 2025 Arquitectura de las Computadoras 220425.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1RI2w_hMOjTuQ5pBY2jItR4W37C0tfSPg/view?usp=drivesdk"
+                    } 
                 ]
               },
               {
@@ -17916,880 +18579,498 @@
         "type": "folder",
         "url": "https://drive.google.com/drive/folders/1Ymy5NNLjHu54GQF3iVGPi6sVoeK4g_z1",
         "children": [
-          {
-            "id": "1nyf9xCR-5ydn7jy375stQ6Ei1UirbykP",
-            "name": "LIBRO",
-            "type": "folder",
-            "url": "https://drive.google.com/drive/folders/1nyf9xCR-5ydn7jy375stQ6Ei1UirbykP",
-            "children": [
-              {
-                "id": "1J8CEpL_KMwMTRbqpYVBzj66KaUymG7VO",
-                "name": "Calculo de una Variable - James Stewart - Septima Edición.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1J8CEpL_KMwMTRbqpYVBzj66KaUymG7VO/view?usp=drivesdk"
-              }
-            ]
-          },
-          {
-            "id": "14C82oQ8Oxx80bJLrjOk8cnbfH29ppfx6",
-            "name": "EXAMENES",
-            "type": "folder",
-            "url": "https://drive.google.com/drive/folders/14C82oQ8Oxx80bJLrjOk8cnbfH29ppfx6",
-            "children": [
-              {
-                "id": "1hzwEVWK2xydtkS-aDNAPAHL9fAFwVTjE",
-                "name": "20230706_131650.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1hzwEVWK2xydtkS-aDNAPAHL9fAFwVTjE/view?usp=drivesdk"
-              },
-              {
-                "id": "1xmNgDjRUrkpw4RVaOtOwPmuqgiBK9Uwn",
-                "name": "20230706_131647.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1xmNgDjRUrkpw4RVaOtOwPmuqgiBK9Uwn/view?usp=drivesdk"
-              },
-              {
-                "id": "1nqJ8TpnLz8D9lkmMIObxP9oP1g8FTp0I",
-                "name": "20230706_131642.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1nqJ8TpnLz8D9lkmMIObxP9oP1g8FTp0I/view?usp=drivesdk"
-              },
-              {
-                "id": "1glQSpqr-Qm-n4TBgq2GT3Z6YP6ccolFs",
-                "name": "20230623_185502.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1glQSpqr-Qm-n4TBgq2GT3Z6YP6ccolFs/view?usp=drivesdk"
-              },
-              {
-                "id": "1I2_UCFJIHzMQH0SAt85ilJsbHvHWYfN0",
-                "name": "20230706_131655.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1I2_UCFJIHzMQH0SAt85ilJsbHvHWYfN0/view?usp=drivesdk"
-              },
-              {
-                "id": "1sA-cU_IvyQ7rbH5FxEbVpmRQ8bvmySpA",
-                "name": "20230706_131636.jpg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1sA-cU_IvyQ7rbH5FxEbVpmRQ8bvmySpA/view?usp=drivesdk"
-              },
-              {
-                "id": "1RYw7rZYue8nDOcWk1XSNPm-7BBZ2vhTy",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.54 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1RYw7rZYue8nDOcWk1XSNPm-7BBZ2vhTy/view?usp=drivesdk"
-              },
-              {
-                "id": "1l7rHsGY6o_i_3_EfYZ-J4QDNwutsgD3d",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.54.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1l7rHsGY6o_i_3_EfYZ-J4QDNwutsgD3d/view?usp=drivesdk"
-              },
-              {
-                "id": "11oxCxh5cCbfp7WPzu3yR28pNWj9l6jUl",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.53.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/11oxCxh5cCbfp7WPzu3yR28pNWj9l6jUl/view?usp=drivesdk"
-              },
-              {
-                "id": "1UnGWZQgVwViwsxLo1lK43hsrHFVV9I3r",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.52.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1UnGWZQgVwViwsxLo1lK43hsrHFVV9I3r/view?usp=drivesdk"
-              },
-              {
-                "id": "1nJIHAU1hnMK-iCiWD7pGluq7DC_E9dbJ",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.51 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1nJIHAU1hnMK-iCiWD7pGluq7DC_E9dbJ/view?usp=drivesdk"
-              },
-              {
-                "id": "1OdseYkC45EXgDtmb-dYEHcbYlsi9Qkps",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.51.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1OdseYkC45EXgDtmb-dYEHcbYlsi9Qkps/view?usp=drivesdk"
-              },
-              {
-                "id": "1P1WgjxBKkAgDvsCl9aF9swyfGoizKS-5",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.50.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1P1WgjxBKkAgDvsCl9aF9swyfGoizKS-5/view?usp=drivesdk"
-              },
-              {
-                "id": "12kjqvkZxsL9RnE_NQPKp1B2bUIs-1fW5",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.49 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/12kjqvkZxsL9RnE_NQPKp1B2bUIs-1fW5/view?usp=drivesdk"
-              },
-              {
-                "id": "15SwX93vlEdDsTPEvO8z14skL37xk8yr5",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.49.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/15SwX93vlEdDsTPEvO8z14skL37xk8yr5/view?usp=drivesdk"
-              },
-              {
-                "id": "1oqhIc9tDyrXN2C9M902rzTc60AMRdkYT",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.48 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1oqhIc9tDyrXN2C9M902rzTc60AMRdkYT/view?usp=drivesdk"
-              },
-              {
-                "id": "14z5om7biwbbvxxDlqKY637U-95Awx3od",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.48.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/14z5om7biwbbvxxDlqKY637U-95Awx3od/view?usp=drivesdk"
-              },
-              {
-                "id": "1tRJi76fM02Y4TZwA743McFhilLEKwHoD",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.47 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1tRJi76fM02Y4TZwA743McFhilLEKwHoD/view?usp=drivesdk"
-              },
-              {
-                "id": "1M-lyIJ1O7-1HTyAcUaJSTSAhOLxaftoH",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.47.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1M-lyIJ1O7-1HTyAcUaJSTSAhOLxaftoH/view?usp=drivesdk"
-              },
-              {
-                "id": "1oTbn5wkbeMcMXs2iIKKZQppTcudaMZJR",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.46 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1oTbn5wkbeMcMXs2iIKKZQppTcudaMZJR/view?usp=drivesdk"
-              },
-              {
-                "id": "1KR52iyuUFMDQe0CKt5AKVnioUJL4qurT",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.46.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1KR52iyuUFMDQe0CKt5AKVnioUJL4qurT/view?usp=drivesdk"
-              },
-              {
-                "id": "1kb8PZCue7lt5eKtwKJfKsVvo5bjbNtMm",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.45.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1kb8PZCue7lt5eKtwKJfKsVvo5bjbNtMm/view?usp=drivesdk"
-              },
-              {
-                "id": "11-Dy-dI52kHTaF7vV68-Jnbkkvh6O1rT",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.44 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/11-Dy-dI52kHTaF7vV68-Jnbkkvh6O1rT/view?usp=drivesdk"
-              },
-              {
-                "id": "1FcokprGTR5y20v506SixFgR9SughQuH_",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.44.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1FcokprGTR5y20v506SixFgR9SughQuH_/view?usp=drivesdk"
-              },
-              {
-                "id": "11jhPUzkr4ptR4qaR0eIv--bZaIEhPBDt",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.43 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/11jhPUzkr4ptR4qaR0eIv--bZaIEhPBDt/view?usp=drivesdk"
-              },
-              {
-                "id": "1zKKOCmSgfz-nhiLjgF2G2TQ7_4R45n0m",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.43.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1zKKOCmSgfz-nhiLjgF2G2TQ7_4R45n0m/view?usp=drivesdk"
-              },
-              {
-                "id": "1WtNQZfT0k4r9iy0y1Hu6xiGaEsFc3ICh",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.42 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1WtNQZfT0k4r9iy0y1Hu6xiGaEsFc3ICh/view?usp=drivesdk"
-              },
-              {
-                "id": "1YANdhWdkS-h2pvk1CHCDecLwskcwHyuE",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.42.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1YANdhWdkS-h2pvk1CHCDecLwskcwHyuE/view?usp=drivesdk"
-              },
-              {
-                "id": "1Pcg1GU12ddJmcV-HueRnHDZWkMCSMKNp",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.41 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1Pcg1GU12ddJmcV-HueRnHDZWkMCSMKNp/view?usp=drivesdk"
-              },
-              {
-                "id": "14zB71AIrk8RZtnfGFIxGVr7H2IaK5dK8",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.41.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/14zB71AIrk8RZtnfGFIxGVr7H2IaK5dK8/view?usp=drivesdk"
-              },
-              {
-                "id": "1ZotJGGqVbxAnqFcMWbzF4tNbQOsp5TLU",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.40 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1ZotJGGqVbxAnqFcMWbzF4tNbQOsp5TLU/view?usp=drivesdk"
-              },
-              {
-                "id": "1Dbx3-oXhNldtAnPc6aazOalYGcSpPekg",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.38 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1Dbx3-oXhNldtAnPc6aazOalYGcSpPekg/view?usp=drivesdk"
-              },
-              {
-                "id": "1-mwNO4UWy_GLxN1UpsHoMiIePiTGT2h0",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.38.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1-mwNO4UWy_GLxN1UpsHoMiIePiTGT2h0/view?usp=drivesdk"
-              },
-              {
-                "id": "1Vle7ChqmVMFNfXuQjzxnOMyv_dKXnPF8",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.37.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1Vle7ChqmVMFNfXuQjzxnOMyv_dKXnPF8/view?usp=drivesdk"
-              },
-              {
-                "id": "1ooDuZktG8d4cWa0AVDYMRn25uCNU_jXr",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.35.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1ooDuZktG8d4cWa0AVDYMRn25uCNU_jXr/view?usp=drivesdk"
-              },
-              {
-                "id": "1I9oGnd93j2HTZTLL4uEFJ2Fhn9ffirmD",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.34.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1I9oGnd93j2HTZTLL4uEFJ2Fhn9ffirmD/view?usp=drivesdk"
-              },
-              {
-                "id": "1T3bJ9H2wAQhiP9_H5eoILXmcUh3HdlxY",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.33 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1T3bJ9H2wAQhiP9_H5eoILXmcUh3HdlxY/view?usp=drivesdk"
-              },
-              {
-                "id": "1LzMUyUiN-w2asMKLW2mid-_YNSgiSOeY",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.32.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1LzMUyUiN-w2asMKLW2mid-_YNSgiSOeY/view?usp=drivesdk"
-              },
-              {
-                "id": "1umOzbb_N8Z0r77odpTVhtUguDIzRzue-",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.31 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1umOzbb_N8Z0r77odpTVhtUguDIzRzue-/view?usp=drivesdk"
-              },
-              {
-                "id": "1IIAQCPCRbhL4xPaA81O-oOqS1jb3f8f6",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.31.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1IIAQCPCRbhL4xPaA81O-oOqS1jb3f8f6/view?usp=drivesdk"
-              },
-              {
-                "id": "1TlI4bfC_7_qXHabYuwMh76PNPjJA2FHH",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.30 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1TlI4bfC_7_qXHabYuwMh76PNPjJA2FHH/view?usp=drivesdk"
-              },
-              {
-                "id": "120Iv8AIuP0p_xQbCGrueqXtinUdgsjcS",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.30.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/120Iv8AIuP0p_xQbCGrueqXtinUdgsjcS/view?usp=drivesdk"
-              },
-              {
-                "id": "1RK5ZXzewSy1eZ94zWYF49Z_0Rd_F4Ok0",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.29.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1RK5ZXzewSy1eZ94zWYF49Z_0Rd_F4Ok0/view?usp=drivesdk"
-              },
-              {
-                "id": "1Mfg5li0OS_HoeGnlR06TDlEQYjdsuB-t",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.28 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1Mfg5li0OS_HoeGnlR06TDlEQYjdsuB-t/view?usp=drivesdk"
-              },
-              {
-                "id": "109d0p99MFiKQQSjjXmM2W5462l7klFit",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.28.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/109d0p99MFiKQQSjjXmM2W5462l7klFit/view?usp=drivesdk"
-              },
-              {
-                "id": "1JWFMdtmDNCJhxNEx8gUfuzOSs99YN6J4",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.27.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1JWFMdtmDNCJhxNEx8gUfuzOSs99YN6J4/view?usp=drivesdk"
-              },
-              {
-                "id": "1EsnQonlPco4VC-XBjpGbYwPdtUl5wZ69",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.26.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1EsnQonlPco4VC-XBjpGbYwPdtUl5wZ69/view?usp=drivesdk"
-              },
-              {
-                "id": "1jxAQpPmJVdsbcSzIE4beuP-tstDFFz7J",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.25.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1jxAQpPmJVdsbcSzIE4beuP-tstDFFz7J/view?usp=drivesdk"
-              },
-              {
-                "id": "1d4ZGmrKtpcY7rUDqOzR-EAwl5Txtr8LN",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.22.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1d4ZGmrKtpcY7rUDqOzR-EAwl5Txtr8LN/view?usp=drivesdk"
-              },
-              {
-                "id": "19KSoc3o7vdW6kTRg6vI8OjWVyNM-B6Uq",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.14.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/19KSoc3o7vdW6kTRg6vI8OjWVyNM-B6Uq/view?usp=drivesdk"
-              },
-              {
-                "id": "1lMXdc859EKFZcUxOBxhgZDonytmd0kde",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.08.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1lMXdc859EKFZcUxOBxhgZDonytmd0kde/view?usp=drivesdk"
-              },
-              {
-                "id": "1YGveUKCE-cN2PDo8PmN9HIe8hHAmvdm1",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.07.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1YGveUKCE-cN2PDo8PmN9HIe8hHAmvdm1/view?usp=drivesdk"
-              },
-              {
-                "id": "1-dzKRpPSb4FVMl4Ap37yYWNEy1-DpxFu",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.06.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1-dzKRpPSb4FVMl4Ap37yYWNEy1-DpxFu/view?usp=drivesdk"
-              },
-              {
-                "id": "1nJLnYG3jpr53C8DPlxi4CTGC0SFVHn91",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.05.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1nJLnYG3jpr53C8DPlxi4CTGC0SFVHn91/view?usp=drivesdk"
-              },
-              {
-                "id": "1sE2rQDR4SyB5W8rJ9eiAtFH1IQOHWJt6",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.04 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1sE2rQDR4SyB5W8rJ9eiAtFH1IQOHWJt6/view?usp=drivesdk"
-              },
-              {
-                "id": "1HzK18y26NmiKEDiE0afu_zKyCASWYREA",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.04.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1HzK18y26NmiKEDiE0afu_zKyCASWYREA/view?usp=drivesdk"
-              },
-              {
-                "id": "12TtE-QIm3gAhaXbsuC9lY6N49BjHc8jm",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.03.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/12TtE-QIm3gAhaXbsuC9lY6N49BjHc8jm/view?usp=drivesdk"
-              },
-              {
-                "id": "1N0RzpEDc-pnDfOOXAEC0y41DlF_4PI1b",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.02.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1N0RzpEDc-pnDfOOXAEC0y41DlF_4PI1b/view?usp=drivesdk"
-              },
-              {
-                "id": "13PIxaYOCQmFvArEDb7yZHWsokGI1nwVt",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.01 (1).jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/13PIxaYOCQmFvArEDb7yZHWsokGI1nwVt/view?usp=drivesdk"
-              },
-              {
-                "id": "1fnMZAk688WhfbPDVFZLBtNIpegBRvLF7",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.01.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1fnMZAk688WhfbPDVFZLBtNIpegBRvLF7/view?usp=drivesdk"
-              },
-              {
-                "id": "13At9k1VyVLa6By5QcSQ9g7T2f4rVSGLQ",
-                "name": "WhatsApp Image 2023-03-27 at 19.25.00.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/13At9k1VyVLa6By5QcSQ9g7T2f4rVSGLQ/view?usp=drivesdk"
-              },
-              {
-                "id": "1Djpegz_ld2IW7D2KQltEPqi3z7RYSQqN",
-                "name": "WhatsApp Image 2023-03-27 at 19.24.59.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1Djpegz_ld2IW7D2KQltEPqi3z7RYSQqN/view?usp=drivesdk"
-              },
-              {
-                "id": "1q0S5YLcsKAN-aX9JpL1mh9e_Z1AJn528",
-                "name": "WhatsApp Image 2023-03-27 at 19.24.58.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1q0S5YLcsKAN-aX9JpL1mh9e_Z1AJn528/view?usp=drivesdk"
-              },
-              {
-                "id": "1pEhO8GDHZf7sKBQ3B5I_-CdiA2mudSQO",
-                "name": "WhatsApp Image 2023-03-27 at 19.24.53.jpeg",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1pEhO8GDHZf7sKBQ3B5I_-CdiA2mudSQO/view?usp=drivesdk"
-              },
-              {
-                "id": "1HI391qWwkiQniEUU0EcwwN6xgatWBgnH",
-                "name": "Global (recuperatorio) 8 de julio 2022.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1HI391qWwkiQniEUU0EcwwN6xgatWBgnH/view?usp=drivesdk"
-              }
-            ]
-          },
-          {
-            "id": "1UyVEUfC9p4R1tdImlFEM1S1lgxbZPlHN",
-            "name": "CAMPUS",
-            "type": "folder",
-            "url": "https://drive.google.com/drive/folders/1UyVEUfC9p4R1tdImlFEM1S1lgxbZPlHN",
-            "children": [
-              {
-                "id": "1Na4ctI_Tvh33Wi_2_WlU0Tqio2J9hfr6",
-                "name": "unidad 3",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1Na4ctI_Tvh33Wi_2_WlU0Tqio2J9hfr6",
-                "children": [
-                  {
-                    "id": "1sIrR6HL59BrQR_LxhYhtbZPAjGE6xtea",
-                    "name": "TP_3_Respuestas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1sIrR6HL59BrQR_LxhYhtbZPAjGE6xtea/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1SB6ReBhf0PUDN7_TaDtnmfPcwGWN0rGL",
-                    "name": "Trabajo Práctico N° 3 Derivada y Diferencial_Marisel.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1SB6ReBhf0PUDN7_TaDtnmfPcwGWN0rGL/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1sAA5SuiY89wKjVKOtxgYY1P3wIl6Q8Qy",
-                    "name": "Unidad 3- Derivadas y Diferenciales (2).pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1sAA5SuiY89wKjVKOtxgYY1P3wIl6Q8Qy/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1XoYO-Hyh6Lna5oSiXE7ssZzzVJ9smG01",
-                    "name": "Comparación entre delta y y dy.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1XoYO-Hyh6Lna5oSiXE7ssZzzVJ9smG01/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1TWQkbXQRmASXf5J-Vuf9fVGl_5Vp6RsV",
-                "name": "unidad 4",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1TWQkbXQRmASXf5J-Vuf9fVGl_5Vp6RsV",
-                "children": [
-                  {
-                    "id": "18MIrk_gE0PwlLjRNs-IZT6DZLRLg1qrf",
-                    "name": "TP_5_Ana.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/18MIrk_gE0PwlLjRNs-IZT6DZLRLg1qrf/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1TNYIpxDC446cjNJZmKucNbiYit6Fu0ko",
-                    "name": "TP_4_Ceci.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1TNYIpxDC446cjNJZmKucNbiYit6Fu0ko/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1YeUK3lrM7Xeb98aKR5LlSn6dOjHSwHxY",
-                    "name": "Material biliográfico Unidad 4.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1YeUK3lrM7Xeb98aKR5LlSn6dOjHSwHxY/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "18m12tEaj7v64oJg00wBtAKGYZwVJVzjT",
-                "name": "unidad 5",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/18m12tEaj7v64oJg00wBtAKGYZwVJVzjT",
-                "children": [
-                  {
-                    "id": "1XQ0zEdC44gBCKWmojSujL0Ukk-JFsrUD",
-                    "name": "Trabajo Práctico 7 (2).pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1XQ0zEdC44gBCKWmojSujL0Ukk-JFsrUD/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1NlgzWFbMp6VqtrlkYiAOSmqgB1brMydA",
-                    "name": "Algunas resoluciones TPNº6 y mas integrales.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1NlgzWFbMp6VqtrlkYiAOSmqgB1brMydA/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1yMvTDRALClSsMeUJw5-ov8ViD768IR2q",
-                    "name": "Trabajo Práctico 6.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1yMvTDRALClSsMeUJw5-ov8ViD768IR2q/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1SrmoySNywsQzodwL4iTR4as-NWwhSrH0",
-                    "name": "Material bibliográfico Unidad 5.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1SrmoySNywsQzodwL4iTR4as-NWwhSrH0/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1Wte_6XFZVPSAv9gvginDwhs6sOjhvCkp",
-                "name": "unidad 1",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1Wte_6XFZVPSAv9gvginDwhs6sOjhvCkp",
-                "children": [
-                  {
-                    "id": "1i3_71oIGuXY8KR5bfAzldYW3BDHtp3e7",
-                    "name": "Trabajo Práctico Nº1 -  2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1i3_71oIGuXY8KR5bfAzldYW3BDHtp3e7/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1aatf60zUwxo-VYkeM18Vz4guNTefPIA1",
-                    "name": "TP_1_Respuestas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1aatf60zUwxo-VYkeM18Vz4guNTefPIA1/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1x1MGVazq0i0-FPiqc8v8N0XPFZdeG46L",
-                    "name": "Material Bibliográfico de la Unidad I.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1x1MGVazq0i0-FPiqc8v8N0XPFZdeG46L/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1H_80cQ1nRk2Mm3SrD51096YeTT8rruqx",
-                    "name": "1- Unidad I-Entornos y Funciones 2020.pptx",
-                    "type": "file",
-                    "url": "https://docs.google.com/presentation/d/1H_80cQ1nRk2Mm3SrD51096YeTT8rruqx/edit?usp=drivesdk&ouid=107660628628935148774&rtpof=true&sd=true"
-                  }
-                ]
-              },
-              {
-                "id": "1fakXgJlH_rFmJu6QffdH3ieDz36ZBjdT",
-                "name": "unidad 6",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1fakXgJlH_rFmJu6QffdH3ieDz36ZBjdT",
-                "children": [
-                  {
-                    "id": "1rzQkhchgUqNWTkrUTr5e-2oo30L8sv4K",
-                    "name": "Material bibliográfico de la Unidad 6.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1rzQkhchgUqNWTkrUTr5e-2oo30L8sv4K/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1wWztNx6Tuyt4NYbYUznzXV9IW5EewAD5",
-                    "name": "Trabajo Práctico 8 (2).pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1wWztNx6Tuyt4NYbYUznzXV9IW5EewAD5/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1ZM6N0zNu4IfyhZtltkQ4e5FBx701X8kJ",
-                "name": "unidad 2",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1ZM6N0zNu4IfyhZtltkQ4e5FBx701X8kJ",
-                "children": [
-                  {
-                    "id": "19MSHLRVLJs8AV0NJLHkgOke4daMOY2wn",
-                    "name": "TP_2_Respuestas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/19MSHLRVLJs8AV0NJLHkgOke4daMOY2wn/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1BrBKgzcY6ARLbUw95ayeYpBVZ7sNdOs6",
-                    "name": "Trabajo Práctico Nº 2 Límite.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1BrBKgzcY6ARLbUw95ayeYpBVZ7sNdOs6/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1JEGlBffhFd_VQRN4Bux8exulFG_8jSj8",
-                    "name": "1- Unidad II-Límite.pptx",
-                    "type": "file",
-                    "url": "https://docs.google.com/presentation/d/1JEGlBffhFd_VQRN4Bux8exulFG_8jSj8/edit?usp=drivesdk&ouid=107660628628935148774&rtpof=true&sd=true"
-                  },
-                  {
-                    "id": "1z7Xp7ogt66E9rC1mjmB81h3PsDgpQydt",
-                    "name": "Lecturas unidad 2.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1z7Xp7ogt66E9rC1mjmB81h3PsDgpQydt/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "16rfgdiWdwxpn7zq9Cg9ZaZo88Aj-V9jx",
-                "name": "unidad 7",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/16rfgdiWdwxpn7zq9Cg9ZaZo88Aj-V9jx",
-                "children": [
-                  {
-                    "id": "1QMIRBO-BpnnCJrZFtZlTPov58QYlFFrM",
-                    "name": "Material bibliográfico Unidad 7.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1QMIRBO-BpnnCJrZFtZlTPov58QYlFFrM/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1QCb2dQV7tsnXjUqkYyCSYzofKAEg9LWq",
-                    "name": "TP Series de Potencias.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1QCb2dQV7tsnXjUqkYyCSYzofKAEg9LWq/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1btsNurPiyXd2AY-ngcqjzp94LkJ_4DY0",
-                    "name": "Trabajo Práctico 9.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1btsNurPiyXd2AY-ngcqjzp94LkJ_4DY0/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1IbY2woYRn_VNER40fU3BTrLcR7FtoWEl",
-                "name": "Programa_ AMI_2022.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1IbY2woYRn_VNER40fU3BTrLcR7FtoWEl/view?usp=drivesdk"
-              },
-              {
-                "id": "1pg0_eFwUXrULvVKMWJR_eM0TwsyWyV08",
-                "name": "SoloPrograma_ AMI_2022.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1pg0_eFwUXrULvVKMWJR_eM0TwsyWyV08/view?usp=drivesdk"
-              },
-              {
-                "id": "1qJyb4hrmL5PM1lkheJ35UxZkmi6PKYwe",
-                "name": "Sucesiones_2019 (1).pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1qJyb4hrmL5PM1lkheJ35UxZkmi6PKYwe/view?usp=drivesdk"
-              },
-              {
-                "id": "1o067su-bnZ1b5ZXzIoHeAGXRExFGXtL9",
-                "name": "SERIES_NUMÉRICAS_2019.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1o067su-bnZ1b5ZXzIoHeAGXRExFGXtL9/view?usp=drivesdk"
-              },
-              {
-                "id": "1WenqT7b68dc6eloZHbgDnnSgoX0T7q_Z",
-                "name": "UIV_2019.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1WenqT7b68dc6eloZHbgDnnSgoX0T7q_Z/view?usp=drivesdk"
-              },
-              {
-                "id": "1q1JvtVGwrriS9f1f9apVnvNmOrxOSHtd",
-                "name": "UII_2019.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1q1JvtVGwrriS9f1f9apVnvNmOrxOSHtd/view?usp=drivesdk"
-              },
-              {
-                "id": "108ex4Z2_ihvUFCVPLI3nHlS4A7gYg1ML",
-                "name": "UNIDAD_III.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/108ex4Z2_ihvUFCVPLI3nHlS4A7gYg1ML/view?usp=drivesdk"
-              },
-              {
-                "id": "19mKzEMOtNZDst_JhutqT7-IGGuRYQfpf",
-                "name": "UI_2019.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/19mKzEMOtNZDst_JhutqT7-IGGuRYQfpf/view?usp=drivesdk"
-              },
-              {
-                "id": "1hntBgagwuch47tC2YxPNMwtmjC0MJJLe",
-                "name": "material-utn-todas-las-unidades.pdf",
-                "type": "file",
-                "url": "https://drive.google.com/file/d/1hntBgagwuch47tC2YxPNMwtmjC0MJJLe/view?usp=drivesdk"
-              }
-            ]
-          },
-          {
-            "id": "17ZG4hWoM8dmbJRnJpYcedheKsFcyASEw",
-            "name": "APUNTES",
-            "type": "folder",
-            "url": "https://drive.google.com/drive/folders/17ZG4hWoM8dmbJRnJpYcedheKsFcyASEw",
-            "children": [
-              {
-                "id": "13ibco7Xe5MKEd7Qop-yR6-zjsgAjRvOO",
-                "name": "CARPETAS",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/13ibco7Xe5MKEd7Qop-yR6-zjsgAjRvOO",
-                "children": [
-                  {
-                    "id": "1g5zFZbEEdVDbwtdjJVyFRIin039edZQ2",
-                    "name": "Demostraciones Ceci.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1g5zFZbEEdVDbwtdjJVyFRIin039edZQ2/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1exi8dnyCURTJQkf-Rqim0tPQmuPb4t_w",
-                    "name": "Carpeta AMI - Santiago Rodriguez.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1exi8dnyCURTJQkf-Rqim0tPQmuPb4t_w/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1-kMqO-17frcmG2MK9tAQ3mR-cpxry8Gi",
-                    "name": "Carpeta Analisis 1 Sabio (2).pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1-kMqO-17frcmG2MK9tAQ3mR-cpxry8Gi/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1ef9zjsLXrM5tQubPjgN0ghkpvqmsJ9Fa",
-                "name": "1k22",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1ef9zjsLXrM5tQubPjgN0ghkpvqmsJ9Fa",
-                "children": [
-                  {
-                    "id": "1Jve8RWK2CT9m5uRJnKk8jQAvm70SMnVa",
-                    "name": "U7 - Sucesiones 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1Jve8RWK2CT9m5uRJnKk8jQAvm70SMnVa/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1aTvtSNbotGfcEyfUpq6EafvWBSz6pfnI",
-                    "name": "U6 -Aplicaciones de la integral 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1aTvtSNbotGfcEyfUpq6EafvWBSz6pfnI/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1QRtaH8E3965aMuNiRixe0L86orLL2pXw",
-                    "name": "U5 - Integrales definidas 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1QRtaH8E3965aMuNiRixe0L86orLL2pXw/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1M8R0miiXd9VtSQFulGRwUYzr6k6Y9O-m",
-                    "name": "U5- Integrales Indefinidas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1M8R0miiXd9VtSQFulGRwUYzr6k6Y9O-m/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1WnVqFUnjpR4HnNN7wbqQ6yT7PeFYGSRC",
-                    "name": "U4  - Aplicaciones de la derivada- Teoremas 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1WnVqFUnjpR4HnNN7wbqQ6yT7PeFYGSRC/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1cLvViZxNYsySxIqOXntn1F8QbIzfqyTx",
-                    "name": "U4- Aplicaciones de la derivada - Extremos y concavidad.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1cLvViZxNYsySxIqOXntn1F8QbIzfqyTx/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1E4FkgC2CFQSMJc7dwtu-PC7XHKBWMWYP",
-                    "name": "U3 - Comparación entre delta y y dy.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1E4FkgC2CFQSMJc7dwtu-PC7XHKBWMWYP/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "19cmn55Bp4zN7BkEP3hnzwr4UDBck7mp9",
-                    "name": "U4 - Polinomio de Taylor.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/19cmn55Bp4zN7BkEP3hnzwr4UDBck7mp9/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1LoIcFaaN9Lb0k2vcee0_BDIlHa-lDgYi",
-                    "name": "U3 - Parte 4 - Diferencial 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1LoIcFaaN9Lb0k2vcee0_BDIlHa-lDgYi/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "18vXBKp93eugLLfRTUOeU9EjRhwpafNys",
-                    "name": "U3 - Derivadas -Parte 3 - Derivación implícita- Método logarítmico - Derivadas sucesivas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/18vXBKp93eugLLfRTUOeU9EjRhwpafNys/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1H2ptHvcsLG7w6_ZLWN_-2pEOqBk4LV-d",
-                    "name": "U3 - Derivadas - Parte 2 - Reglas de derivación.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1H2ptHvcsLG7w6_ZLWN_-2pEOqBk4LV-d/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "17WUAxv-hMYvjqBxHJsVLg_yVf7S812ME",
-                    "name": "U3 - Derivadas - Parte 1.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/17WUAxv-hMYvjqBxHJsVLg_yVf7S812ME/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1yQYT4nSaNxJ4hfjQo6pCxj_HSX9V6RDx",
-                    "name": "U2 - Continuidad 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1yQYT4nSaNxJ4hfjQo6pCxj_HSX9V6RDx/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "18mn-lU9F-4tugQu0JuKffZH1Jxu5QpoC",
-                    "name": "2- Unidad 2 - Límite 2023.ppsx",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/18mn-lU9F-4tugQu0JuKffZH1Jxu5QpoC/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1QwItLRqawf7rDICbOFl_Lf5EjjY7U6sY",
-                    "name": "2- Unidad 2 - Límite 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1QwItLRqawf7rDICbOFl_Lf5EjjY7U6sY/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "16Bq7AiyvnyXxI8L3BYnYP_AWBxW2N1ir",
-                    "name": "1- Unidad I-Entornos y Funciones 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/16Bq7AiyvnyXxI8L3BYnYP_AWBxW2N1ir/view?usp=drivesdk"
-                  }
-                ]
-              },
-              {
-                "id": "1DRoE6U5FqZD3gIwI2f55kul_Wlb8BcNt",
-                "name": "1p99",
-                "type": "folder",
-                "url": "https://drive.google.com/drive/folders/1DRoE6U5FqZD3gIwI2f55kul_Wlb8BcNt",
-                "children": [
-                  {
-                    "id": "1TYF0MS4roCCLZpZIltf4-FFNrLjGPWJ8",
-                    "name": "U5_1- Unidad V- Integrales Indefinidas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1TYF0MS4roCCLZpZIltf4-FFNrLjGPWJ8/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1HytLwgfRjzP0CNg5Sns3-ensDvLXrxKs",
-                    "name": "Unidad 5 - Integral definida12.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1HytLwgfRjzP0CNg5Sns3-ensDvLXrxKs/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1Jn0Fmtjbl55kjoTz990UKH8r2ty9_GnC",
-                    "name": "UNIDAD 4-Teoremas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1Jn0Fmtjbl55kjoTz990UKH8r2ty9_GnC/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1MUzxo6vy-IXfcvQiAifTsNIukqn8wGty",
-                    "name": "UNIDAD 4 Aplicaciones de la derivada.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1MUzxo6vy-IXfcvQiAifTsNIukqn8wGty/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "11Z0QtyAave43x_8l8OMQcIRnXmEzKIA-",
-                    "name": "3- Unidad III- Derivadas.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/11Z0QtyAave43x_8l8OMQcIRnXmEzKIA-/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1tvJLANHkmZPx6ZA6B0La6DlIGPbnmlxB",
-                    "name": "UN°2 Continuidad - 2023.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1tvJLANHkmZPx6ZA6B0La6DlIGPbnmlxB/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1rRHxn3FLaQXxaJ-2HjIa8Dp88H6xKrUC",
-                    "name": "1- Unidad II-Límite 2023(1° parte).pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1rRHxn3FLaQXxaJ-2HjIa8Dp88H6xKrUC/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1teEZejmz9pM3k7IkXSTAYS0KMHmQL4xy",
-                    "name": "1- Unidad I-Entornos y Funciones 2°parte.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1teEZejmz9pM3k7IkXSTAYS0KMHmQL4xy/view?usp=drivesdk"
-                  },
-                  {
-                    "id": "1dwel9jmAHcSm8JncXbSZQGRxaYbHwm31",
-                    "name": "1- Unidad I-Clase 7-3.pdf",
-                    "type": "file",
-                    "url": "https://drive.google.com/file/d/1dwel9jmAHcSm8JncXbSZQGRxaYbHwm31/view?usp=drivesdk"
-                  }
-                ]
-              }
-            ]
-          }
+            {
+              "id": "1t9MH0eYl8lidGwr1IU_yy33injBBbS1s",
+              "name": "Solucionario_Stewart_7th_Edition.pdf",
+              "type": "file",
+              "url": "https://drive.google.com/file/d/1t9MH0eYl8lidGwr1IU_yy33injBBbS1s/view?usp=drivesdk"
+            },
+            {
+              "id": "1d0T9HZtCgyjq_xrPxDXVt6khDY2Hwe3O",
+              "name": "MATERIAL",
+              "type": "folder",
+              "url": "https://drive.google.com/drive/folders/1d0T9HZtCgyjq_xrPxDXVt6khDY2Hwe3O",
+              "children": [
+                {
+                  "id": "1ZxH2XNMt4IwhBrztHeOr5fhiBBDeLLj6",
+                  "name": "6_Aplicación_de_Integrales",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1ZxH2XNMt4IwhBrztHeOr5fhiBBDeLLj6",
+                  "children": [
+                    {
+                      "id": "1Mn9ZyNY9UvXVf2m6y4RK9eg-vBZfnpQ9",
+                      "name": "2_Volumen_de_un_Sólido_de_Revolución.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1Mn9ZyNY9UvXVf2m6y4RK9eg-vBZfnpQ9/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "18MkYBUNhKd9D_IpNVClt8QBYp_rewxGe",
+                      "name": "TP6_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/18MkYBUNhKd9D_IpNVClt8QBYp_rewxGe/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "12_3tdYVbEKItGEBKgqUfX_ZAYs2iuA_V",
+                      "name": "1_Integral_Definida_Teoria_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/12_3tdYVbEKItGEBKgqUfX_ZAYs2iuA_V/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1YG7_wWZ37nyMp2_GST6RHLDyroryTWsV",
+                      "name": "TP8_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1YG7_wWZ37nyMp2_GST6RHLDyroryTWsV/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1mJ4oYBFN60MIdxuCcUf-ZJkUejcWZb4G",
+                  "name": "5_Integrales",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1mJ4oYBFN60MIdxuCcUf-ZJkUejcWZb4G",
+                  "children": [
+                    {
+                      "id": "1Dhoqvgcvqak-1OywyuyRfD4MKAPZAbNL",
+                      "name": "Repaso para integrales indefinidas (con respuestas desordenadas1) (1).docx",
+                      "type": "file",
+                      "url": "https://docs.google.com/document/d/1Dhoqvgcvqak-1OywyuyRfD4MKAPZAbNL/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1v9Db-hwruSPJFVoPNzX0DyUT0bxAcgsz",
+                      "name": "1_TP5_Integrales.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1v9Db-hwruSPJFVoPNzX0DyUT0bxAcgsz/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1ruPzr-duaupUwe5rbU71HL_PM63CxJJi",
+                      "name": "3_Integrales_Definidas_Teoria_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1ruPzr-duaupUwe5rbU71HL_PM63CxJJi/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1sw6JTPiQAT6aQEV_6trkgrfFy8Zb8l2l",
+                      "name": "2_Integrales_Indefinidas_Teoria_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1sw6JTPiQAT6aQEV_6trkgrfFy8Zb8l2l/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1j9P2gBe4GdStCuTNYQg4sCEbGvPLW7dQ",
+                      "name": "5_Integrales_Definidas_TP7_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1j9P2gBe4GdStCuTNYQg4sCEbGvPLW7dQ/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1XLzu9yD-ZWEuwzxDCs1iouFaRQRbLgvv",
+                      "name": "Algunas_Resoluciones_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1XLzu9yD-ZWEuwzxDCs1iouFaRQRbLgvv/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1Psl8UVE3qJqj83mL94TNjC_WWmVekO-f",
+                      "name": "4_Intregrales Indefinidas TP6 2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1Psl8UVE3qJqj83mL94TNjC_WWmVekO-f/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1_hBtIhsf_xu70V7sJ8KICdBj_VrhxEib",
+                  "name": "1_Intervalos_Entornos_y_Funciones",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1_hBtIhsf_xu70V7sJ8KICdBj_VrhxEib",
+                  "children": [
+                    {
+                      "id": "1GW4owRI11nAgL--b13jClUMhhT1mZRYN",
+                      "name": "4_TP1-Funciones-2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1GW4owRI11nAgL--b13jClUMhhT1mZRYN/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "12PFyMER0n2TWzeHgcLVO3VQ7EF_KfAut",
+                      "name": "3_UN°1-Funciones-Parte3-2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/12PFyMER0n2TWzeHgcLVO3VQ7EF_KfAut/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1tK5C88ELRsndFsgf9C-H0AWBKBYiCx7j",
+                      "name": "2_UN°1-Funciones-Parte2-2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1tK5C88ELRsndFsgf9C-H0AWBKBYiCx7j/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1_cmPmTh5mqO2Ejh79w_AIaEYl1ZIoZ_S",
+                      "name": "1_UN°1-Funciones-Parte1-2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1_cmPmTh5mqO2Ejh79w_AIaEYl1ZIoZ_S/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1ZEzEyjvVqj8hO2IdvwfS4aXqD6hXsYMQ",
+                      "name": "Unidad I-Entornos y Funciones 2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1ZEzEyjvVqj8hO2IdvwfS4aXqD6hXsYMQ/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1o4hNVAEQh01TcPQcoEsKYbSIeFQk6DeG",
+                      "name": "TP_1_Respuestas_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1o4hNVAEQh01TcPQcoEsKYbSIeFQk6DeG/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1qBxLHfKDjNfg-tk-cbPjnB8VJ5y0zBgP",
+                      "name": "Trabajo Práctico 1-2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1qBxLHfKDjNfg-tk-cbPjnB8VJ5y0zBgP/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "15oHncYpZvcO3FcoWixFTxEJMqRd4o_Xv",
+                  "name": "7_Sucesiones_y_Series",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/15oHncYpZvcO3FcoWixFTxEJMqRd4o_Xv",
+                  "children": [
+                    {
+                      "id": "1hI0F_SvA8rpTAISOvMx0VmDdTisMcNwb",
+                      "name": "3_Resolución_TP7_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1hI0F_SvA8rpTAISOvMx0VmDdTisMcNwb/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "17BLO2mqEVFTD22AcZTnqY1Ym0vgmRwJd",
+                      "name": "2_Sucesiones_y_series_TP7_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/17BLO2mqEVFTD22AcZTnqY1Ym0vgmRwJd/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1GrOt8l9fVo1tNT_iOW65u7GWgvCt25_U",
+                      "name": "1_Series_Teoría_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1GrOt8l9fVo1tNT_iOW65u7GWgvCt25_U/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1sAsrGgiV2LlgqtVkV9FBe82nUfjOulrm",
+                      "name": "TP_Serie_de_Potencia_2021.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1sAsrGgiV2LlgqtVkV9FBe82nUfjOulrm/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1NTs4DKRRSfR2nsHvdejjr6l3SgeeQdLT",
+                      "name": "TP_Series_y_Sucesiones_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1NTs4DKRRSfR2nsHvdejjr6l3SgeeQdLT/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1zH0kCMu6RfKpPGOk81-lwyW28NAJ4oWH",
+                  "name": "4_Aplicaciones_de_la_Derivada",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1zH0kCMu6RfKpPGOk81-lwyW28NAJ4oWH",
+                  "children": [
+                    {
+                      "id": "1Cpm2OBLO2O--SztwSCEsyxc-VNt7BiFX",
+                      "name": "1_Polinomio_y_fórmula_de_Taylor_de_grado_n.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1Cpm2OBLO2O--SztwSCEsyxc-VNt7BiFX/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1TpXjaqf8KnJn65G8DIDI60SjJMvOx_AL",
+                      "name": "8_Definiciones_parte2.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1TpXjaqf8KnJn65G8DIDI60SjJMvOx_AL/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "15z1U5UJEje1v2ZWNVI5nMvKFZgCcbYwO",
+                      "name": "7_Definiciones_parte1.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/15z1U5UJEje1v2ZWNVI5nMvKFZgCcbYwO/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1Og5OKK-clHKqWb2W1AZX3iHjhrmeHUVU",
+                      "name": "6_Definiciones_CONCAVIDAD, EXTREMOS.docx",
+                      "type": "file",
+                      "url": "https://docs.google.com/document/d/1Og5OKK-clHKqWb2W1AZX3iHjhrmeHUVU/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1u2ANTAyJD5m0A3-MRaaEspJ36uInPa3O",
+                      "name": "5_Clase_Práctica.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1u2ANTAyJD5m0A3-MRaaEspJ36uInPa3O/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "12MBft777_-Wbil95bBjgeMyf396yYqzt",
+                      "name": "4_Teoremas.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/12MBft777_-Wbil95bBjgeMyf396yYqzt/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1ZaZd1YN1H0EMTeiq1ylUVeR1_F8b75cc",
+                      "name": "3_Crecimiento_con_la_derivada_primera_diferencial_concavidad.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1ZaZd1YN1H0EMTeiq1ylUVeR1_F8b75cc/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1q580_HCswOHTvSFEsTVJybn3Oh1wLxKZ",
+                      "name": "2_TP_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1q580_HCswOHTvSFEsTVJybn3Oh1wLxKZ/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "10xZvDo-6SwU-kTgp9heC_rsjC_kWWIK_",
+                      "name": "TP5_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/10xZvDo-6SwU-kTgp9heC_rsjC_kWWIK_/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1jvnvoWKbDdUru97FAm9UOE5HAwQrgT2G",
+                      "name": "TP4_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1jvnvoWKbDdUru97FAm9UOE5HAwQrgT2G/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "13VXrsA3agCvMzKWlpIC10WqaPFEXCiqp",
+                  "name": "2_Límite_y_Continuidad",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/13VXrsA3agCvMzKWlpIC10WqaPFEXCiqp",
+                  "children": [
+                    {
+                      "id": "1HiGRE6M0Ha8MaWuh5a_PfwKpxyUPu4VX",
+                      "name": "7_Limite_Idea.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1HiGRE6M0Ha8MaWuh5a_PfwKpxyUPu4VX/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1_LmlOh184sqylkDoWxbELe0hdVutumxn",
+                      "name": "8_Resumen.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1_LmlOh184sqylkDoWxbELe0hdVutumxn/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1hU3hlm_FVrRLk0Qu4orvdF7GebPyqC2U",
+                      "name": "5_Limites-(segunda parte).pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1hU3hlm_FVrRLk0Qu4orvdF7GebPyqC2U/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1jfyUbK-w9K2NbrPAvmxXIyfG6qO7LvLQ",
+                      "name": "6_Limites-(tercera parte). Infinitésimos. Asíntotas. Indeterminaciones..pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1jfyUbK-w9K2NbrPAvmxXIyfG6qO7LvLQ/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1MMTgenkNUjtQFOSV1QMbGi2RIO2W1EOH",
+                      "name": "4_Limites-(primera parte).pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1MMTgenkNUjtQFOSV1QMbGi2RIO2W1EOH/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1n1ptPI4u2U0aziWB2vsHvxzuXWS59ZTQ",
+                      "name": "3_Continuidad.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1n1ptPI4u2U0aziWB2vsHvxzuXWS59ZTQ/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1dsRAtvr8FMy2XNfeJCcAQ4psgILgclAC",
+                      "name": "1_TP2_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1dsRAtvr8FMy2XNfeJCcAQ4psgILgclAC/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1zEkHDR3PFQif98hDAp-EeesisryxE_RV",
+                      "name": "2_Definiciones_del_Límite.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1zEkHDR3PFQif98hDAp-EeesisryxE_RV/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1LYOK1OMkWTXWjupK_r2cp1EY7wLpEpyj",
+                      "name": "TP2_2020_Resolución.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1LYOK1OMkWTXWjupK_r2cp1EY7wLpEpyj/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1peZUaXd5eetmiDStObV1hmHEY8fMnuFS",
+                      "name": "TP2_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1peZUaXd5eetmiDStObV1hmHEY8fMnuFS/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1QTOYc6KvRJvCoIu16TnPU19o3gB3MYlT",
+                  "name": "3_Derivadas",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1QTOYc6KvRJvCoIu16TnPU19o3gB3MYlT",
+                  "children": [
+                    {
+                      "id": "1juJqBVtTpGesMOiSq4Wzacc8QCZUZcIH",
+                      "name": "Tabla de Derivadas 2023.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1juJqBVtTpGesMOiSq4Wzacc8QCZUZcIH/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1I0e_Olav4yMN12pwiOLfocaIwvOhAMns",
+                      "name": "4_Derivadas_y_Diferenciales_Teoría.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1I0e_Olav4yMN12pwiOLfocaIwvOhAMns/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1ZxAWErEDFmAZ85noVKCEaNUelX2dulD0",
+                      "name": "3_Comparación_entre_Delta_y_dy_Teoría.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1ZxAWErEDFmAZ85noVKCEaNUelX2dulD0/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1z8p_fI7sZSHwjfh-SDqGo29TpLArsAnH",
+                      "name": "3- Unidad III-Derivadas y Diferenciales (2).pptx",
+                      "type": "file",
+                      "url": "https://docs.google.com/presentation/d/1z8p_fI7sZSHwjfh-SDqGo29TpLArsAnH/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1-C9HWKCd3KqO3mkk1d8ie_QANiWXU4TU",
+                      "name": "2_Algebra_de_Derivadas.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1-C9HWKCd3KqO3mkk1d8ie_QANiWXU4TU/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1WipRsXhl4WUxFvAHG_h_Q7hz1ahCpStn",
+                      "name": "1_Derivada_y_Diferencial_TP3_2025.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1WipRsXhl4WUxFvAHG_h_Q7hz1ahCpStn/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "10g7WR-P4ZbJRSqaFSCYQsc3LuPIAI_31",
+                      "name": "TP3_Respuestas_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/10g7WR-P4ZbJRSqaFSCYQsc3LuPIAI_31/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1aeGHKSpWee-k2wVYUcg105CWtZeS6niP",
+                      "name": "TP_Derivada_y_Diferencial_2020.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1aeGHKSpWee-k2wVYUcg105CWtZeS6niP/view?usp=drivesdk"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "13u5kI106bY7WqFNb_1lFK8n8YXcNBJ1G",
+              "name": "EXAMENES",
+              "type": "folder",
+              "url": "https://drive.google.com/drive/folders/13u5kI106bY7WqFNb_1lFK8n8YXcNBJ1G",
+              "children": [
+                {
+                  "id": "18iUsdfESKcJKCaPl59TmlaXNyhas42VO",
+                  "name": "Globales",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/18iUsdfESKcJKCaPl59TmlaXNyhas42VO",
+                  "children": [
+                    {
+                      "id": "1DTWG7WyY8Ol4dBczlmaKjWnlMRHVMUHg",
+                      "name": "IMG-20250621-WA0001.jpg",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1DTWG7WyY8Ol4dBczlmaKjWnlMRHVMUHg/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1CYi59Pe1bCwwjAU5N9fXQsjsm6h1P8cm",
+                      "name": "IMG-20250628-WA0033.jpg",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1CYi59Pe1bCwwjAU5N9fXQsjsm6h1P8cm/view?usp=drivesdk"
+                    }, 
+                    {
+                      "id": "12eB5M5NUHK1jKB_1pPjsZ35x9gTwb8OC",
+                      "name": "20250701_175237.jpg",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/12eB5M5NUHK1jKB_1pPjsZ35x9gTwb8OC/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1Y4KdbD-nhpvSnBm7SDWwVGAZcWWdTVja",
+                      "name": "20250701_175229.jpg",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1Y4KdbD-nhpvSnBm7SDWwVGAZcWWdTVja/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1u3YM0JM07EYRZsRY0PthbnU9-PpoTSUo",
+                  "name": "Parciales",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1u3YM0JM07EYRZsRY0PthbnU9-PpoTSUo",
+                  "children": [
+                    {
+                      "id": "18LvnYNRlIHdM_tAqLkdJivtPjvVnUxd8",
+                      "name": "Ensayo 1º parcial (4).docx",
+                      "type": "file",
+                      "url": "https://docs.google.com/document/d/18LvnYNRlIHdM_tAqLkdJivtPjvVnUxd8/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1hDBvmd02l16FmffNdS7PoXpZfYyThbZU",
+                      "name": "Repaso 2° parcial. word. 2024 (2).docx",
+                      "type": "file",
+                      "url": "https://docs.google.com/document/d/1hDBvmd02l16FmffNdS7PoXpZfYyThbZU/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1ieJfNFJPe6c250l1cZIAQWNY6OYSbNF0",
+                      "name": "Recup 1° parcial_merged (2024-UTN).pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1ieJfNFJPe6c250l1cZIAQWNY6OYSbNF0/view?usp=drivesdk"
+                    }
+                  ]
+                },
+                {
+                  "id": "1eo0IvXr2xaKjWQW4bOGa0GMhnATLWGAV",
+                  "name": "Demostraciones",
+                  "type": "folder",
+                  "url": "https://drive.google.com/drive/folders/1eo0IvXr2xaKjWQW4bOGa0GMhnATLWGAV",
+                  "children": [
+                    {
+                      "id": "1o8inxGBhxyECUWNWis4xVlzKsFzHuGDT",
+                      "name": "Teoremas de Int, definidas.docx",
+                      "type": "file",
+                      "url": "https://docs.google.com/document/d/1o8inxGBhxyECUWNWis4xVlzKsFzHuGDT/edit?usp=drivesdk&ouid=102592514877865582068&rtpof=true&sd=true"
+                    },
+                    {
+                      "id": "1eZH0EXh6vhHerjJDjtEPP_7974DEOG2Y",
+                      "name": "Recuperatorio global junio 2023.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1eZH0EXh6vhHerjJDjtEPP_7974DEOG2Y/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1q1spv73qnLfC3I9wkZrWvZ-qpcRkOEpr",
+                      "name": "Algunas partes del examen global resueltas.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1q1spv73qnLfC3I9wkZrWvZ-qpcRkOEpr/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1NCqsTZ-8xV50O2PcNhQPIjIxtYi8XpZE",
+                      "name": "Teorema Fundamental del Cálculo.  Parte I y Parte II.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1NCqsTZ-8xV50O2PcNhQPIjIxtYi8XpZE/view?usp=drivesdk"
+                    },
+                    {
+                      "id": "1WtJcnWsFYKNplzeZxdLq6_J9Bcy1gsA-",
+                      "name": "Demostraciones de derivadas de suma y producto, y función inversa. Método logarítmico de derivación.pdf",
+                      "type": "file",
+                      "url": "https://drive.google.com/file/d/1WtJcnWsFYKNplzeZxdLq6_J9Bcy1gsA-/view?usp=drivesdk"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "1sD94An3oaMIbqKpJmtIlGb54uwOetkYv",
+              "name": "Calculo James Stewart 7 Edicion.pdf",
+              "type": "file",
+              "url": "https://drive.google.com/file/d/1sD94An3oaMIbqKpJmtIlGb54uwOetkYv/view?usp=drivesdk"
+            },
+            {
+              "id": "1Rst28WzwHHemGJNJPXkZDqnMqfKMCWhs",
+              "name": "Prog. Analítico ANÁLISIS MATEMÁTICO I-2025.pdf",
+              "type": "file",
+              "url": "https://drive.google.com/file/d/1Rst28WzwHHemGJNJPXkZDqnMqfKMCWhs/view?usp=drivesdk"
+            }
         ]
       },
       {

@@ -1,5 +1,4 @@
-import treeRaw from "@/scripts/data/drive-tree-v2.json";
-
+import { treeData  } from "@/app/lib/config";
 export type Node = {
   id?: string;
   name: string;
@@ -8,7 +7,7 @@ export type Node = {
   children?: Node[];
 };
 
-const tree = treeRaw as Node[];
+const tree = treeData as Node[];
 
 const byId = new Map<string, Node>();
 const childrenIdsByParentId = new Map<string, Set<string>>();

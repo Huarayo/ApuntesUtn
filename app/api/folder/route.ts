@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import treeRaw from "@/scripts/data/drive-tree-v2.json";
+import { treeData } from "@/app/lib/config";
+
 //LOADING PARA LA NAVEGACIÓN POR CARPETAS
 type Node = {
   id?: string;
@@ -9,7 +10,7 @@ type Node = {
   children?: Node[];
 };
 
-const tree = treeRaw as Node[];
+const tree = treeData as Node[];
 
 // Index rápido: folderId -> children
 const folderIndex = new Map<string, Node[]>();

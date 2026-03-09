@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { cache } from "react";
+import {TREE_FILENAME} from "@/app/lib/config"
 
 // --- INTERFAZ (Ahora exportada) ---
 export interface Node {
@@ -33,7 +34,7 @@ export const isFolder = (n: Node) =>
 
 // ✅ lee el JSON y lo cachea
 export const getTree = cache((): Node[] => {
-  const filePath = path.join(process.cwd(), "public", "data", "drive-tree-v2.json");
+  const filePath = path.join(process.cwd(), "public", "data", TREE_FILENAME);
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw) as Node[];
 });
