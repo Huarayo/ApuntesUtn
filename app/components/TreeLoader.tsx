@@ -14,7 +14,7 @@ let cachedTree: TreeNode[] | null = null;
 let cachedPromise: Promise<TreeNode[]> | null = null;
 
 // ✅ Leer de Vercel Blob
-const BLOB_URL = process.env.NEXT_PUBLIC_BLOB_URL 
+const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
 const TREE_PATH = "drive-tree.json"; //NOMBRE VERCEL BLOB
 
 async function fetchTreeOnce(): Promise<TreeNode[]> {
