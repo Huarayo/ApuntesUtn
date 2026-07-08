@@ -1,21 +1,67 @@
 import { google } from "googleapis";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from 'url';
 
-const KEY_PATH = path.resolve("keys/drive-reader.json");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const ROOT_FOLDER_ID = "1b_AndWq4VbixhasOObo7wOZrIKIy08ru";
-
-// Opcional: para no reventar con árboles profundos
 const MAX_DEPTH = 50;
 
-const auth = new google.auth.GoogleAuth({
-  keyFile: KEY_PATH,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-});
+// 🔥 Función para obtener autenticación (desde variable de entorno o archivo)
+async function getAuth() {
+  // 1️⃣ INTENTAR DESDE VARIABLE DE ENTORNO (Vercel)
+  const keyJson = process.env.GOOGLE_DRIVE_KEY;
+  
+  if (keyJson) {
+    console.log("🔑 Usando clave desde variable de entorno GOOGLE_DRIVE_KEY");
+    try {
+      const credentials = JSON.parse(keyJson);
+      return new google.auth.GoogleAuth({
+        credentials,
+        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+      });
+    } catch (error) {
+      console.error("❌ Error parseando GOOGLE_DRIVE_KEY:", error.message);
+      // Si falla, intentar con archivo
+    }
+  }
 
-const drive = google.drive({ version: "v3", auth });
+  // 2️⃣ INTENTAR DESDE ARCHIVO LOCAL (desarrollo)
+  const KEY_PATH = path.resolve("keys/drive-reader.json");
+  if (fs.existsSync(KEY_PATH)) {
+    console.log("📁 Usando clave desde archivo local:", KEY_PATH);
+    return new google.auth.GoogleAuth({
+      keyFile: KEY_PATH,
+      scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+    });
+  }
+
+  // 3️⃣ SI NADA FUNCIONA, ERROR CLARO
+  throw new Error(`
+❌ No se encontró la clave de Google Drive.
+
+📌 Para LOCAL: Asegurate que existe keys/drive-reader.json
+📌 Para VERCEL: Agregá GOOGLE_DRIVE_KEY como variable de entorno
+
+La variable debe contener el contenido COMPLETO del archivo drive-reader.json
+  `);
+}
+
+// El resto del código se mantiene igual, pero usando getAuth()
+let auth = null;
+let drive = null;
+
+async function getDrive() {
+  if (!auth) {
+    auth = await getAuth();
+    drive = google.drive({ version: "v3", auth });
+  }
+  return drive;
+}
 
 async function listChildren(folderId) {
+  const drive = await getDrive();
   let pageToken = undefined;
   const all = [];
 
@@ -41,7 +87,6 @@ function isFolder(f) {
 }
 
 function toFileNode(f) {
-  // webViewLink es el link correcto para ver (Docs/Sheets/Slides y binarios)
   const url =
     f.webViewLink ||
     (isFolder(f)
@@ -65,7 +110,6 @@ async function readFolderTree(folderId, visited, depth) {
 
   const children = await listChildren(folderId);
 
-  // Orden: primero carpetas, luego archivos (mejor UX)
   children.sort((a, b) => {
     const af = isFolder(a) ? 0 : 1;
     const bf = isFolder(b) ? 0 : 1;
@@ -76,7 +120,6 @@ async function readFolderTree(folderId, visited, depth) {
   const out = [];
 
   for (const f of children) {
-    // Si aparece un shortcut, lo ignoramos para evitar líos (podés cambiarlo si querés)
     if (f.mimeType === "application/vnd.google-apps.shortcut") continue;
 
     if (isFolder(f)) {
@@ -97,18 +140,18 @@ async function readFolderTree(folderId, visited, depth) {
 }
 
 async function main() {
-  // Verificación rápida de key
-  if (!fs.existsSync(KEY_PATH)) {
-    throw new Error(`No existe el archivo de credenciales: ${KEY_PATH}`);
-  }
-
+  console.log("🚀 Iniciando escaneo de Google Drive...");
+  
   const visited = new Set();
   const tree = await readFolderTree(ROOT_FOLDER_ID, visited, 0);
 
-  fs.mkdirSync("scripts/data", { recursive: true });
-  fs.writeFileSync("scripts/data/drive-tree.json", JSON.stringify(tree, null, 2), "utf-8");
+  // Guardar en scripts/data/
+  const outputPath = path.join(process.cwd(), "scripts", "data", "drive-tree.json");
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(tree, null, 2), "utf-8");
 
   console.log(`✔ Árbol completo generado. Carpetas visitadas: ${visited.size}`);
+  console.log(`📁 Guardado en: ${outputPath}`);
 }
 
 main().catch((e) => {
