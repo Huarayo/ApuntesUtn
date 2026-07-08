@@ -2,8 +2,8 @@ import { google } from "googleapis";
 import fs from "fs";
 import path from "path";
 
-const KEY_PATH = path.resolve("../keys/drive-reader.json");
-const ROOT_FOLDER_ID = "1E4TVcYymK5-73b05_39XQW6QYiVf6b6s";
+const KEY_PATH = path.resolve("keys/drive-reader.json");
+const ROOT_FOLDER_ID = "1b_AndWq4VbixhasOObo7wOZrIKIy08ru";
 
 // Opcional: para no reventar con árboles profundos
 const MAX_DEPTH = 50;
@@ -51,7 +51,9 @@ function toFileNode(f) {
   return {
     name: f.name,
     type: f.mimeType,
+    id: f.id,
     url,
+    source: "drive"
   };
 }
 
@@ -82,6 +84,7 @@ async function readFolderTree(folderId, visited, depth) {
         name: f.name,
         type: "folder",
         id: f.id,
+        source: "drive",
         url: `https://drive.google.com/drive/folders/${f.id}`,
         children: await readFolderTree(f.id, visited, depth + 1),
       });
@@ -102,8 +105,8 @@ async function main() {
   const visited = new Set();
   const tree = await readFolderTree(ROOT_FOLDER_ID, visited, 0);
 
-  fs.mkdirSync("data", { recursive: true });
-  fs.writeFileSync("data/drive-tree.json", JSON.stringify(tree, null, 2), "utf-8");
+  fs.mkdirSync("scripts/data", { recursive: true });
+  fs.writeFileSync("scripts/data/drive-tree.json", JSON.stringify(tree, null, 2), "utf-8");
 
   console.log(`✔ Árbol completo generado. Carpetas visitadas: ${visited.size}`);
 }

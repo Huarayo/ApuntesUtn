@@ -6,11 +6,11 @@ import fs from 'fs';
 
 // 1. CONFIGURACIÓN DE RUTAS
 const __dirname = path.resolve();
-const KEY_PATH = path.join(__dirname, 'keys', 'drive-read.json');
+const KEY_PATH = path.join(__dirname, 'keys', 'drive-reader.json');
 const OUTPUT_PATH = path.join(__dirname, 'scripts', 'data', 'drive-tree.json');
 
 // 2. ID DE LA CARPETA PÚBLICA (Viewer)
-const ROOT_FOLDER_ID = "1XTM9vrEeNiXk8YAeh50TPVDzSSigBEjT"; 
+const ROOT_FOLDER_ID = "1b_AndWq4VbixhasOObo7wOZrIKIy08ru"; 
 
 async function generateDriveTree() {
   // Verificar si existen las credenciales

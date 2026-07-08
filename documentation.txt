@@ -1,0 +1,2842 @@
+
+ubicación: app/api/folder/route
+import { NextResponse } from "next/server";
+import { treeData } from "@/app/lib/config";
+
+//LOADING PARA LA NAVEGACIÓN POR CARPETAS
+type Node = {
+  id?: string;
+  name: string;
+  type: string;         // "folder" o mimeType
+  url?: string;
+  children?: Node[];
+};
+
+const tree = treeData as Node[];
+
+// Index rápido: folderId -> children
+const folderIndex = new Map<string, Node[]>();
+
+function indexTree(nodes: Node[]) {
+  for (const n of nodes) {
+    if (n.type === "folder" && n.id) {
+      folderIndex.set(n.id, n.children ?? []);
+      if (n.children) indexTree(n.children);
+    }
+  }
+}
+
+indexTree(tree);
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  // Root
+  if (!id || id === "root") {
+    return NextResponse.json(tree.map(stripChildren));
+  }
+
+  const children = folderIndex.get(id) ?? [];
+  return NextResponse.json(children.map(stripChildren));
+}
+
+// Para lazy loading: no mandamos "children" en la respuesta
+function stripChildren(n: Node) {
+  const { children, ...rest } = n;
+  return rest;
+}
+
+// Construye un índice en memoria (rápido)
+
+// /api/folder?id=root devuelve la raíz
+
+// /api/folder?id=<FOLDER_ID> devuelve solo los hijos
+
+// No manda children para que el cliente no cargue el árbol entero
+
+ubicación: app/api/search/route.ts
+
+import { NextResponse } from "next/server";
+import { treeData } from "@/app/lib/config";
+ 
+type Node = {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+};
+function norm(s: string){
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") //sacar tildes
+    .replace(/[_-]+/g, " ")  //_ y - a espacio
+    .replace(/[^a-z0-9\s]+/g, " ") //otros simbolos
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+
+function isFolder(n: Node) {
+  return n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+}
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function segOfFolder(n: Node) {
+  return `${slugify(n.name)}--${n.id ?? ""}`;
+}
+
+type SearchResult = {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  href: string;
+  isFolder: boolean;
+  normName: string
+};
+
+let FLAT: SearchResult[] | null = null;
+
+function buildFlat() {
+  const out: SearchResult[] = [];
+  const walk = (nodes: Node[], path: string[] = []) => {
+    for (const node of nodes) {
+      const folder = isFolder(node);
+      const seg = folder ? segOfFolder(node) : "";
+      const nextPath = folder ? [...path, seg] : path;
+
+      out.push({
+        id: node.id,
+        name: node.name,
+        type: node.type,
+        url: node.url,
+        isFolder: folder,
+        href: folder
+          ? "/browse/" + nextPath.map(encodeURIComponent).join("/")
+          : (node.url ?? "#"),
+        normName: norm(node.name) // mejor que norm(item.name)
+      });
+
+      if (node.children?.length) walk(node.children, nextPath);
+    }
+  };
+
+  walk(treeData as Node[]);
+  return out;
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  //lee el parametro q de la URL como esta /api/search?q=analisis&limit=20
+  const q = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const limit = Math.min(Number(searchParams.get("limit") ?? "20"), 50);
+
+  if (!FLAT) FLAT = buildFlat();
+
+  if (q.length < 2) return NextResponse.json({ results: [] });
+
+  // ⚡ cortar temprano // 
+const nq = norm(q); //normalizar 
+
+const folders: SearchResult[] = [];
+const files: SearchResult[] = [];
+
+for (const item of FLAT) {
+  if (!item.normName.includes(nq)) continue; // 👈 ideal usar normName precalculado
+  (item.isFolder ? folders : files).push(item);
+}
+//primero ordenar carpetas y luego archivos
+//orden alfabetico
+folders.sort((a, b) => a.name.localeCompare(b.name, "es"));
+files.sort((a, b) => a.name.localeCompare(b.name, "es"));
+
+const results = folders.concat(files).slice(0, limit);
+
+return NextResponse.json({ results });
+
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\browse\[[...segments]]\loading.tsx
+
+// app/browse/[[...]]/loading.tsx
+export default function Loading() {
+  return (
+    <div className="mini" style={{ padding: '24px' }}>
+      {/* Imitamos el botón de volver y las migas de pan */}
+      <div className="skeleton-box" style={{ width: '80px', height: '20px', marginBottom: '20px' }}></div>
+      
+      <div style={{ marginBottom: '30px' }}>
+        <div className="skeleton-box" style={{ width: '40%', height: '35px' }}></div>
+      </div>
+      <div className="miniList">
+        {/* Generamos 8 filas de carga para rellenar la pantalla */}
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="skeleton-row">
+            <div className="skeleton-box skeleton-icon"></div>
+            <div className="skeleton-box skeleton-text"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\browse\[[...segments]]\page.tsx
+
+import type { Metadata } from "next";
+import BrowseClient from "@/app/components/BrowseClient";
+
+import { TREE_FILENAME } from "@/app/lib/config";
+
+import fs from "fs";
+import path from "path";
+import { cache } from "react";
+
+// --- INTERFAZ ---
+interface Node {
+  id: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+}
+
+// --- HELPERS ---
+const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const parseSeg = (seg: string) => {
+  const idx = seg.indexOf("--");
+  return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
+};
+
+const isFolder = (n: Node) =>
+  n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// ✅ lee el JSON desde public y lo cachea (para metadata/static params)
+const getTree = cache((): Node[] => {
+    const filePath = path.join(process.cwd(), "public", "data", TREE_FILENAME);
+  const raw = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(raw) as Node[];
+});
+
+const findName = (nodes: Node[], targetId: string): string | null => {
+  for (const n of nodes) {
+    if (n.id === targetId) return n.name;
+    if (n.children) {
+      const res = findName(n.children, targetId);
+      if (res) return res;
+    }
+  }
+  return null;
+};
+
+// ----- generar miles de rutas para google
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ segments?: string[] }>;
+}): Promise<Metadata> {
+  const { segments } = await params;
+  const tree = getTree();
+
+  // 1. Caso Base: /browse (Página principal de materias)
+  if (!segments || segments.length === 0) {
+    return { 
+      title: "Materias y Carreras | Apuntes UTN Mendoza",
+      description: "Explorá todas las carreras de la UTN FRM: Ingeniería Sistemas, Civil, Electromecánica y más. Todo el material organizado en un solo lugar."
+    };
+  }
+
+  // Helper interno para obtener el nombre real desde el ID del segmento
+  const getRealName = (seg: string) => {
+    const { id } = parseSeg(decodeURIComponent(seg));
+    const raw = findName(tree, id);
+    return raw ? cleanName(raw) : null;
+  };
+
+  const nombreActual = getRealName(segments[segments.length - 1]);
+  const nombreCarrera = getRealName(segments[0]);
+
+  // Si algo falla, fallback seguro
+  if (!nombreActual) return { title: "Carpeta | Apuntes UTN Mendoza" };
+
+  let tituloFinal = "";
+  let descFinal = "";
+
+  // 2. Lógica según la profundidad de la URL (lo que me pasaste en el ejemplo)
+  if (segments.length === 1) {
+    // Nivel 1: Carrera (Ej: BÁSICAS)
+    tituloFinal = `${nombreActual.toUpperCase()} | Apuntes UTN Mendoza`;
+    descFinal = `Accedé a todo el material organizado para la carrera de ${nombreActual} en la UTN Facultad Regional Mendoza.`;
+  } 
+  else if (segments.length === 2) {
+    // Nivel 2: Materia (Ej: ANÁLISIS MATEMÁTICO I)
+    tituloFinal = `${nombreActual.toUpperCase()} | ${nombreCarrera}`;
+    descFinal = `Apuntes, parciales y finales de ${nombreActual} para estudiantes de ${nombreCarrera}. La forma más fácil de estudiar.`;
+  } 
+  else {
+    // Nivel 3 o más: Subcarpeta (Ej: EXÁMENES)
+    const nombreMateria = getRealName(segments[1]);
+    tituloFinal = `${nombreActual.toUpperCase()} - ${nombreMateria} | ${nombreCarrera}`;
+    descFinal = `Sección de ${nombreActual} para la materia ${nombreMateria}. Material actualizado y organizado por la comunidad de la UTN.`;
+  }
+
+  return {
+    title: tituloFinal,
+    description: descFinal,
+    alternates: {
+      canonical: `/browse/${segments.join('/')}`,
+    },
+  };
+}
+
+
+
+// // --- SEO ---
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: Promise<{ segments?: string[] }>;
+// }): Promise<Metadata> {
+//   const { segments } = await params;
+
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+
+//   const tree = getTree();
+//   const name = findName(tree, id);
+
+//   return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
+// }
+
+// --- GENERACIÓN ESTÁTICA (SOLO PRINCIPALES) ---
+// export async function generateStaticParams() {
+//   const tree = getTree();
+
+//   return tree
+//     .filter((n) => isFolder(n) && n.id)
+//     .map((n) => ({
+//       segments: [`${slugify(n.name)}--${n.id}`],
+//     }));
+// }
+// --- 5. MOTOR DE VELOCIDAD (Generación hasta Nivel 4) ---
+export async function generateStaticParams() {
+  const tree = getTree();
+  const paths: { segments: string[] }[] = [];
+
+  // Función recursiva que "camina" el árbol
+  function walk(nodes: Node[], currentSegments: string[], depth: number) {
+    // Si llegamos al nivel 4 o no hay más nodos, nos detenemos
+    if (depth > 4 || !nodes) return;
+
+    for (const node of nodes) {
+      if (isFolder(node)) {
+        const segment = `${slugify(node.name)}--${node.id}`;
+        const newSegments = [...currentSegments, segment];
+        
+        // Agregamos esta ruta a la lista de páginas para pre-generar
+        paths.push({ segments: newSegments });
+
+        // Si tiene hijos, seguimos bajando un nivel más
+        if (node.children) {
+          walk(node.children, newSegments, depth + 1);
+        }
+      }
+    }
+  }
+
+  // Empezamos a caminar desde la raíz (Nivel 1)
+  walk(tree, [], 1);
+
+  return paths;
+}
+export const dynamicParams = true;
+
+// --- LA PÁGINA ---
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ segments?: string[] }>;
+}) {
+  const { segments } = await params;
+  return <BrowseClient segs={segments ?? []} />;
+}
+
+  // ... acá sigue tu código actual tal como lo tenías
+
+//--------------------------------------------------
+
+// import { Metadata } from "next";
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// // Si el error de "Module not found" persiste, asegurate de que el archivo 
+// // exista en: app/components/BrowseClient.tsx
+// import BrowseClient from "@/app/components/BrowseClient";
+
+
+
+// // --- INTERFAZ (El "Contrato") ---
+// // Esto elimina todos los errores de "any"
+// interface Node {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+//   children?: Node[];
+// }
+
+// // --- HELPERS ---
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+// const slugify = (s: string) => 
+//   s.toLowerCase()
+//    .normalize("NFD")
+//    .replace(/[\u0300-\u036f]/g, "")
+//    .replace(/[^a-z0-9]+/g, "-")
+//    .replace(/(^-|-$)/g, "");
+
+// const parseSeg = (seg: string) => {
+//   const idx = seg.indexOf("--");
+//   return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
+// };
+
+// const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// // --- SEO ---
+// export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+//   const { segments } = await params;
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+  
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+  
+//   // Reemplazamos 'any' por 'Node' o 'Node[]'
+//   const findName = (nodes: Node[], targetId: string): string | null => {
+//     for (const n of nodes) {
+//       if (n.id === targetId) return n.name;
+//       if (n.children) {
+//         const res = findName(n.children, targetId);
+//         if (res) return res;
+//       }
+//     }
+//     return null;
+//   };
+
+//   const name = findName(treeRaw as Node[], id);
+//   return { title: name ? cleanName(name).toUpperCase() : "Carpeta" };
+// }
+
+// // --- GENERACIÓN ESTÁTICA ---
+// export async function generateStaticParams() {
+//   // Tipamos el mapeo para evitar errores
+//   return (treeRaw as Node[])
+//     .filter(isFolder)
+//     .map((node: Node) => ({
+//       segments: [`${slugify(node.name)}--${node.id}`],
+//     }));
+// }
+
+// export const dynamicParams = true;
+
+// // --- LA PÁGINA ---
+// export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
+//   const { segments } = await params;
+  
+//   // Usamos el casteo (as Node[]) para que TypeScript esté tranquilo
+//   return <BrowseClient fullTree={treeRaw as Node[]} segs={segments ?? []} />;
+// }
+
+//-----------------------------------------------------------
+
+// import { Metadata } from "next";
+// import Link from "next/link";
+// import { notFound } from "next/navigation"; // Importación que faltaba
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// import AnimatedList from "@/app/components/AnimatedList"; // Importación que faltaba
+
+// // --- INTERFACES ---
+// interface Node {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+//   children?: Node[]; // Esto soluciona el error de 'children'
+// }
+
+// // --- FUNCIONES HELPER (Tus herramientas de trabajo) ---
+// const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// const segOfFolder = (n: Node) => `${slugify(n.name)}--${n.id}`;
+
+// function parseSeg(seg: string) {
+//   const idx = seg.indexOf("--");
+//   if (idx === -1) return { slug: "", id: seg };
+//   return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+// }
+
+// // --- EL HASH MAP (Búsqueda Instantánea O(1)) ---
+// const nodeMap = new Map<string, Node>();
+
+// function indexNodes(nodes: Node[]) {
+//   for (const node of nodes) {
+//     nodeMap.set(node.id, node);
+//     if (node.children) indexNodes(node.children);
+//   }
+// }
+
+// // Ejecutamos el índice una sola vez
+// indexNodes(treeRaw as Node[]);
+
+// // --- GENERACIÓN ESTÁTICA ---
+// // ESTO CAMBIA EL BUILD: De 563 páginas a solo ~13
+// export async function generateStaticParams() {
+//   return (treeRaw as Node[])
+//     .filter(isFolder)
+//     .map((node) => ({
+//       segments: [segOfFolder(node)],
+//     }));
+// }
+
+// // Agregá esta línea justo debajo para que las subcarpetas funcionen igual
+// export const dynamicParams = true;
+
+// // --- SEO ---
+// export async function generateMetadata({ params }: { params: Promise<{ segments?: string[] }> }): Promise<Metadata> {
+//   const { segments } = await params;
+//   if (!segments || segments.length === 0) return { title: "Materias" };
+//   const lastSeg = decodeURIComponent(segments[segments.length - 1]);
+//   const { id } = parseSeg(lastSeg);
+//   const node = nodeMap.get(id);
+//   return { title: node ? cleanName(node.name).toUpperCase() : "Carpeta" };
+// }
+
+// // --- LA PÁGINA ---
+// export default async function Page({ params }: { params: Promise<{ segments?: string[] }> }) {
+//   const { segments } = await params;
+//   const segs = segments ?? [];
+  
+//   const breadcrumbs = [{ name: "Inicio", href: "/" }];
+//   let pathAccumulator = "/browse";
+//   let currentNode: Node | null = null;
+
+//   for (const seg of segs) {
+//     const decoded = decodeURIComponent(seg);
+//     const { id } = parseSeg(decoded);
+//     const found = nodeMap.get(id);
+    
+//     if (!found) return notFound(); // Esto ahora funcionará
+    
+//     currentNode = found;
+//     pathAccumulator += `/${encodeURIComponent(decoded)}`;
+//     breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
+//   }
+
+//   // Obtenemos los hijos del nodo actual o la raíz
+//   const currentNodes = currentNode ? (currentNode.children ?? []) : (treeRaw as Node[]);
+
+//   // Ordenamos: Carpetas primero, luego Alfabético
+//   const sortedNodes = [...currentNodes].sort((a, b) => {
+//     const aIsF = isFolder(a);
+//     const bIsF = isFolder(b);
+//     if (aIsF && !bIsF) return -1;
+//     if (!aIsF && bIsF) return 1;
+//     return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: 'base' });
+//   });
+
+//   const backHref = segs.length <= 1 ? "/" : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+
+//   return (
+//     <main className="mini">
+//       <Link className="back" href={backHref}>← Volver</Link>
+
+//       <nav className="miniCrumbs">
+//         {breadcrumbs.map((crumb, i) => {
+//           const isLast = i === breadcrumbs.length - 1;
+//           return (
+//             <span key={crumb.href} className="crumbWrap">
+//               {i > 0 && <span className="miniSep">›</span>}
+//               {isLast ? (
+//                 <span className="miniCrumb active">{crumb.name}</span>
+//               ) : (
+//                 <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
+//               )}
+//             </span>
+//           );
+//         })}
+//       </nav>
+
+//       <h1 className="folderHeaderTitle">
+//         {currentNode ? cleanName(currentNode.name) : "Materias"}
+//       </h1>
+
+//       <AnimatedList childrenData={sortedNodes} segs={segs} />
+//     </main>
+//   );
+// }
+
+
+
+// import Link from "next/link";
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// import { redirect } from "next/navigation";
+// import FolderIcon from "../../components/icons/Folder";
+// import FileIcon from "../../components/icons/FileIcon";
+// type Node = {
+//   id?: string;
+//   name: string;
+//   type: string; // "folder" o mimeType
+//   url?: string;
+//   children?: Node[];
+// };
+
+// const tree = treeRaw as Node[];
+
+// function isFolder(n: Node) {
+//   return n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// }
+
+// //carpetas que tengo nombres parecidos los lleva al mismo formato
+// function slugify(s: string) {
+//   return s
+//     .toLowerCase()
+//     .normalize("NFD")
+//     .replace(/[\u0300-\u036f]/g, "")
+//     .replace(/[^a-z0-9]+/g, "-")
+//     .replace(/(^-|-$)/g, "");
+// }
+
+// function segOfFolder(n: Node) {
+//   return `${slugify(n.name)}--${n.id}`;
+// }
+
+// function parseSeg(seg: string) {
+//   const idx = seg.indexOf("--"); // primer separador
+//   if (idx === -1) return { slug: "", id: seg };
+//   return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+// }
+
+
+// function findChildrenByIds(root: Node[], ids: string[]) {
+//   let current = root;
+//   for (const id of ids) {
+//     const folder = current.find((n) => isFolder(n) && n.id === id);
+    
+//     //a donde ir segun lo que se ponga en la ruta
+//     //ej: basicas/jfñdfjañslk no encuentra nada y muestra lo que hay en basicas
+//     //evitar mostrar algo cuando es error
+//     // if (!folder?.children) return current;
+//     // current = folder.children;
+//     if(!folder) return null; //si es ruta invalida no existe
+//     current = folder.children ?? [] //existe pero esta vacil []
+//   }
+
+//   return current;
+// }
+
+//   // solo hagarra el slug // Función para limpiar nombres (Ej: "1_Sistemas_Digitales" -> "Sistemas Digitales")
+// function cleanName(name: string) {
+//   return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// }
+
+// function findNodeById(root: Node[], id: string): Node | null {
+//   for (const n of root) {
+//     if (n.id === id) return n;
+//     if (n.children) {
+//       const hit = findNodeById(n.children, id);
+//       if (hit) return hit;
+//     }
+//   }
+//   return null;
+// }
+
+// //si le pasamos props decimos a next que nos pase lo que tenga en esta pagina
+// export default async function Page(props: {
+//   params: Promise<{ segments?: string[] }>;
+// }) {
+//   // accedemos al array con el nombre de la ruta 
+//   //app/browse/[...segments]/page.tsx
+//   //Todo lo que venga después de /browse/ metolo en el array llamado segments
+
+//   const { segments } = await props.params;
+//   const segs = segments ?? [];
+//   if (segs.length === 0) redirect("/");
+
+
+//   const ids = segs.map((s) => parseSeg(decodeURIComponent(s)).id);
+//   const current = findChildrenByIds(tree, ids);
+//   if(!current) redirect("/");
+
+//   const sorted = [...current].sort((a, b) => {
+//     const af = isFolder(a) ? 0 : 1;
+//     const bf = isFolder(b) ? 0 : 1;
+//     if (af !== bf) return af - bf;
+//     return a.name.localeCompare(b.name, "es");
+//   });
+
+//     const breadcrumbs = segs.map((seg, index) => {
+//     const currentSegs = segs.slice(0, index + 1);
+
+//     const decoded = decodeURIComponent(seg);
+//     const { id } = parseSeg(decoded);
+
+//     const node = findNodeById(tree, id); 
+//     //si no existe carpeta al hacer click no se puede construir la url
+//     //por eso no redirije , es como un bug 
+//     //["basicas--ID", "lo-que-sea--FAKEID"]
+
+//     return {
+//       name: node ? cleanName(node.name) : "Carpeta",
+//       href: "/browse/" + currentSegs.map(encodeURIComponent).join("/"),
+//       };
+//     });
+
+
+//   // ✅ título carpeta actual (simple)  
+//     // ✅ título carpeta actual (nombre real)
+//   const lastId = segs.length
+//     ? parseSeg(decodeURIComponent(segs.at(-1)!)).id
+//     : null;
+
+//   const lastNode = lastId ? findNodeById(tree, lastId) : null;
+
+//   const currentTitle = lastNode
+//     ? cleanName(lastNode.name)
+//     : "Carpeta";
+
+  
+//   // ✅ volver 1 nivel (o al home si estás en root)
+//   const backHref =
+//   segs.length <= 1
+//     ? "/"
+//     : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+
+//   return (
+//     <main className="mini">
+//       <Link  className="back" href={backHref}>← Volver</Link>
+
+//       {/* ✅ BREADCRUMBS INFINITOS */}
+//       <nav className="miniCrumbs">
+//         <Link href="/" className="miniCrumb">Inicio</Link>
+//         {breadcrumbs.map((crumb, i) => {
+//           const last = i === breadcrumbs.length - 1;
+//           return (
+//             <span key={i} className="crumbWrap">
+//               <span className="miniSep">›</span>
+//               {last ? (
+//                 <span className="miniCrumb active" aria-current="page">{crumb.name}</span>
+//               ) : (
+//                 <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
+//               )}
+//             </span>
+//           );
+//         })}
+//       </nav>
+//       <h1 className="folderHeaderTitle">{currentTitle}</h1>
+
+//       {/* Resto de tu código (navBar y miniList) se mantiene igual */}
+      
+
+//       <div className="miniList">
+      
+//         {sorted.map((item) => {
+//           const isF = isFolder(item);
+//           const href = isF 
+//             ? "/browse/" + [...segs, segOfFolder(item)].map(encodeURIComponent).join("/")
+//             : item.url;
+
+//           return (
+//             //esta mal usar Link para archivos externos
+//             <a key={item.id ?? item.name} href={href || "#"} className="miniRow" target={isF ? "_self" : "_blank"} rel="noopener noreferrer">
+//               <div className="miniRowLeft">
+//                 <span className={`iconIcon ${isF ? 'folder' : 'file'}`}>
+//                   {isF ? <FolderIcon size={35} />: <FileIcon size={45} />} 
+//                 </span>
+//                 <span className="miniName">{cleanName(item.name)}</span>
+//               </div>
+//               <span className="miniRight">
+//                 {isF ? (
+//                   /* Icono Chevron (Flecha hacia la derecha) para carpetas */
+//                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+//                     <path d="m9 18 6-6-6-6"/>
+//                   </svg>
+//                 ) : (
+//                   /* Icono de Enlace Externo para archivos */
+//                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+//                     <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+//                   </svg>
+//                 )}
+//               </span>
+//             </a>
+//           );
+//         })}
+//       </div>
+//     </main>
+//   );
+
+// }
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\icons\FileIcons.tsx
+
+import React from "react";
+
+// Props comunes para todos los SVGs
+interface IconProps { size: number; color?: string; }
+
+// ==========================================
+// DOCUMENTOS (Rojo y Azul)
+// ==========================================
+export const PdfSVG = ({ size }: IconProps) => (
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32"><path fill="#909090" d="m24.1 2.072l5.564 5.8v22.056H8.879V30h20.856V7.945z"></path><path fill="#f4f4f4" d="M24.031 2H8.808v27.928h20.856V7.873z"></path><path fill="#7a7b7c" d="M8.655 3.5h-6.39v6.827h20.1V3.5z"></path><path fill="#dd2025" d="M22.472 10.211H2.395V3.379h20.077z"></path><path fill="#464648" d="M9.052 4.534H7.745v4.8h1.028V7.715L9 7.728a2 2 0 0 0 .647-.117a1.4 1.4 0 0 0 .493-.291a1.2 1.2 0 0 0 .335-.454a2.1 2.1 0 0 0 .105-.908a2.2 2.2 0 0 0-.114-.644a1.17 1.17 0 0 0-.687-.65a2 2 0 0 0-.409-.104a2 2 0 0 0-.319-.026m-.189 2.294h-.089v-1.48h.193a.57.57 0 0 1 .459.181a.92.92 0 0 1 .183.558c0 .246 0 .469-.222.626a.94.94 0 0 1-.524.114m3.671-2.306c-.111 0-.219.008-.295.011L12 4.538h-.78v4.8h.918a2.7 2.7 0 0 0 1.028-.175a1.7 1.7 0 0 0 .68-.491a1.9 1.9 0 0 0 .373-.749a3.7 3.7 0 0 0 .114-.949a4.4 4.4 0 0 0-.087-1.127a1.8 1.8 0 0 0-.4-.733a1.6 1.6 0 0 0-.535-.4a2.4 2.4 0 0 0-.549-.178a1.3 1.3 0 0 0-.228-.017m-.182 3.937h-.1V5.392h.013a1.06 1.06 0 0 1 .6.107a1.2 1.2 0 0 1 .324.4a1.3 1.3 0 0 1 .142.526c.009.22 0 .4 0 .549a3 3 0 0 1-.033.513a1.8 1.8 0 0 1-.169.5a1.1 1.1 0 0 1-.363.36a.67.67 0 0 1-.416.106m5.08-3.915H15v4.8h1.028V7.434h1.3v-.892h-1.3V5.43h1.4v-.892"></path><path fill="#dd2025" d="M21.781 20.255s3.188-.578 3.188.511s-1.975.646-3.188-.511m-2.357.083a7.5 7.5 0 0 0-1.473.489l.4-.9c.4-.9.815-2.127.815-2.127a14 14 0 0 0 1.658 2.252a13 13 0 0 0-1.4.288Zm-1.262-6.5c0-.949.307-1.208.546-1.208s.508.115.517.939a10.8 10.8 0 0 1-.517 2.434a4.4 4.4 0 0 1-.547-2.162Zm-4.649 10.516c-.978-.585 2.051-2.386 2.6-2.444c-.003.001-1.576 3.056-2.6 2.444M25.9 20.895c-.01-.1-.1-1.207-2.07-1.16a14 14 0 0 0-2.453.173a12.5 12.5 0 0 1-2.012-2.655a11.8 11.8 0 0 0 .623-3.1c-.029-1.2-.316-1.888-1.236-1.878s-1.054.815-.933 2.013a9.3 9.3 0 0 0 .665 2.338s-.425 1.323-.987 2.639s-.946 2.006-.946 2.006a9.6 9.6 0 0 0-2.725 1.4c-.824.767-1.159 1.356-.725 1.945c.374.508 1.683.623 2.853-.91a23 23 0 0 0 1.7-2.492s1.784-.489 2.339-.623s1.226-.24 1.226-.24s1.629 1.639 3.2 1.581s1.495-.939 1.485-1.035"></path><path fill="#909090" d="M23.954 2.077V7.95h5.633z"></path><path fill="#f4f4f4" d="M24.031 2v5.873h5.633z"></path><path fill="#fff" d="M8.975 4.457H7.668v4.8H8.7V7.639l.228.013a2 2 0 0 0 .647-.117a1.4 1.4 0 0 0 .493-.291a1.2 1.2 0 0 0 .332-.454a2.1 2.1 0 0 0 .105-.908a2.2 2.2 0 0 0-.114-.644a1.17 1.17 0 0 0-.687-.65a2 2 0 0 0-.411-.105a2 2 0 0 0-.319-.026m-.189 2.294h-.089v-1.48h.194a.57.57 0 0 1 .459.181a.92.92 0 0 1 .183.558c0 .246 0 .469-.222.626a.94.94 0 0 1-.524.114m3.67-2.306c-.111 0-.219.008-.295.011l-.235.006h-.78v4.8h.918a2.7 2.7 0 0 0 1.028-.175a1.7 1.7 0 0 0 .68-.491a1.9 1.9 0 0 0 .373-.749a3.7 3.7 0 0 0 .114-.949a4.4 4.4 0 0 0-.087-1.127a1.8 1.8 0 0 0-.4-.733a1.6 1.6 0 0 0-.535-.4a2.4 2.4 0 0 0-.549-.178a1.3 1.3 0 0 0-.228-.017m-.182 3.937h-.1V5.315h.013a1.06 1.06 0 0 1 .6.107a1.2 1.2 0 0 1 .324.4a1.3 1.3 0 0 1 .142.526c.009.22 0 .4 0 .549a3 3 0 0 1-.033.513a1.8 1.8 0 0 1-.169.5a1.1 1.1 0 0 1-.363.36a.67.67 0 0 1-.416.106m5.077-3.915h-2.43v4.8h1.028V7.357h1.3v-.892h-1.3V5.353h1.4v-.892"></path></svg>
+
+);
+
+export const WordSVG = ({ size }: IconProps) => (
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32"><defs><linearGradient id="SVG2m3AVb6p" x1={4.494} x2={13.832} y1={-1712.086} y2={-1695.914} gradientTransform="translate(0 1720)" gradientUnits="userSpaceOnUse"><stop offset={0} stopColor="#2368c4"></stop><stop offset={0.5} stopColor="#1a5dbe"></stop><stop offset={1} stopColor="#1146ac"></stop></linearGradient></defs><path fill="#41a5ee" d="M28.806 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5l11.069 3.25L30 9.5V4.191A1.19 1.19 0 0 0 28.806 3"></path><path fill="#2b7cd3" d="M30 9.5H8.512V16l11.069 1.95L30 16Z"></path><path fill="#185abd" d="M8.512 16v6.5l10.418 1.3L30 22.5V16Z"></path><path fill="#103f91" d="M9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5H8.512v5.309A1.19 1.19 0 0 0 9.705 29"></path><path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2" opacity={0.1}></path><path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path d="M15.783 8.85H8.512V23.8h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path fill="url(#SVG2m3AVb6p)" d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"></path><path fill="#fff" d="M6.9 17.988q.035.276.046.481h.028q.015-.195.065-.47c.05-.275.062-.338.089-.465l1.255-5.407h1.624l1.3 5.326a8 8 0 0 1 .162 1h.022a8 8 0 0 1 .135-.975l1.039-5.358h1.477l-1.824 7.748h-1.727l-1.237-5.126q-.054-.222-.122-.578t-.084-.52h-.021q-.021.189-.084.561t-.1.552L7.78 19.871H6.024L4.19 12.127h1.5l1.131 5.418a5 5 0 0 1 .079.443"></path></svg>
+
+);
+
+// ==========================================
+// DATA Y PRESENTACIÓN (Verde y Naranja)
+// ==========================================
+export const ExcelSVG = ({ size }: IconProps) => (
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32"><defs><linearGradient id="SVGSuUii0pt" x1={4.494} x2={13.832} y1={-2092.086} y2={-2075.914} gradientTransform="translate(0 2100)" gradientUnits="userSpaceOnUse"><stop offset={0} stopColor="#18884f"></stop><stop offset={0.5} stopColor="#117e43"></stop><stop offset={1} stopColor="#0b6631"></stop></linearGradient></defs><path fill="#185c37" d="M19.581 15.35L8.512 13.4v14.409A1.19 1.19 0 0 0 9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5Z"></path><path fill="#21a366" d="M19.581 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5L19.581 16l5.861 1.95L30 16V9.5Z"></path><path fill="#107c41" d="M8.512 9.5h11.069V16H8.512Z"></path><path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2" opacity={0.1}></path><path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path d="M15.783 8.85H8.512V23.8h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity={0.2}></path><path fill="url(#SVGSuUii0pt)" d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"></path><path fill="#fff" d="m5.7 19.873l2.511-3.884l-2.3-3.862h1.847L9.013 14.6c.116.234.2.408.238.524h.017q.123-.281.26-.546l1.342-2.447h1.7l-2.359 3.84l2.419 3.905h-1.809l-1.45-2.711A2.4 2.4 0 0 1 9.2 16.8h-.024a1.7 1.7 0 0 1-.168.351l-1.493 2.722Z"></path><path fill="#33c481" d="M28.806 3h-9.225v6.5H30V4.191A1.19 1.19 0 0 0 28.806 3"></path><path fill="#107c41" d="M19.581 16H30v6.5H19.581Z"></path></svg>
+
+);
+
+export const PptSVG = ({ size }: IconProps) => (
+ <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32"><path fill="#d33922" d="M18.536 2.321v2.863c3.4.019 7.357-.035 10.754.016c.642 0 .67.568.678 1.064c.054 5.942-.013 12.055.032 18c-.012.234-.006 1.1-.013 1.346c-.022.823-.434.859-1.257.884c-.132 0-.52.006-.648.012c-3.181-.016-6.362-.009-9.546-.009v3.182L2 27.134V4.873z"></path><path fill="#fff" d="M18.536 6.138h10.5v19.4h-10.5V23h7.634v-1.275h-7.634v-1.59h7.634v-1.272h-7.631q.002-.936-.006-1.87a4.47 4.47 0 0 0 3.82-.375a4.35 4.35 0 0 0 1.959-3.474c-1.4-.01-2.793-.006-4.186-.006c0-1.384.016-2.767-.029-4.148c-.522.1-1.043.21-1.562.321V6.139"></path><path fill="#d33922" d="M20.766 8.324a4.476 4.476 0 0 1 4.186 4.167c-1.4.016-2.793.01-4.189.01V8.324"></path><path fill="#fff" d="M7.1 10.726c1.727.083 3.82-.684 5.252.611c1.371 1.664 1.008 4.724-1.024 5.719A4.7 4.7 0 0 1 9 17.348c0 1.244-.006 2.488 0 3.731q-.947-.082-1.893-.159c-.029-3.4-.035-6.8 0-10.2"></path><path fill="#d33922" d="M8.993 12.446c.627-.029 1.4-.143 1.826.445a2.3 2.3 0 0 1 .041 2.087c-.363.655-1.183.592-1.816.668c-.067-1.066-.06-2.131-.051-3.2"></path></svg>
+  );
+
+// ==========================================
+// MULTIMEDIA (Verde claro y Violeta)
+// ==========================================
+// --- NUEVO: IMAGEN ---
+export const ImageSVG = ({ size }: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32"><path fill="currentColor" d="M2 5v22h28V5zm2 2h24v13.906l-5.28-5.312l-.72-.72l-.72.72l-3.81 3.812l-5.75-5.812l-.72-.72l-.72.72L4 19.874zm20 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 24 9m-13 6.72L20.188 25H4v-2.28zm11 2l6 6V25h-4.97l-4.155-4.188z"></path></svg>
+);
+
+// --- NUEVO: VIDEO ---
+export const VideoSVG = ({ size }: IconProps) => (
+   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 256 180"><path fill="#f00" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path><path fill="#fff" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path></svg>
+);
+
+// ==========================================
+// OTROS (Amarillo y Gris)
+// ==========================================
+// --- NUEVO: COMPRIMIDO (ZIP/RAR) ---
+export const ZipSVG = ({ size }: IconProps) => (
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 1024 1024"><path fill="currentColor" fillOpacity={0.15} d="M344 630h32v2h-32z"></path><path fill="currentColor" fillOpacity={0.15} d="M534 352V136H360v64h64v64h-64v64h64v64h-64v64h64v64h-64v62h64v160H296V520h64v-64h-64v-64h64v-64h-64v-64h64v-64h-64v-64h-64v752h560V394H576a42 42 0 0 1-42-42"></path><path fill="currentColor" d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7M602 137.8L790.2 326H602zM792 888H232V136h64v64h64v-64h174v216a42 42 0 0 0 42 42h216z"></path><path fill="currentColor" d="M296 392h64v64h-64zm0-128h64v64h-64zm0 318v160h128V582h-64v-62h-64zm48 50v-2h32v64h-32zm16-432h64v64h-64zm0 256h64v64h-64zm0-128h64v64h-64z"></path></svg>
+  );
+
+export const DefaultSVG = ({ size }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M7 2H14L19 7V20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20V4C5 2.89543 5.89543 2 7 2Z" stroke="#9E9E9E" strokeWidth="2"/>
+    <path d="M14 2V7H19" stroke="#9E9E9E" strokeWidth="2"/>
+  </svg>
+);
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\icons\Folder.tsx
+
+type Props = {
+  size?: number;
+};
+
+export default function FolderIcon({ size = 20 }: Props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 36 36"
+    >
+      <path
+        fill="#269"
+        d="M0 29a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4V12a4 4 0 0 0-4-4h-9c-3.562 0-3-5-8.438-5H4a4 4 0 0 0-4 4z"
+      />
+      <path
+        fill="#55acee"
+        d="M30 10h-6.562C18 10 18.562 15 15 15H6a4 4 0 0 0-4 4v10a1 1 0 1 1-2 0a4 4 0 0 0 4 4h26a4 4 0 0 0 4-4V14a4 4 0 0 0-4-4"
+      />
+    </svg>
+  );
+}
+
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\icons\FolderHome.tsx
+
+
+type Props = {
+  size?: number;
+};
+
+export default function FolderIcon({ size = 20 }: Props) {
+  return (
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 48 48"><g fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth={4}><path d="M4 9V41L9 21H39.5V15C39.5 13.8954 38.6046 13 37.5 13H24L19 7H6C4.89543 7 4 7.89543 4 9Z"></path><path fill="#2f88ff" d="M40 41L44 21H8.8125L4 41H40Z"></path></g></svg>
+  );
+}
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\icons\FolderIcons.jsx
+
+import React from "react";
+import { 
+  PdfSVG, WordSVG, ExcelSVG, PptSVG, 
+  ImageSVG, VideoSVG, ZipSVG, DefaultSVG 
+} from "./FileIcons";
+
+// 1. Mapa de extensiones (Sin tipos de TypeScript)
+const ICON_MAP = {
+  pdf: PdfSVG,
+  doc: WordSVG,
+  docx: WordSVG,
+  txt: DefaultSVG,
+  rtf: WordSVG,
+  xls: ExcelSVG,
+  xlsx: ExcelSVG,
+  csv: ExcelSVG,
+  ppt: PptSVG,
+  pptx: PptSVG,
+  jpg: ImageSVG,
+  jpeg: ImageSVG,
+  png: ImageSVG,
+  gif: ImageSVG,
+  svg: ImageSVG,
+  webp: ImageSVG,
+  ico: ImageSVG,
+  mp4: VideoSVG,
+  mov: VideoSVG,
+  avi: VideoSVG,
+  mkv: VideoSVG,
+  zip: ZipSVG,
+  rar: ZipSVG,
+  "7z": ZipSVG,
+  tar: ZipSVG,
+  gz: ZipSVG,
+};
+
+// 2. Componente (Quitamos ": Props")
+export default function FolderIcons({ name, size = 45 }) {
+  // DETECTAR: Cortamos por el punto y sacamos la extensión
+  const extension = name.split('.').pop()?.toLowerCase() || "";
+
+  // ELEGIR: Buscamos en el objeto ICON_MAP
+  const IconToRender = ICON_MAP[extension] || DefaultSVG;
+
+  // RENDERIZAR
+  return <IconToRender size={size} />;
+}
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\AnimatedList.tsx
+
+"use client";
+
+import { motion, Variants } from "framer-motion";
+import FolderIcons from "./icons/FolderIcons";
+import Folder from "./icons/Folder";
+import type { TreeNode } from "@/app/components/TreeLoader";
+
+type Props = {
+  childrenData: TreeNode[];
+  onFolderClick: (n: TreeNode) => void;
+  onFileClick: (id: string) => void;
+};
+
+const isFolder = (n: TreeNode) =>
+  n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+const cleanName = (name: string) =>
+  name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+const container: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+  },
+};
+
+const itemAnim: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100 },
+  },
+};
+
+export default function AnimatedList({ childrenData, onFolderClick, onFileClick }: Props) {
+  return (
+    <motion.div   key={childrenData.map(x => x.id ?? x.name).join("|")}
+  className="miniList"
+  variants={container}
+  initial="hidden"
+  animate="show">
+      {childrenData.map((item) => {
+        const folder = isFolder(item);
+        
+        const downloadUrl = `https://drive.google.com/uc?export=download&id=${item.id}`;
+
+        return (
+          <motion.div key={item.id ?? item.name} variants={itemAnim}>
+            {folder ? (
+              // ✅ CARPETA: botón offline (no Next Link)
+              <button className="miniRow" onClick={() => onFolderClick(item)}>
+                <RowContent item={item} folder />
+              </button>
+            ) : (
+              <div className="miniRow"
+               onClick={() => onFileClick(item.id!)} 
+               title="Previsualizar apunte">
+                {/* ACCIÓN PRINCIPAL: Abre el visor (Modal) en tu web */}
+  
+                <RowContent item={item} folder={false} />
+
+                {/* ACCIONES SECUNDARIAS: Descarga y Link Externo */}
+                <div className="miniRowRight">
+                  <a 
+                  href={downloadUrl} 
+                  className="btn-icon"
+                  title="Descargar PDF"
+                    onClick={(e)=> e.stopPropagation()}
+                  
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg>
+                  </a>
+
+                  <a 
+                    href={item.url ?? "#"} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn-icon" 
+                    title="Ver en Google Drive"
+                    onClick = {(e) => e.stopPropagation()}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17H7q-2.075 0-3.537-1.463T2 12t1.463-3.537T7 7h4v2H7q-1.25 0-2.125.875T4 12t.875 2.125T7 15h4zm-3-4v-2h8v2zm5 4v-2h4q1.25 0 2.125-.875T20 12t-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.463T22 12t-1.463 3.538T17 17z"/></svg>
+                  </a>  
+                </div>
+              </div>
+            )}
+          </motion.div>
+  
+        );
+      })}
+    </motion.div>
+  );
+}
+
+function RowContent({ item, folder }: { item: TreeNode; folder: boolean }) {
+  return (
+    <>
+      <div className="miniRowLeft">
+        <span className={`iconIcon ${folder ? "folder" : "file"}`}>
+          {folder ? <Folder size={35} /> : <FolderIcons name={item.name} size={45} />}
+        </span>
+        <span className="miniName">{cleanName(item.name)}</span>
+      </div>
+ 
+    </>
+  );
+}
+
+
+// "use client";
+// import { motion, Variants } from "framer-motion";
+// import Link from "next/link"; // Importante para la velocidad
+ 
+// import FolderIcons from "./icons/FolderIcons";
+// import Folder from "./icons/Folder";
+
+// interface Node {
+//   id?: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+// }
+
+// interface AnimatedListProps {
+//   childrenData: Node[];
+//   segs: string[];
+// }
+
+// // Helpers locales
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// const isFolder = (n: Node) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// const segOfFolder = (n: Node) => `${slugify(n.name)}--${n.id}`;
+
+// const container: Variants = {
+//   hidden: { opacity: 0 },
+//   show: {
+//     opacity: 1,
+//     transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+//   },
+// };
+
+// const itemAnim: Variants = {
+//   hidden: { opacity: 0, y: 15 },
+//   show: { 
+//     opacity: 1, 
+//     y: 0, 
+//     transition: { type: "spring", stiffness: 100 } 
+//   },
+// };
+
+// export default function AnimatedList({ childrenData, segs }: AnimatedListProps) {
+//   return (
+//     <motion.div 
+//       className="miniList"
+//       variants={container}
+//       initial="hidden"
+//       animate="show"
+//     >
+//       {childrenData.map((item: Node) => {
+//         const folder = isFolder(item);
+//         const href = folder
+//           ? `/browse/${[...segs, segOfFolder(item)].map(encodeURIComponent).join("/")}`
+//           : (item.url ?? "#");
+
+//         // Creamos el componente de animación por separado para que el código sea legible
+//         return (
+//           <motion.div key={item.id ?? item.name} variants={itemAnim}>
+//             {folder ? (
+//               /* NAVEGACIÓN INTERNA: Instantánea gracias a Link */
+//               <Link href={href} className="miniRow">
+//                 <RowContent item={item} folder={true} />
+//               </Link>
+//             ) : (
+//               /* ENLACE EXTERNO: Abre en pestaña nueva */
+//               <a href={href} className="miniRow" target="_blank" rel="noopener noreferrer">
+//                 <RowContent item={item} folder={false} />
+//               </a>
+//             )}
+//           </motion.div>
+//         );
+//       })}
+//     </motion.div>
+//   );
+// }
+
+// // Sub-componente para no repetir el HTML de adentro
+// function RowContent({ item, folder }: { item: Node, folder: boolean }) {
+//   return (
+//     <>
+//       <div className="miniRowLeft">
+//         <span className={`iconIcon ${folder ? "folder" : "file"}`}>
+//           {folder ? <Folder size={35} /> : <FolderIcons name={item.name} size={45} />}
+//         </span>
+//         <span className="miniName">{cleanName(item.name)}</span>
+//       </div>
+//       <span className="miniRight">{folder ? "›" : "↗"}</span>
+//     </>
+//   );
+// }
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\BrowseClient.tsx
+
+"use client";
+
+import { useEffect, useMemo, useState, useCallback } from "react";
+import AnimatedList from "@/app/components/AnimatedList";
+import { useTree, type TreeNode } from "@/app/components/TreeLoader";
+
+const isFolder = (n: TreeNode) =>
+  n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+const cleanName = (name: string) =>
+  name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const segOfFolder = (n: TreeNode) => `${slugify(n.name)}--${n.id}`;
+
+function parseSeg(seg: string) {
+  const idx = seg.indexOf("--");
+  if (idx === -1) return { slug: "", id: seg };
+  return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+}
+
+// Lee la URL actual y devuelve segs (/browse/a/b/c)
+function readSegsFromPathname(): string[] {
+  const p = window.location.pathname;
+  if (!p.startsWith("/browse")) return [];
+  const rest = p.slice("/browse".length); // "" o "/..."
+  if (!rest) return [];
+  return rest
+    .split("/")
+    .filter(Boolean)
+    .map((s) => decodeURIComponent(s));
+}
+
+export default function BrowseClient({ segs }: { segs: string[] }) {
+  const fullTree = useTree();
+
+  //NUEVOS ESTADOS para la previsualización
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [selectedFileId, setSelectedFileId] = useState<string | null>(null);
+
+  const [rotation, setRotation] = useState(0);
+
+  const handleRotate = () => {
+    setRotation((prev) => prev + 90)
+  };
+
+  const handleFileClick = (id: string) => {
+    setRotation(0);
+    setSelectedFileId(id);
+    setIsPreviewOpen(true)
+  };
+
+
+  // ✅ Estado local (navegación offline real)
+  const [localSegs, setLocalSegs] = useState<string[]>(segs);
+
+  // ✅ Si el usuario toca back/forward del navegador
+  useEffect(() => {
+    const onPop = () => setLocalSegs(readSegsFromPathname());
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // ✅ helper para navegar sin que Next haga fetch
+  const goTo = (nextSegs: string[]) => {
+    setLocalSegs(nextSegs);
+    const url =
+      nextSegs.length === 0
+        ? "/browse"
+        : "/browse/" + nextSegs.map(encodeURIComponent).join("/");
+    window.history.pushState({}, "", url);
+  };
+
+ // ✅ Hook SIEMPRE llamado
+  const TreeNodeMap = useMemo(() => {
+    const map = new Map<string, TreeNode>();
+    if (!fullTree) return map;
+
+    function index(TreeNodes: TreeNode[]) {
+      for (const n of TreeNodes) {
+        if (n.id) map.set(n.id, n);
+        if (n.children) index(n.children);
+      }
+    }
+
+    index(fullTree);
+    return map;
+  }, [fullTree]);
+
+  // ✅ breadcrumbs offline
+  const breadcrumbs: { name: string; segs: string[] }[] = [
+    { name: "Materias", segs: [] },
+  ];
+
+
+
+
+
+  let currentTreeNode: TreeNode | null = null;
+  for (let i = 0; i < localSegs.length; i++) {
+    const decoded = decodeURIComponent(localSegs[i]);
+    const { id } = parseSeg(decoded);
+    const found = TreeNodeMap.get(id);
+    if (found) {
+      currentTreeNode = found;
+      breadcrumbs.push({
+        name: cleanName(found.name),
+        segs: localSegs.slice(0, i + 1),
+      });
+    }
+  }
+
+// ✅ COMBINAMOS TODO EN UN SOLO BLOQUE ESTABLE
+// Esto soluciona el error de "not iterable" y el de "manual memoization"
+const { sortedTreeNodes, currentFiles } = useMemo(() => {
+  // 1. Definimos los nodos base (si fullTree es null, usamos array vacío [])
+  const baseNodes = currentTreeNode ? (currentTreeNode.children ?? []) : (fullTree ?? []);  
+
+  // 2. Creamos la lista ordenada
+  const sorted = [...baseNodes].sort((a, b) => {
+    const aIsF = isFolder(a);
+    const bIsF = isFolder(b);
+    if (aIsF && !bIsF) return -1;
+    if (!aIsF && bIsF) return 1;
+    return a.name.localeCompare(b.name, "es", {
+      numeric: true,
+      sensitivity: "base",
+    });
+  });  
+
+  // 3. Filtramos los archivos para el carrusel
+  const files = sorted.filter(node => !isFolder(node));
+
+  return { sortedTreeNodes: sorted, currentFiles: files };
+}, [currentTreeNode, fullTree]);
+
+  const navigateFile = useCallback((direction: "next" | "prev") => {
+    const currentIndex = currentFiles.findIndex(f => f.id === selectedFileId);
+    if (currentIndex === -1) return;
+    const nextIndex = direction === "next" 
+      ? (currentIndex + 1) % currentFiles.length 
+      : (currentIndex - 1 + currentFiles.length) % currentFiles.length;
+    setSelectedFileId(currentFiles[nextIndex].id!);
+  }, [currentFiles, selectedFileId]);
+
+  useEffect(() => {
+    if (!isPreviewOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") navigateFile("next");
+      if (e.key === "ArrowLeft") navigateFile("prev");
+      if (e.key === "Escape") setIsPreviewOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isPreviewOpen, navigateFile]); // Agregamos navigateFile aquí
+
+ 
+
+  if (!fullTree) {
+    return (
+      <main className="mini">
+        <p style={{ padding: 24, opacity: 0.7 }}>Cargando carpeta…</p>
+      </main>
+    );
+  }
+
+  const backSegs = localSegs.length <= 1 ? [] : localSegs.slice(0, -1);
+
+  return (
+    <main className="mini">
+      {/* ✅ Back offline */}
+      <button className="back" onClick={() => goTo(backSegs)}>
+        ← Volver
+      </button>
+
+      {/* ✅ Breadcrumb offline */}
+      <nav className="miniCrumbs">
+        {breadcrumbs.map((crumb, i) => {
+          const isLast = i === breadcrumbs.length - 1;
+          return (
+            <span key={i} className="crumbWrap">
+              {i > 0 && <span className="miniSep">›</span>}
+              {isLast ? (
+                <span className="miniCrumb active">{crumb.name}</span>
+              ) : (
+                <button
+                  className="miniCrumb"
+                  onClick={() => goTo(crumb.segs)}
+                  style={{ background: "none", border: "none", cursor: "pointer" }}
+                >
+                  {crumb.name}
+                </button>
+              )}
+            </span>
+          );
+        })}
+      </nav>
+
+  
+
+      <h1 className="folderHeaderTitle">
+        {currentTreeNode ? cleanName(currentTreeNode.name) : "Materias"}
+      </h1>
+
+      {/* ✅ CONEXIÓN: Pasamos handleFileClick a la lista */}
+      <AnimatedList
+        childrenData={sortedTreeNodes}
+        onFolderClick={(folderTreeNode) => {
+          const next = [...localSegs, segOfFolder(folderTreeNode)];
+          goTo(next);
+        }}
+        onFileClick={handleFileClick} // 👈 Agrega esta línea
+      />
+
+      {/* ✅ MODAL: Se mantiene igual al final */}
+      {/* ✅ MODAL CON NAVEGACIÓN IZQUIERDA/DERECHA */}
+      {isPreviewOpen && selectedFileId && (
+        <div className="modal-overlay" onClick={() => setIsPreviewOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            
+            {/* BARRA SUPERIOR: Contador y Cerrar */}
+            <div className="modal-header">
+              <button className="nav-btn" onClick={handleRotate} title="Rotar 90°">
+                  <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24"><g className="rotate-left-outline"><g fill="currentColor" fillRule="evenodd" className="Vector" clipRule="evenodd"><path d="M12 6.05c3.869 0 7 3.126 7 6.975C19 16.875 15.869 20 12 20s-7-3.126-7-6.975c0-1.07.242-2.083.673-2.987a1 1 0 0 0-1.806-.86A8.9 8.9 0 0 0 3 13.024C3 17.985 7.032 22 12 22s9-4.015 9-8.975s-4.032-8.974-9-8.974c-1.24 0-2.425.25-3.502.705l.777 1.843A7 7 0 0 1 12 6.05"></path><path d="M10.194 2.233a.857.857 0 0 0-1.15.385L7.713 5.301a1.086 1.086 0 0 0 .493 1.456l2.691 1.329a.857.857 0 1 0 .758-1.536L9.53 5.5l1.053-2.118a.857.857 0 0 0-.388-1.149Z"></path></g></g></svg>
+              </button>
+
+              <div className="option">
+                <a 
+                  href={`https://drive.google.com/uc?export=download&id=${selectedFileId}`}
+                  className="btn_descarga download-btn"
+                  title="Descargar este archivo"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="144px" height="144px" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg>
+                </a>
+                <span className="file-counter">
+                  {currentFiles.findIndex(f => f.id === selectedFileId) + 1} / {currentFiles.length}
+                </span>
+              </div>
+
+              <button className="close-btn" onClick={() => setIsPreviewOpen(false)}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 64 64"><path fill="currentColor" d="M62 10.571L53.429 2L32 23.429L10.571 2L2 10.571L23.429 32L2 53.429L10.571 62L32 40.571L53.429 62L62 53.429L40.571 32z"/></svg></button>
+          
+            </div>
+
+
+            <div className="preview-body">
+             <button className="nav-arrow prev" onClick={() => navigateFile("prev")} title="Anterior">
+                ◀
+              </button>
+
+
+              {/* VISOR DE DRIVE */}
+              <iframe
+                src={`https://drive.google.com/file/d/${selectedFileId}/preview`}
+                width="100%"
+                height="100%"
+                style={{ 
+                  border: "none",
+                  // ✅ AQUÍ SE APLICA LA MAGIA
+                  transform: `rotate(${rotation}deg)`,
+                  transition: "transform 0.3s ease" // Para que gire suave
+                }}
+                allow="autoplay"
+              />
+              <button className="nav-arrow next" onClick={() => navigateFile("next")} title="Siguiente">
+                ▶
+              </button>
+
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
+
+
+
+
+// "use client";
+
+// import Link from "next/link";
+// import { useMemo } from "react";
+// import AnimatedList from "@/app/components/AnimatedList";
+// import { useTree, TreeNode } from "@/app/components/TreeLoader"; // 👈 CAMBIAR si tu archivo se llama useTree.ts
+
+// const isFolder = (n: TreeNode) =>
+//   n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// const cleanName = (name: string) =>
+//   name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+// const parseSeg = (seg: string) => {
+//   const idx = seg.indexOf("--");
+//   if (idx === -1) return { slug: "", id: seg };
+//   return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+// };
+
+// export default function BrowseClient({ segs }: { segs: string[] }) {
+//   const fullTree = useTree();
+
+//   // ✅ Hook SIEMPRE llamado, aunque fullTree sea null
+//   const TreeNodeMap = useMemo(() => {
+//     const map = new Map<string, TreeNode>();
+//     if (!fullTree) return map;
+
+//     function index(TreeNodes: TreeNode[]) {
+//       for (const n of TreeNodes) {
+//         if (n.id) map.set(n.id, n);
+//         if (n.children) index(n.children);
+//       }
+//     }
+
+//     index(fullTree);
+//     return map;
+//   }, [fullTree]);
+
+//   // ✅ ahora sí, loading abajo
+//   if (!fullTree) {
+//     return (
+//       <main className="mini">
+//         <p style={{ padding: 24, opacity: 0.7 }}>Cargando carpeta…</p>
+//       </main>
+//     );
+//   }
+
+//   const breadcrumbs = [{ name: "Inicio", href: "/" }];
+//   let pathAccumulator = "/browse";
+//   let currentTreeNode: TreeNode | null = null;
+
+//   for (const seg of segs) {
+//     const decoded = decodeURIComponent(seg);
+//     const { id } = parseSeg(decoded);
+//     const found = TreeNodeMap.get(id);
+
+//     if (found) {
+//       currentTreeNode = found;
+//       pathAccumulator += `/${encodeURIComponent(decoded)}`;
+//       breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
+//     }
+//   }
+
+//   const currentTreeNodes = currentTreeNode ? (currentTreeNode.children ?? []) : fullTree;
+
+//   const sortedTreeNodes = [...currentTreeNodes].sort((a, b) => {
+//     const aIsF = isFolder(a);
+//     const bIsF = isFolder(b);
+//     if (aIsF && !bIsF) return -1;
+//     if (!aIsF && bIsF) return 1;
+//     return a.name.localeCompare(b.name, "es", {
+//       numeric: true,
+//       sensitivity: "base",
+//     });
+//   });
+
+//   const backHref =
+//     segs.length <= 1
+//       ? "/"
+//       : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+
+//   return (
+//     <main className="mini">
+//       <Link className="back" href={backHref}>
+//         ← Volver
+//       </Link>
+
+//       <nav className="miniCrumbs">
+//         {breadcrumbs.map((crumb, i) => {
+//           const isLast = i === breadcrumbs.length - 1;
+//           return (
+//             <span key={crumb.href} className="crumbWrap">
+//               {i > 0 && <span className="miniSep">›</span>}
+//               {isLast ? (
+//                 <span className="miniCrumb active">{crumb.name}</span>
+//               ) : (
+//                 <Link href={crumb.href} className="miniCrumb">
+//                   {crumb.name}
+//                 </Link>
+//               )}
+//             </span>
+//           );
+//         })}
+//       </nav>
+
+//       <h1 className="folderHeaderTitle">
+//         {currentTreeNode ? cleanName(currentTreeNode.name) : "Materias"}
+//       </h1>
+
+//       <AnimatedList childrenData={sortedTreeNodes} segs={segs} />
+//     </main>
+//   );
+// }
+
+
+// "use client";
+
+// import Link from "next/link";
+// import { useMemo } from "react";
+// import AnimatedList from "@/app/components/AnimatedList";
+
+// // Interfaces y Helpers (Copia los mismos que ya tenés)
+// interface TreeNode {
+//   id: string;
+//   name: string;
+//   type: string;
+//   url?: string;
+//   children?: TreeNode[];
+// }
+
+// const isFolder = (n: TreeNode) => n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+// const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// const parseSeg = (seg: string) => {
+//   const idx = seg.indexOf("--");
+//   if (idx === -1) return { slug: "", id: seg };
+//   return { slug: seg.slice(0, idx), id: seg.slice(idx + 2) };
+// };
+
+// export default function BrowseClient({ fullTree, segs }: { fullTree: TreeNode[], segs: string[] }) {
+  
+//   // EL HASH MAP: Se crea una sola vez en el celular del alumno
+//   const TreeNodeMap = useMemo(() => {
+//     const map = new Map<string, TreeNode>();
+//     function index(TreeNodes: TreeNode[]) {
+//       for (const n of TreeNodes) {
+//         map.set(n.id, n);
+//         if (n.children) index(n.children);
+//       }
+//     }
+//     index(fullTree);
+//     return map;
+//   }, [fullTree]);
+
+//   // Lógica de navegación instantánea
+//   const breadcrumbs = [{ name: "Inicio", href: "/" }];
+//   let pathAccumulator = "/browse";
+//   let currentTreeNode: TreeNode | null = null;
+
+//   for (const seg of segs) {
+//     const decoded = decodeURIComponent(seg);
+//     const { id } = parseSeg(decoded);
+//     const found = TreeNodeMap.get(id);
+//     if (found) {
+//       currentTreeNode = found;
+//       pathAccumulator += `/${encodeURIComponent(decoded)}`;
+//       breadcrumbs.push({ name: cleanName(found.name), href: pathAccumulator });
+//     }
+//   }
+
+//   const currentTreeNodes = currentTreeNode ? (currentTreeNode.children ?? []) : fullTree;
+
+//   const sortedTreeNodes = [...currentTreeNodes].sort((a, b) => {
+//     const aIsF = isFolder(a);
+//     const bIsF = isFolder(b);
+//     if (aIsF && !bIsF) return -1;
+//     if (!aIsF && bIsF) return 1;
+//     return a.name.localeCompare(b.name, "es", { numeric: true, sensitivity: 'base' });
+//   });
+
+//   const backHref = segs.length <= 1 ? "/" : "/browse/" + segs.slice(0, -1).map(encodeURIComponent).join("/");
+
+//   return (
+//     <main className="mini">
+//       <Link className="back" href={backHref}>← Volver</Link>
+
+//       <nav className="miniCrumbs">
+//         {breadcrumbs.map((crumb, i) => {
+//           const isLast = i === breadcrumbs.length - 1;
+//           return (
+//             <span key={crumb.href} className="crumbWrap">
+//               {i > 0 && <span className="miniSep">›</span>}
+//               {isLast ? (
+//                 <span className="miniCrumb active">{crumb.name}</span>
+//               ) : (
+//                 <Link href={crumb.href} className="miniCrumb">{crumb.name}</Link>
+//               )}
+//             </span>
+//           );
+//         })}
+//       </nav>
+
+//       <h1 className="folderHeaderTitle">
+//         {currentTreeNode ? cleanName(currentTreeNode.name) : "Materias"}
+//       </h1>
+
+//       <AnimatedList childrenData={sortedTreeNodes} segs={segs} />
+//     </main>
+//   );
+// }
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\RegisterSW.tsx
+
+"use client";
+import { useEffect } from "react";
+
+export default function RegisterSW() {
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("✅ SW registrado:", reg.scope))
+      .catch((err) => console.error("❌ SW error:", err));
+  }, []);
+
+  return null;
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\SearchBox.tsx
+
+"use client";
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import FolderIcons from "./icons/FolderIcons"
+import Folder from "./icons/Folder";
+import { treeData  } from "@/app/lib/config";
+// DEFINICIONES DE TIPOS (Para 0 errores)
+interface Node {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+}
+
+interface SearchResult {
+  id?: string;
+  name: string;
+  href: string;
+  isFolder: boolean;
+  normName: string; // <--- Esto quita los errores de tus fotos
+}
+
+// FUNCIONES DE UTILIDAD
+function norm(s: string) {
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[_-]+/g, " ").replace(/[^a-z0-9\s]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function cleanName(name: string) {
+  return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+}
+
+function slugify(s: string) {
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function buildFlatClient(nodes: Node[], path: string[] = []): SearchResult[] {
+  let out: SearchResult[] = [];
+  for (const node of nodes) {
+    const isFolder = node.type === "folder" || node.type === "application/vnd.google-apps.folder";
+    const seg = isFolder ? `${slugify(node.name)}--${node.id}` : "";
+    const nextPath = isFolder ? [...path, seg] : path;
+
+    out.push({
+      id: node.id,
+      name: node.name,
+      isFolder,
+      href: isFolder 
+        ? "/browse/" + nextPath.map(encodeURIComponent).join("/") 
+        : (node.url ?? "#"),
+      normName: norm(node.name) // <--- Aquí se crea la propiedad
+    });
+
+    if (node.children) {
+      out = out.concat(buildFlatClient(node.children, nextPath));
+    }
+  }
+  return out;
+}
+
+export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] | null) => void }) {
+  const [query, setQuery] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // Cargamos el índice una sola vez
+  const flatData = useMemo(() => buildFlatClient(treeData as Node[]), []);
+
+  // Filtramos sugerencias al vuelo (0ms de latencia)
+  const suggestions = useMemo(() => {
+    const q = query.trim();
+    if (q.length < 2) return [];
+    const nq = norm(q);
+    return flatData
+      .filter(item => item.normName.includes(nq)) // <--- Ahora TS sabe que existe normName
+      .sort((a, b) => {
+        // Si uno es carpeta y el otro no, la carpeta va primero (-1)
+        if (a.isFolder !== b.isFolder) {
+          return a.isFolder ? -1 : 1;
+        }
+        // Si son del mismo tipo, ordenamos alfabéticamente
+        return a.name.localeCompare(b.name, "es", { numeric: true });
+      })
+      .slice(0, 8);
+      
+  }, [query, flatData]);
+
+  const handleOfficialSearch = () => {
+    const q = query.trim();
+    if (!q) {
+      onSearch(null);
+      return;
+    }
+    const nq = norm(q);
+    const results = flatData.filter(item => item.normName.includes(nq));
+    
+    /* --- 2. ORDENAMOS ANTES DE ENVIAR --- */
+    results.sort((a, b) => {
+      if (a.isFolder !== b.isFolder) {
+        return a.isFolder ? -1 : 1;
+      }
+      return a.name.localeCompare(b.name, "es", { numeric: true });
+    });
+      
+    
+    onSearch(results);
+    setShowDropdown(false);
+  };
+
+  return (
+    <div className="homeSearch">
+      <input
+        type="text"
+        className="homeInput"
+        placeholder="Buscar materias..."
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setShowDropdown(true);
+          if (e.target.value === "") onSearch(null);
+        }}
+        onKeyDown={(e) => e.key === "Enter" && handleOfficialSearch()}
+        onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+      />
+      
+      <button className="search-icon-btn" onClick={handleOfficialSearch}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg></button>
+
+      {showDropdown && suggestions.length > 0 && (
+        <div className="searchResultsBox searchResultsDropdown">
+          {suggestions.map((res) => (
+            <Link key={res.id || res.href} href={res.href} className="searchResultItem" onClick={() => setShowDropdown(false)}>
+              <span>{res.isFolder ? <Folder /> : <FolderIcons name={res.name} size={25} />}</span>
+              
+              <div className="searchResultInfo">
+                <span className="searchResultName">{cleanName(res.name)}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import treeRaw from "@/scripts/data/drive-tree.json";
+// import type { SearchResponse, SearchResult } from "@/app/lib/searchTypes";
+
+
+// function cleanName(name: string) {
+//   return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+// }
+
+// export default function SearchBox({
+//   onSearch,
+// }: {
+//   onSearch: (r: SearchResult[] | null) => void;
+// }) {
+//   const [query, setQuery] = useState("");
+//   const [showDropdown, setShowDropdown] = useState(false);
+//   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
+
+//   // helper tipado ✅
+//   async function fetchSearch(q: string, limit: number, signal?: AbortSignal): Promise<SearchResult[]> {
+//     const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=${limit}`, { signal });
+//     if (!res.ok) return [];
+//     const data: SearchResponse = await res.json();
+//     return Array.isArray(data.results) ? data.results : [];
+//   }
+
+//   // ✅ debounce + abort
+//   useEffect(() => {
+//     const q = query.trim();
+//     const controller = new AbortController();
+
+//     const t = setTimeout(async () => {
+//       try {
+//         if (q.length < 2) {
+//           setSuggestions((prev) => (prev.length ? [] : prev));
+//           return;
+//         }
+//         const results = await fetchSearch(q, 6, controller.signal);
+//         setSuggestions(results);
+//       } catch (e: unknown) {
+//         if (e instanceof DOMException && e.name === "AbortError") return;
+//         setSuggestions([]);
+//       }
+//     }, 200);
+
+//     return () => {
+//       clearTimeout(t);
+//       controller.abort();
+//     };
+//   }, [query]);
+
+//   const handleOfficialSearch = async () => {
+//     const q = query.trim();
+//     if (!q) {
+//       onSearch(null);
+//       setShowDropdown(false);
+//       return;
+//     }
+
+//     const results = await fetchSearch(q, 200);
+//     onSearch(results);
+//     setSuggestions(results.slice(0, 6)); // opcional
+//     setShowDropdown(false);
+//   };
+
+//   return (
+//     <div className="homeSearch">
+//       <input
+//         type="text"
+//         className="homeInput"
+//         placeholder="Buscar materias, unidades o TPs..."
+//         value={query}
+//         onChange={(e) => {
+//           setQuery(e.target.value);
+//           setShowDropdown(true);
+//           if (e.target.value === "") onSearch(null);
+//         }}
+//         onKeyDown={(e) => e.key === "Enter" && handleOfficialSearch()}
+//         onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+//       />
+
+//       <button className="search-icon-btn" onClick={handleOfficialSearch} title="Buscar">
+//         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+//           <circle cx="11" cy="11" r="8" />
+//           <path d="m21 21-4.3-4.3" />
+//         </svg>
+//       </button>
+
+//       {showDropdown && suggestions.length > 0 && (
+//         <div className="searchResultsBox searchResultsDropdown">
+//           {suggestions.map((res) => (
+//             <Link
+//               key={res.id ?? res.href}
+//               href={res.href}
+//               className="searchResultItem"
+//               target={res.isFolder ? "_self" : "_blank"}
+//               rel={res.isFolder ? undefined : "noopener noreferrer"}
+//               onClick={() => setShowDropdown(false)}
+//             >
+//               <span className="searchResultIcon">{res.isFolder ? "📁" : "📄"}</span>
+//               <div className="searchResultInfo">
+//                 <span className="searchResultName">{cleanName(res.name)}</span>
+//                 <span className="searchResultMeta">{res.isFolder ? "Carpeta" : "Documento"}</span>
+//               </div>
+//             </Link>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\SiteHeader.tsx
+
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+
+export default function SiteHeader() {
+  // Quitamos 'isHome' porque no se estaba usando abajo
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <header className="topbar">
+      <div className="header">
+        <Link href="/" className="logo-icon-link" aria-label="Volver al inicio">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="40" height="40" viewBox="0 0 24 24" 
+            fill="none" stroke="currentColor" strokeWidth="2" 
+            strokeLinecap="round" strokeLinejoin="round"
+            className="header-logo-icon"
+          >
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+          </svg>
+        </Link>
+
+        <button className="menuBtn" onClick={() => setIsOpen(!isOpen)}>
+          <div className={`hamburger ${isOpen ? 'open' : ''}`}></div>
+        </button>
+
+        <nav className={`navMenu ${isOpen ? 'active' : ''}`}>
+          <Link href="/" className="navbtn" onClick={() => setIsOpen(false)}>Inicio</Link>
+          <Link href="/browse" className="navbtn" onClick={() => setIsOpen(false)}>Materias</Link>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="navbtn btnSubir" rel="noopener noreferrer">Subir Apunte</a>
+        </nav>
+        
+        {isOpen && <div className="overlay" onClick={() => setIsOpen(false)}></div>}
+
+        <div className="actions">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="btn btnPrimary" rel="noopener noreferrer">
+              Subí tu apunte
+            </a>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+
+
+
+
+
+// "use client";
+// import { useState } from "react";
+// import { usePathname } from "next/navigation";
+// import Link from "next/link";
+
+// export default function SiteHeader() {
+//   const pathname = usePathname();
+//   const isHome = pathname === "/";
+
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   return (
+//     <header className="topbar">
+//       <div className="header">
+//         {/* REEMPLAZO DEL TEXTO POR UN ÍCONO */}
+//         <Link href="/" className="logo-icon-link" aria-label="Volver al inicio">
+//           <svg 
+//             xmlns="http://www.w3.org/2000/svg" 
+//             width="40" 
+//             height="40" 
+//             viewBox="0 0 24 24" 
+//             fill="none" 
+//             stroke="currentColor" 
+//             strokeWidth="2" 
+//             strokeLinecap="round" 
+//             strokeLinejoin="round"
+//             className="header-logo-icon"
+//           >
+//             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+//           </svg>
+//         </Link>
+
+//         {/* BOTÓN HAMBURGUESA: Solo se ve en mobile */}
+//         <button className="menuBtn" onClick={() => setIsOpen(!isOpen)}>
+//           <div className={`hamburger ${isOpen ? 'open' : ''}`}></div>
+//         </button>
+
+//         {/* NAVEGACIÓN: Cambia de clase según el estado */}
+//         <nav className={`navMenu ${isOpen ? 'active' : ''}`}>
+//           <Link href="/" className="navbtn" onClick={() => setIsOpen(false)}>Inicio</Link>
+//           <Link href="/browse" className="navbtn" onClick={() => setIsOpen(false)}>Materias</Link>
+//           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="navbtn btnSubir" rel="noopener noreferrer">Subir Apunte</a>
+//         </nav>
+        
+//         {/* OVERLAY: Fondo oscuro cuando el menú está abierto cosa del hamburger */}
+//         {isOpen && <div className="overlay" onClick={() => setIsOpen(false)}></div>}
+
+
+//         <div className="actions">
+          
+    
+//             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSL2aT5qI4fD5dG0UEItvf-zLTVkMQ2NWUTv7UZidTCThptg/viewform?usp=header" className="btn btnPrimary" rel="noopener noreferrer">
+//               Subí tu apunte
+//             </a>
+         
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\components\TreeLoader.tsx
+
+"use client";
+
+import { TREE_PUBLIC_PATH } from "../lib/config";
+import { useEffect, useState } from "react";
+
+export type TreeNode = {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: TreeNode[];
+};
+
+let cachedTree: TreeNode[] | null = null;
+let cachedPromise: Promise<TreeNode[]> | null = null;
+
+async function fetchTreeOnce(): Promise<TreeNode[]> {
+  if (cachedTree) return cachedTree;
+
+  if (!cachedPromise) {
+    cachedPromise = fetch(TREE_PUBLIC_PATH, { cache: "force-cache" })
+      .then((r) => r.json())
+      .then((data: TreeNode[]) => {
+        cachedTree = data;
+        return data;
+      })
+      .catch((err) => {
+        cachedPromise = null;
+        throw err;
+      });
+  }
+
+  return cachedPromise;
+}
+
+export function useTree() {
+  const [tree, setTree] = useState<TreeNode[] | null>(cachedTree);
+
+  useEffect(() => {
+    if (!tree) fetchTreeOnce().then(setTree);
+  }, [tree]);
+
+  return tree;
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\lib\config.ts
+// @/app/lib/config.ts
+
+// 1. EL ÚNICO LUGAR A MODIFICAR: El import con texto fijo
+import treeRaw from "@/scripts/data/drive-tree-v3.json"; 
+
+// 2. DEFINICIÓN DE INTERFAZ
+export interface Node {
+  id: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+}
+
+// 3. VARIABLES DINÁMICAS (Se actualizan solas al cambiar arriba)
+export const TREE_VERSION = "v3"; // <--- Cambiás esto a "v3" cuando corresponda
+export const TREE_FILENAME = `drive-tree-${TREE_VERSION}.json`;
+export const TREE_PUBLIC_PATH = `/data/${TREE_FILENAME}`;
+
+// 4. EXPORTACIÓN DE DATOS
+export const treeData = treeRaw as Node[];
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\lib\driveIndex.ts
+
+import { treeData  } from "@/app/lib/config";
+export type Node = {
+  id?: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+};
+
+const tree = treeData as Node[];
+
+const byId = new Map<string, Node>();
+const childrenIdsByParentId = new Map<string, Set<string>>();
+
+// root = hijos directos del json
+const ROOT = "__root__";
+
+function isFolderType(t: string) {
+  return t === "folder" || t === "application/vnd.google-apps.folder";
+}
+
+function buildIndex(nodes: Node[], parentId: string) {
+  // guardar ids de los hijos de este parent
+  const set = new Set<string>();
+  for (const n of nodes) {
+    if (n.id) set.add(n.id);
+  }
+  childrenIdsByParentId.set(parentId, set);
+
+  for (const n of nodes) {
+    if (n.id) byId.set(n.id, n);
+    if (n.children) buildIndex(n.children, n.id ?? "");
+  }
+}
+
+// se ejecuta 1 vez
+if (byId.size === 0) {
+  buildIndex(tree, ROOT);
+}
+
+export function isFolder(n: Node) {
+  return isFolderType(n.type);
+}
+
+export function getNodeById(id: string) {
+  return byId.get(id);
+}
+
+export function getRootChildren(): Node[] {
+  return tree;
+}
+
+// ✅ valida que id sea hijo directo del parent (ruta real)
+export function isChildOf(parentId: string, childId: string) {
+  const set = childrenIdsByParentId.get(parentId);
+  return set ? set.has(childId) : false;
+}
+
+export function getRootId() {
+  return ROOT;
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\lib\searchTypes.ts
+
+export type SearchResult = {
+  id?: string;
+  name: string;
+  href: string;
+  isFolder: boolean;
+};
+
+export type SearchResponse = {
+  results: SearchResult[];
+};
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\lib\utils.ts
+
+// lib/utils.ts
+import fs from "fs";
+import path from "path";
+import { cache } from "react";
+import {TREE_FILENAME} from "@/app/lib/config"
+
+// --- INTERFAZ (Ahora exportada) ---
+export interface Node {
+  id: string;
+  name: string;
+  type: string;
+  url?: string;
+  children?: Node[];
+}
+
+// --- HELPERS (Todos con export) ---
+export const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+
+export const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+export const parseSeg = (seg: string) => {
+  const idx = seg.indexOf("--");
+  return idx === -1 ? { id: seg } : { id: seg.slice(idx + 2) };
+};
+
+export const isFolder = (n: Node) =>
+  n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+
+// ✅ lee el JSON y lo cachea
+export const getTree = cache((): Node[] => {
+  const filePath = path.join(process.cwd(), "public", "data", TREE_FILENAME);
+  const raw = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(raw) as Node[];
+});
+
+export const findName = (nodes: Node[], targetId: string): string | null => {
+  for (const n of nodes) {
+    if (n.id === targetId) return n.name;
+    if (n.children) {
+      const res = findName(n.children, targetId);
+      if (res) return res;
+    }
+  }
+  return null;
+};
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\layout.tsx
+
+ 
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import SiteHeader from "./components/SiteHeader";
+import RegisterSW from "@/app/components/RegisterSW" 
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+ 
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+export const metadata: Metadata = {
+  // TÍTULO: Usamos una promesa de valor clara
+  title: {
+    default: "Apuntes UTN Mendoza", 
+    template: "%s | Apuntes UTN Mendoza"
+  },
+
+  // DESCRIPCIÓN: Enfocada en la utilidad real para el estudiante
+  description: "Buscá apuntes, parciales y finales de la UTN FRM Mendoza. Material de estudio organizado por carrera y materia para preparar exámenes.",
+  
+  metadataBase: new URL(siteUrl),
+
+  // CANONICAL: Clave para que Google no te penalice por tener www
+  alternates: {
+    canonical: "/",
+  },
+
+  // ROBOTS: Para que Google te trate como una app de alta prioridad
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
+
+  // ICONS: Aquí es donde tu icono de 144x144 brilla
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
+
+  // OPENGRAPH: Lo que verán los alumnos cuando compartan el link por WhatsApp
+  openGraph: {
+    title: "Apuntes UTN Mendoza - La App de la comunidad",
+    description: "Simplificá tu cursada. Encontrá parciales, finales y guías de todas las ingenierías en un solo lugar.",
+    url: siteUrl,
+    siteName: "Apuntes UTN Mendoza",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Plataforma Apuntes UTN" }],
+    locale: "es_AR",
+    type: "website",
+  },
+};
+
+// NUEVO: Esto ayuda a que en móviles la barra de arriba sea verde como tu app
+export const viewport = {
+  themeColor: "#2e7d32", // Usá el verde exacto de tu logo
+};
+
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+ 
+
+  return (
+    <html lang="es">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <RegisterSW />
+        <SiteHeader />
+        {children}
+      </body>
+    </html>
+  );
+}
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\page.tsx
+
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import SearchBox from "@/app/components/SearchBox";
+import FolderHome from "@/app/components/icons/FolderHome";
+import FolderIcons from "./components/icons/FolderIcons";
+import { useTree, type TreeNode } from "@/app/components/TreeLoader";
+import Loading from "./browse/[[...segments]]/loading"
+
+type SearchResult = {
+  id?: string;
+  name: string;
+  href: string;
+  isFolder: boolean;
+};
+
+function isFolder(n: TreeNode) {
+  return n.type === "folder" || n.type === "application/vnd.google-apps.folder";
+}
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function segOfFolder(n: TreeNode) {
+  return `${slugify(n.name)}--${n.id}`;
+}
+
+function cleanName(name: string) {
+  return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+}
+
+export default function Home() {
+  const tree = useTree();
+  const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
+
+  // ✅ Hook SIEMPRE llamado
+  const topFolders = useMemo(() => {
+    if (!tree) return [];
+    return tree
+      .filter((n) => isFolder(n) && n.id)
+      .sort((a, b) => a.name.localeCompare(b.name, "es"));
+  }, [tree]);
+
+  // ✅ ahora sí, loading abajo
+  if (!tree) {
+    return (
+      <main className="homeWrap">
+        <section className="homeHero">
+          <h1 className="homeTitle">
+            Apuntes UTN <span>Mendoza</span>
+          </h1>
+          <p style={{ opacity: 0.7 }}>Cargando materias…</p>
+        </section>
+        <Loading />
+      </main>
+    );
+  }
+
+  return (
+    <main className="homeWrap">
+      <section className="homeHero">
+        <h1 className="homeTitle">
+          Apuntes UTN <span>Mendoza</span>
+        </h1>
+        <SearchBox onSearch={(data) => setSearchResults(data)} />
+      </section>
+
+      {searchResults === null ? (
+        <>
+          <h2 className="homeSectionTitle">Materias</h2>
+          <section className="homeList">
+            {topFolders.map((f) => {
+              const href = "/browse/" + encodeURIComponent(segOfFolder(f));
+              return (
+                <Link key={f.id} href={href} className="homeRow">
+                  <div className="homeRowLeft">
+                    <div className="homeFolderIcon">
+                      <FolderHome size={40} />
+                    </div>
+                    <div className="homeRowText">{cleanName(f.name)}</div>
+                  </div>
+                  <div className="homeRowRight">▾</div>
+                </Link>
+              );
+            })}
+          </section>
+        </>
+      ) : (
+        <>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+            <h2 className="homeSectionTitle">Resultados ({searchResults.length})</h2>
+            <button
+              onClick={() => setSearchResults(null)}
+              className="btnLimpiar"
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--green)",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+            >
+              Volver a materias
+            </button>
+          </div>
+
+          <section className="homeList animate-fade">
+            {searchResults.length > 0 ? (
+              searchResults.map((res, i) => (
+                <Link
+                  key={i}
+                  href={res.href}
+                  className="homeRow"
+                  target={res.isFolder ? "_self" : "_blank"}
+                  rel={res.isFolder ? undefined : "noopener noreferrer"}
+                >
+                  <div className="homeRowLeft">
+                    <div className="homeFolderIcon">
+                      {res.isFolder ? (
+                        <FolderHome size={35} />
+                      ) : (
+                        <FolderIcons name={res.name} size={35} />
+                      )}
+                    </div>
+                    <div className="homeRowText">{cleanName(res.name)}</div>
+                  </div>
+                  <div className="homeRowRight">{res.isFolder ? "→" : "↗"}</div>
+                </Link>
+              ))
+            ) : (
+              <p style={{ textAlign: "center", padding: "40px", color: "var(--muted)" }}>
+                No encontramos nada con ese nombre. 😕
+              </p>
+            )}
+          </section>
+        </>
+      )}
+    </main>
+  );
+}
+
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\page.tsx
+
+import type { MetadataRoute } from "next";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://apuntesutn.com";
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [{ userAgent: "*", allow: "/" }],
+    sitemap: `${siteUrl}/sitemap.xml`,
+  };
+}
+
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\app\sitemap.ts
+
+
+import { MetadataRoute } from "next";
+// Importá tus funciones del árbol (ajustá la ruta si es necesario)
+import { getTree, isFolder, slugify, type Node } from "@/app/lib/utils";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.apuntesutn.com/";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const tree = getTree();
+  const now = new Date();
+
+  // 1. Empezamos con las rutas básicas
+  const routes: MetadataRoute.Sitemap = [
+    { url: `${siteUrl}/`, lastModified: now, priority: 1 },
+    { url: `${siteUrl}/browse`, lastModified: now, priority: 0.9 },
+  ];
+
+  // 2. Usamos el "Caminante" (walk) para agregar las 253 carpetas automáticamente
+
+function walk(nodes: Node[], currentPath: string, depth: number) {
+    if (depth > 4 || !nodes) return;
+
+    for (const node of nodes) {
+      if (isFolder(node)) {
+        const segment = `${slugify(node.name)}--${node.id}`;
+        const fullPath = currentPath ? `${currentPath}/${segment}` : segment;
+        const fullUrl = `${siteUrl}/browse/${fullPath}`;
+
+        routes.push({
+          url: fullUrl,
+          lastModified: now,
+          priority: Number((Math.max(0.4, 0.8 - depth * 0.1)).toFixed(2)),
+        });
+
+        if (node.children) {
+          walk(node.children, fullPath, depth + 1);
+        }
+      }
+    }
+  }
+
+  walk(tree, "", 1);
+
+  return routes;
+}
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\public\sw.js
+
+if(!self.define){let e,s={};const t=(t,c)=>(t=new URL(t+".js",c).href,s[t]||new Promise(s=>{if("document"in self){const e=document.createElement("script");e.src=t,e.onload=s,document.head.appendChild(e)}else e=t,importScripts(t),s()}).then(()=>{let e=s[t];if(!e)throw new Error(`Module ${t} didn’t register its module`);return e}));self.define=(c,a)=>{const i=e||("document"in self?document.currentScript.src:"")||location.href;if(s[i])return;let n={};const r=e=>t(e,i),o={module:{uri:i},exports:n,require:r};s[i]=Promise.all(c.map(e=>o[e]||r(e))).then(e=>(a(...e),n))}}define(["./workbox-f52fd911"],function(e){"use strict";importScripts(),self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"/_next/static/chunks/470-8b0a6aa32c759079.js",revision:"8b0a6aa32c759079"},{url:"/_next/static/chunks/4bd1b696-deba172d32c79f82.js",revision:"deba172d32c79f82"},{url:"/_next/static/chunks/500-b84d19d842172eba.js",revision:"b84d19d842172eba"},{url:"/_next/static/chunks/794-e02d285919b32be1.js",revision:"e02d285919b32be1"},{url:"/_next/static/chunks/899.1813981119fa1f8a.js",revision:"1813981119fa1f8a"},{url:"/_next/static/chunks/966.1775eb621d8d3e09.js",revision:"1775eb621d8d3e09"},{url:"/_next/static/chunks/984-9aec32c58e7e7dd3.js",revision:"9aec32c58e7e7dd3"},{url:"/_next/static/chunks/app/_global-error/page-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/app/_not-found/page-e0c3e92d3b39a927.js",revision:"e0c3e92d3b39a927"},{url:"/_next/static/chunks/app/api/folder/route-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/app/api/search/route-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/app/browse/%5B%5B...segments%5D%5D/loading-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/app/browse/%5B%5B...segments%5D%5D/page-344ee8d684ffdcbd.js",revision:"344ee8d684ffdcbd"},{url:"/_next/static/chunks/app/layout-86a239a534365cee.js",revision:"86a239a534365cee"},{url:"/_next/static/chunks/app/page-7ce2f8ce4013e30e.js",revision:"7ce2f8ce4013e30e"},{url:"/_next/static/chunks/app/robots.txt/route-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/app/sitemap.xml/route-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/framework-4e51298db41fcfd4.js",revision:"4e51298db41fcfd4"},{url:"/_next/static/chunks/main-a1542a0757805119.js",revision:"a1542a0757805119"},{url:"/_next/static/chunks/main-app-3c3600b0b985a1e4.js",revision:"3c3600b0b985a1e4"},{url:"/_next/static/chunks/next/dist/client/components/builtin/app-error-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/next/dist/client/components/builtin/forbidden-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/next/dist/client/components/builtin/global-error-af4e67683eee5987.js",revision:"af4e67683eee5987"},{url:"/_next/static/chunks/next/dist/client/components/builtin/not-found-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/next/dist/client/components/builtin/unauthorized-41132a4773e3189c.js",revision:"41132a4773e3189c"},{url:"/_next/static/chunks/polyfills-42372ed130431b0a.js",revision:"846118c33b2c0e922d7b3a7676f81f6f"},{url:"/_next/static/chunks/webpack-7a07bd6ba27def77.js",revision:"7a07bd6ba27def77"},{url:"/_next/static/css/88a60832e1c34b11.css",revision:"88a60832e1c34b11"},{url:"/_next/static/media/4cf2300e9c8272f7-s.p.woff2",revision:"18bae71b1e1b2bb25321090a3b563103"},{url:"/_next/static/media/747892c23ea88013-s.woff2",revision:"a0761690ccf4441ace5cec893b82d4ab"},{url:"/_next/static/media/8d697b304b401681-s.woff2",revision:"cc728f6c0adb04da0dfcb0fc436a8ae5"},{url:"/_next/static/media/93f479601ee12b01-s.p.woff2",revision:"da83d5f06d825c5ae65b7cca706cb312"},{url:"/_next/static/media/9610d9e46709d722-s.woff2",revision:"7b7c0ef93df188a852344fc272fc096b"},{url:"/_next/static/media/ba015fad6dcf6784-s.woff2",revision:"8ea4f719af3312a055caf09f34c89a77"},{url:"/_next/static/y74F9L5_Ucw9HXGoHGRZv/_buildManifest.js",revision:"fe5520067c3fe7723ebfc5c2044bef8a"},{url:"/_next/static/y74F9L5_Ucw9HXGoHGRZv/_ssgManifest.js",revision:"b6652df95db52feb4daf4eca35380933"},{url:"/data/drive-tree-v3.json",revision:"5ec276fdae40a5832d710adc86e06296"},{url:"/icon.png",revision:"715f9ff458cb1c4b6b62e88cd57e5fea"},{url:"/og.png",revision:"49a30072709918ddf24d329b1f554db5"}],{ignoreURLParametersMatching:[]}),e.cleanupOutdatedCaches(),e.registerRoute("/",new e.NetworkFirst({cacheName:"start-url",plugins:[{cacheWillUpdate:async({request:e,response:s,event:t,state:c})=>s&&"opaqueredirect"===s.type?new Response(s.body,{status:200,statusText:"OK",headers:s.headers}):s}]}),"GET"),e.registerRoute(/^\/data\/drive-tree-.*\.json$/,new e.CacheFirst({cacheName:"tree-cache",plugins:[new e.ExpirationPlugin({maxEntries:5,maxAgeSeconds:31536e3})]}),"GET")});
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\public\workbox-f52fd911.js
+
+define(["exports"],function(t){"use strict";try{self["workbox:core:6.5.4"]&&_()}catch(t){}const e=(t,...e)=>{let s=t;return e.length>0&&(s+=` :: ${JSON.stringify(e)}`),s};class s extends Error{constructor(t,s){super(e(t,s)),this.name=t,this.details=s}}try{self["workbox:routing:6.5.4"]&&_()}catch(t){}const n=t=>t&&"object"==typeof t?t:{handle:t};class i{constructor(t,e,s="GET"){this.handler=n(e),this.match=t,this.method=s}setCatchHandler(t){this.catchHandler=n(t)}}class r extends i{constructor(t,e,s){super(({url:e})=>{const s=t.exec(e.href);if(s&&(e.origin===location.origin||0===s.index))return s.slice(1)},e,s)}}class a{constructor(){this.t=new Map,this.i=new Map}get routes(){return this.t}addFetchListener(){self.addEventListener("fetch",t=>{const{request:e}=t,s=this.handleRequest({request:e,event:t});s&&t.respondWith(s)})}addCacheListener(){self.addEventListener("message",t=>{if(t.data&&"CACHE_URLS"===t.data.type){const{payload:e}=t.data,s=Promise.all(e.urlsToCache.map(e=>{"string"==typeof e&&(e=[e]);const s=new Request(...e);return this.handleRequest({request:s,event:t})}));t.waitUntil(s),t.ports&&t.ports[0]&&s.then(()=>t.ports[0].postMessage(!0))}})}handleRequest({request:t,event:e}){const s=new URL(t.url,location.href);if(!s.protocol.startsWith("http"))return;const n=s.origin===location.origin,{params:i,route:r}=this.findMatchingRoute({event:e,request:t,sameOrigin:n,url:s});let a=r&&r.handler;const o=t.method;if(!a&&this.i.has(o)&&(a=this.i.get(o)),!a)return;let c;try{c=a.handle({url:s,request:t,event:e,params:i})}catch(t){c=Promise.reject(t)}const h=r&&r.catchHandler;return c instanceof Promise&&(this.o||h)&&(c=c.catch(async n=>{if(h)try{return await h.handle({url:s,request:t,event:e,params:i})}catch(t){t instanceof Error&&(n=t)}if(this.o)return this.o.handle({url:s,request:t,event:e});throw n})),c}findMatchingRoute({url:t,sameOrigin:e,request:s,event:n}){const i=this.t.get(s.method)||[];for(const r of i){let i;const a=r.match({url:t,sameOrigin:e,request:s,event:n});if(a)return i=a,(Array.isArray(i)&&0===i.length||a.constructor===Object&&0===Object.keys(a).length||"boolean"==typeof a)&&(i=void 0),{route:r,params:i}}return{}}setDefaultHandler(t,e="GET"){this.i.set(e,n(t))}setCatchHandler(t){this.o=n(t)}registerRoute(t){this.t.has(t.method)||this.t.set(t.method,[]),this.t.get(t.method).push(t)}unregisterRoute(t){if(!this.t.has(t.method))throw new s("unregister-route-but-not-found-with-method",{method:t.method});const e=this.t.get(t.method).indexOf(t);if(!(e>-1))throw new s("unregister-route-route-not-registered");this.t.get(t.method).splice(e,1)}}let o;const c=()=>(o||(o=new a,o.addFetchListener(),o.addCacheListener()),o);function h(t,e,n){let a;if("string"==typeof t){const s=new URL(t,location.href);a=new i(({url:t})=>t.href===s.href,e,n)}else if(t instanceof RegExp)a=new r(t,e,n);else if("function"==typeof t)a=new i(t,e,n);else{if(!(t instanceof i))throw new s("unsupported-route-type",{moduleName:"workbox-routing",funcName:"registerRoute",paramName:"capture"});a=t}return c().registerRoute(a),a}try{self["workbox:strategies:6.5.4"]&&_()}catch(t){}const u={cacheWillUpdate:async({response:t})=>200===t.status||0===t.status?t:null},l={googleAnalytics:"googleAnalytics",precache:"precache-v2",prefix:"workbox",runtime:"runtime",suffix:"undefined"!=typeof registration?registration.scope:""},f=t=>[l.prefix,t,l.suffix].filter(t=>t&&t.length>0).join("-"),w=t=>t||f(l.precache),d=t=>t||f(l.runtime);function p(t,e){const s=new URL(t);for(const t of e)s.searchParams.delete(t);return s.href}class y{constructor(){this.promise=new Promise((t,e)=>{this.resolve=t,this.reject=e})}}const m=new Set;function g(t){return"string"==typeof t?new Request(t):t}class R{constructor(t,e){this.h={},Object.assign(this,e),this.event=e.event,this.u=t,this.l=new y,this.p=[],this.m=[...t.plugins],this.R=new Map;for(const t of this.m)this.R.set(t,{});this.event.waitUntil(this.l.promise)}async fetch(t){const{event:e}=this;let n=g(t);if("navigate"===n.mode&&e instanceof FetchEvent&&e.preloadResponse){const t=await e.preloadResponse;if(t)return t}const i=this.hasCallback("fetchDidFail")?n.clone():null;try{for(const t of this.iterateCallbacks("requestWillFetch"))n=await t({request:n.clone(),event:e})}catch(t){if(t instanceof Error)throw new s("plugin-error-request-will-fetch",{thrownErrorMessage:t.message})}const r=n.clone();try{let t;t=await fetch(n,"navigate"===n.mode?void 0:this.u.fetchOptions);for(const s of this.iterateCallbacks("fetchDidSucceed"))t=await s({event:e,request:r,response:t});return t}catch(t){throw i&&await this.runCallbacks("fetchDidFail",{error:t,event:e,originalRequest:i.clone(),request:r.clone()}),t}}async fetchAndCachePut(t){const e=await this.fetch(t),s=e.clone();return this.waitUntil(this.cachePut(t,s)),e}async cacheMatch(t){const e=g(t);let s;const{cacheName:n,matchOptions:i}=this.u,r=await this.getCacheKey(e,"read"),a=Object.assign(Object.assign({},i),{cacheName:n});s=await caches.match(r,a);for(const t of this.iterateCallbacks("cachedResponseWillBeUsed"))s=await t({cacheName:n,matchOptions:i,cachedResponse:s,request:r,event:this.event})||void 0;return s}async cachePut(t,e){const n=g(t);var i;await(i=0,new Promise(t=>setTimeout(t,i)));const r=await this.getCacheKey(n,"write");if(!e)throw new s("cache-put-with-no-response",{url:(a=r.url,new URL(String(a),location.href).href.replace(new RegExp(`^${location.origin}`),""))});var a;const o=await this.v(e);if(!o)return!1;const{cacheName:c,matchOptions:h}=this.u,u=await self.caches.open(c),l=this.hasCallback("cacheDidUpdate"),f=l?await async function(t,e,s,n){const i=p(e.url,s);if(e.url===i)return t.match(e,n);const r=Object.assign(Object.assign({},n),{ignoreSearch:!0}),a=await t.keys(e,r);for(const e of a)if(i===p(e.url,s))return t.match(e,n)}(u,r.clone(),["__WB_REVISION__"],h):null;try{await u.put(r,l?o.clone():o)}catch(t){if(t instanceof Error)throw"QuotaExceededError"===t.name&&await async function(){for(const t of m)await t()}(),t}for(const t of this.iterateCallbacks("cacheDidUpdate"))await t({cacheName:c,oldResponse:f,newResponse:o.clone(),request:r,event:this.event});return!0}async getCacheKey(t,e){const s=`${t.url} | ${e}`;if(!this.h[s]){let n=t;for(const t of this.iterateCallbacks("cacheKeyWillBeUsed"))n=g(await t({mode:e,request:n,event:this.event,params:this.params}));this.h[s]=n}return this.h[s]}hasCallback(t){for(const e of this.u.plugins)if(t in e)return!0;return!1}async runCallbacks(t,e){for(const s of this.iterateCallbacks(t))await s(e)}*iterateCallbacks(t){for(const e of this.u.plugins)if("function"==typeof e[t]){const s=this.R.get(e),n=n=>{const i=Object.assign(Object.assign({},n),{state:s});return e[t](i)};yield n}}waitUntil(t){return this.p.push(t),t}async doneWaiting(){let t;for(;t=this.p.shift();)await t}destroy(){this.l.resolve(null)}async v(t){let e=t,s=!1;for(const t of this.iterateCallbacks("cacheWillUpdate"))if(e=await t({request:this.request,response:e,event:this.event})||void 0,s=!0,!e)break;return s||e&&200!==e.status&&(e=void 0),e}}class v{constructor(t={}){this.cacheName=d(t.cacheName),this.plugins=t.plugins||[],this.fetchOptions=t.fetchOptions,this.matchOptions=t.matchOptions}handle(t){const[e]=this.handleAll(t);return e}handleAll(t){t instanceof FetchEvent&&(t={event:t,request:t.request});const e=t.event,s="string"==typeof t.request?new Request(t.request):t.request,n="params"in t?t.params:void 0,i=new R(this,{event:e,request:s,params:n}),r=this.q(i,s,e);return[r,this.D(r,i,s,e)]}async q(t,e,n){let i;await t.runCallbacks("handlerWillStart",{event:n,request:e});try{if(i=await this.U(e,t),!i||"error"===i.type)throw new s("no-response",{url:e.url})}catch(s){if(s instanceof Error)for(const r of t.iterateCallbacks("handlerDidError"))if(i=await r({error:s,event:n,request:e}),i)break;if(!i)throw s}for(const s of t.iterateCallbacks("handlerWillRespond"))i=await s({event:n,request:e,response:i});return i}async D(t,e,s,n){let i,r;try{i=await t}catch(r){}try{await e.runCallbacks("handlerDidRespond",{event:n,request:s,response:i}),await e.doneWaiting()}catch(t){t instanceof Error&&(r=t)}if(await e.runCallbacks("handlerDidComplete",{event:n,request:s,response:i,error:r}),e.destroy(),r)throw r}}function b(t){t.then(()=>{})}function q(){return q=Object.assign?Object.assign.bind():function(t){for(var e=1;e<arguments.length;e++){var s=arguments[e];for(var n in s)({}).hasOwnProperty.call(s,n)&&(t[n]=s[n])}return t},q.apply(null,arguments)}let D,U;const x=new WeakMap,I=new WeakMap,L=new WeakMap,E=new WeakMap,C=new WeakMap;let N={get(t,e,s){if(t instanceof IDBTransaction){if("done"===e)return I.get(t);if("objectStoreNames"===e)return t.objectStoreNames||L.get(t);if("store"===e)return s.objectStoreNames[1]?void 0:s.objectStore(s.objectStoreNames[0])}return B(t[e])},set:(t,e,s)=>(t[e]=s,!0),has:(t,e)=>t instanceof IDBTransaction&&("done"===e||"store"===e)||e in t};function O(t){return t!==IDBDatabase.prototype.transaction||"objectStoreNames"in IDBTransaction.prototype?(U||(U=[IDBCursor.prototype.advance,IDBCursor.prototype.continue,IDBCursor.prototype.continuePrimaryKey])).includes(t)?function(...e){return t.apply(T(this),e),B(x.get(this))}:function(...e){return B(t.apply(T(this),e))}:function(e,...s){const n=t.call(T(this),e,...s);return L.set(n,e.sort?e.sort():[e]),B(n)}}function k(t){return"function"==typeof t?O(t):(t instanceof IDBTransaction&&function(t){if(I.has(t))return;const e=new Promise((e,s)=>{const n=()=>{t.removeEventListener("complete",i),t.removeEventListener("error",r),t.removeEventListener("abort",r)},i=()=>{e(),n()},r=()=>{s(t.error||new DOMException("AbortError","AbortError")),n()};t.addEventListener("complete",i),t.addEventListener("error",r),t.addEventListener("abort",r)});I.set(t,e)}(t),e=t,(D||(D=[IDBDatabase,IDBObjectStore,IDBIndex,IDBCursor,IDBTransaction])).some(t=>e instanceof t)?new Proxy(t,N):t);var e}function B(t){if(t instanceof IDBRequest)return function(t){const e=new Promise((e,s)=>{const n=()=>{t.removeEventListener("success",i),t.removeEventListener("error",r)},i=()=>{e(B(t.result)),n()},r=()=>{s(t.error),n()};t.addEventListener("success",i),t.addEventListener("error",r)});return e.then(e=>{e instanceof IDBCursor&&x.set(e,t)}).catch(()=>{}),C.set(e,t),e}(t);if(E.has(t))return E.get(t);const e=k(t);return e!==t&&(E.set(t,e),C.set(e,t)),e}const T=t=>C.get(t);const M=["get","getKey","getAll","getAllKeys","count"],P=["put","add","delete","clear"],W=new Map;function j(t,e){if(!(t instanceof IDBDatabase)||e in t||"string"!=typeof e)return;if(W.get(e))return W.get(e);const s=e.replace(/FromIndex$/,""),n=e!==s,i=P.includes(s);if(!(s in(n?IDBIndex:IDBObjectStore).prototype)||!i&&!M.includes(s))return;const r=async function(t,...e){const r=this.transaction(t,i?"readwrite":"readonly");let a=r.store;return n&&(a=a.index(e.shift())),(await Promise.all([a[s](...e),i&&r.done]))[0]};return W.set(e,r),r}N=(t=>q({},t,{get:(e,s,n)=>j(e,s)||t.get(e,s,n),has:(e,s)=>!!j(e,s)||t.has(e,s)}))(N);try{self["workbox:expiration:6.5.4"]&&_()}catch(t){}const S="cache-entries",K=t=>{const e=new URL(t,location.href);return e.hash="",e.href};class A{constructor(t){this._=null,this.I=t}L(t){const e=t.createObjectStore(S,{keyPath:"id"});e.createIndex("cacheName","cacheName",{unique:!1}),e.createIndex("timestamp","timestamp",{unique:!1})}C(t){this.L(t),this.I&&function(t,{blocked:e}={}){const s=indexedDB.deleteDatabase(t);e&&s.addEventListener("blocked",t=>e(t.oldVersion,t)),B(s).then(()=>{})}(this.I)}async setTimestamp(t,e){const s={url:t=K(t),timestamp:e,cacheName:this.I,id:this.N(t)},n=(await this.getDb()).transaction(S,"readwrite",{durability:"relaxed"});await n.store.put(s),await n.done}async getTimestamp(t){const e=await this.getDb(),s=await e.get(S,this.N(t));return null==s?void 0:s.timestamp}async expireEntries(t,e){const s=await this.getDb();let n=await s.transaction(S).store.index("timestamp").openCursor(null,"prev");const i=[];let r=0;for(;n;){const s=n.value;s.cacheName===this.I&&(t&&s.timestamp<t||e&&r>=e?i.push(n.value):r++),n=await n.continue()}const a=[];for(const t of i)await s.delete(S,t.id),a.push(t.url);return a}N(t){return this.I+"|"+K(t)}async getDb(){return this._||(this._=await function(t,e,{blocked:s,upgrade:n,blocking:i,terminated:r}={}){const a=indexedDB.open(t,e),o=B(a);return n&&a.addEventListener("upgradeneeded",t=>{n(B(a.result),t.oldVersion,t.newVersion,B(a.transaction),t)}),s&&a.addEventListener("blocked",t=>s(t.oldVersion,t.newVersion,t)),o.then(t=>{r&&t.addEventListener("close",()=>r()),i&&t.addEventListener("versionchange",t=>i(t.oldVersion,t.newVersion,t))}).catch(()=>{}),o}("workbox-expiration",1,{upgrade:this.C.bind(this)})),this._}}class F{constructor(t,e={}){this.O=!1,this.k=!1,this.B=e.maxEntries,this.T=e.maxAgeSeconds,this.M=e.matchOptions,this.I=t,this.P=new A(t)}async expireEntries(){if(this.O)return void(this.k=!0);this.O=!0;const t=this.T?Date.now()-1e3*this.T:0,e=await this.P.expireEntries(t,this.B),s=await self.caches.open(this.I);for(const t of e)await s.delete(t,this.M);this.O=!1,this.k&&(this.k=!1,b(this.expireEntries()))}async updateTimestamp(t){await this.P.setTimestamp(t,Date.now())}async isURLExpired(t){if(this.T){const e=await this.P.getTimestamp(t),s=Date.now()-1e3*this.T;return void 0===e||e<s}return!1}async delete(){this.k=!1,await this.P.expireEntries(1/0)}}function H(t,e){const s=e();return t.waitUntil(s),s}try{self["workbox:precaching:6.5.4"]&&_()}catch(t){}function $(t){if(!t)throw new s("add-to-cache-list-unexpected-type",{entry:t});if("string"==typeof t){const e=new URL(t,location.href);return{cacheKey:e.href,url:e.href}}const{revision:e,url:n}=t;if(!n)throw new s("add-to-cache-list-unexpected-type",{entry:t});if(!e){const t=new URL(n,location.href);return{cacheKey:t.href,url:t.href}}const i=new URL(n,location.href),r=new URL(n,location.href);return i.searchParams.set("__WB_REVISION__",e),{cacheKey:i.href,url:r.href}}class G{constructor(){this.updatedURLs=[],this.notUpdatedURLs=[],this.handlerWillStart=async({request:t,state:e})=>{e&&(e.originalRequest=t)},this.cachedResponseWillBeUsed=async({event:t,state:e,cachedResponse:s})=>{if("install"===t.type&&e&&e.originalRequest&&e.originalRequest instanceof Request){const t=e.originalRequest.url;s?this.notUpdatedURLs.push(t):this.updatedURLs.push(t)}return s}}}class V{constructor({precacheController:t}){this.cacheKeyWillBeUsed=async({request:t,params:e})=>{const s=(null==e?void 0:e.cacheKey)||this.W.getCacheKeyForURL(t.url);return s?new Request(s,{headers:t.headers}):t},this.W=t}}let J,Q;async function z(t,e){let n=null;if(t.url){n=new URL(t.url).origin}if(n!==self.location.origin)throw new s("cross-origin-copy-response",{origin:n});const i=t.clone(),r={headers:new Headers(i.headers),status:i.status,statusText:i.statusText},a=e?e(r):r,o=function(){if(void 0===J){const t=new Response("");if("body"in t)try{new Response(t.body),J=!0}catch(t){J=!1}J=!1}return J}()?i.body:await i.blob();return new Response(o,a)}class X extends v{constructor(t={}){t.cacheName=w(t.cacheName),super(t),this.j=!1!==t.fallbackToNetwork,this.plugins.push(X.copyRedirectedCacheableResponsesPlugin)}async U(t,e){const s=await e.cacheMatch(t);return s||(e.event&&"install"===e.event.type?await this.S(t,e):await this.K(t,e))}async K(t,e){let n;const i=e.params||{};if(!this.j)throw new s("missing-precache-entry",{cacheName:this.cacheName,url:t.url});{const s=i.integrity,r=t.integrity,a=!r||r===s;n=await e.fetch(new Request(t,{integrity:"no-cors"!==t.mode?r||s:void 0})),s&&a&&"no-cors"!==t.mode&&(this.A(),await e.cachePut(t,n.clone()))}return n}async S(t,e){this.A();const n=await e.fetch(t);if(!await e.cachePut(t,n.clone()))throw new s("bad-precaching-response",{url:t.url,status:n.status});return n}A(){let t=null,e=0;for(const[s,n]of this.plugins.entries())n!==X.copyRedirectedCacheableResponsesPlugin&&(n===X.defaultPrecacheCacheabilityPlugin&&(t=s),n.cacheWillUpdate&&e++);0===e?this.plugins.push(X.defaultPrecacheCacheabilityPlugin):e>1&&null!==t&&this.plugins.splice(t,1)}}X.defaultPrecacheCacheabilityPlugin={cacheWillUpdate:async({response:t})=>!t||t.status>=400?null:t},X.copyRedirectedCacheableResponsesPlugin={cacheWillUpdate:async({response:t})=>t.redirected?await z(t):t};class Y{constructor({cacheName:t,plugins:e=[],fallbackToNetwork:s=!0}={}){this.F=new Map,this.H=new Map,this.$=new Map,this.u=new X({cacheName:w(t),plugins:[...e,new V({precacheController:this})],fallbackToNetwork:s}),this.install=this.install.bind(this),this.activate=this.activate.bind(this)}get strategy(){return this.u}precache(t){this.addToCacheList(t),this.G||(self.addEventListener("install",this.install),self.addEventListener("activate",this.activate),this.G=!0)}addToCacheList(t){const e=[];for(const n of t){"string"==typeof n?e.push(n):n&&void 0===n.revision&&e.push(n.url);const{cacheKey:t,url:i}=$(n),r="string"!=typeof n&&n.revision?"reload":"default";if(this.F.has(i)&&this.F.get(i)!==t)throw new s("add-to-cache-list-conflicting-entries",{firstEntry:this.F.get(i),secondEntry:t});if("string"!=typeof n&&n.integrity){if(this.$.has(t)&&this.$.get(t)!==n.integrity)throw new s("add-to-cache-list-conflicting-integrities",{url:i});this.$.set(t,n.integrity)}if(this.F.set(i,t),this.H.set(i,r),e.length>0){const t=`Workbox is precaching URLs without revision info: ${e.join(", ")}\nThis is generally NOT safe. Learn more at https://bit.ly/wb-precache`;console.warn(t)}}}install(t){return H(t,async()=>{const e=new G;this.strategy.plugins.push(e);for(const[e,s]of this.F){const n=this.$.get(s),i=this.H.get(e),r=new Request(e,{integrity:n,cache:i,credentials:"same-origin"});await Promise.all(this.strategy.handleAll({params:{cacheKey:s},request:r,event:t}))}const{updatedURLs:s,notUpdatedURLs:n}=e;return{updatedURLs:s,notUpdatedURLs:n}})}activate(t){return H(t,async()=>{const t=await self.caches.open(this.strategy.cacheName),e=await t.keys(),s=new Set(this.F.values()),n=[];for(const i of e)s.has(i.url)||(await t.delete(i),n.push(i.url));return{deletedURLs:n}})}getURLsToCacheKeys(){return this.F}getCachedURLs(){return[...this.F.keys()]}getCacheKeyForURL(t){const e=new URL(t,location.href);return this.F.get(e.href)}getIntegrityForCacheKey(t){return this.$.get(t)}async matchPrecache(t){const e=t instanceof Request?t.url:t,s=this.getCacheKeyForURL(e);if(s){return(await self.caches.open(this.strategy.cacheName)).match(s)}}createHandlerBoundToURL(t){const e=this.getCacheKeyForURL(t);if(!e)throw new s("non-precached-url",{url:t});return s=>(s.request=new Request(t),s.params=Object.assign({cacheKey:e},s.params),this.strategy.handle(s))}}const Z=()=>(Q||(Q=new Y),Q);class tt extends i{constructor(t,e){super(({request:s})=>{const n=t.getURLsToCacheKeys();for(const i of function*(t,{ignoreURLParametersMatching:e=[/^utm_/,/^fbclid$/],directoryIndex:s="index.html",cleanURLs:n=!0,urlManipulation:i}={}){const r=new URL(t,location.href);r.hash="",yield r.href;const a=function(t,e=[]){for(const s of[...t.searchParams.keys()])e.some(t=>t.test(s))&&t.searchParams.delete(s);return t}(r,e);if(yield a.href,s&&a.pathname.endsWith("/")){const t=new URL(a.href);t.pathname+=s,yield t.href}if(n){const t=new URL(a.href);t.pathname+=".html",yield t.href}if(i){const t=i({url:r});for(const e of t)yield e.href}}(s.url,e)){const e=n.get(i);if(e){return{cacheKey:e,integrity:t.getIntegrityForCacheKey(e)}}}},t.strategy)}}t.CacheFirst=class extends v{async U(t,e){let n,i=await e.cacheMatch(t);if(!i)try{i=await e.fetchAndCachePut(t)}catch(t){t instanceof Error&&(n=t)}if(!i)throw new s("no-response",{url:t.url,error:n});return i}},t.ExpirationPlugin=class{constructor(t={}){this.cachedResponseWillBeUsed=async({event:t,request:e,cacheName:s,cachedResponse:n})=>{if(!n)return null;const i=this.V(n),r=this.J(s);b(r.expireEntries());const a=r.updateTimestamp(e.url);if(t)try{t.waitUntil(a)}catch(t){}return i?n:null},this.cacheDidUpdate=async({cacheName:t,request:e})=>{const s=this.J(t);await s.updateTimestamp(e.url),await s.expireEntries()},this.X=t,this.T=t.maxAgeSeconds,this.Y=new Map,t.purgeOnQuotaError&&function(t){m.add(t)}(()=>this.deleteCacheAndMetadata())}J(t){if(t===d())throw new s("expire-custom-caches-only");let e=this.Y.get(t);return e||(e=new F(t,this.X),this.Y.set(t,e)),e}V(t){if(!this.T)return!0;const e=this.Z(t);if(null===e)return!0;return e>=Date.now()-1e3*this.T}Z(t){if(!t.headers.has("date"))return null;const e=t.headers.get("date"),s=new Date(e).getTime();return isNaN(s)?null:s}async deleteCacheAndMetadata(){for(const[t,e]of this.Y)await self.caches.delete(t),await e.delete();this.Y=new Map}},t.NetworkFirst=class extends v{constructor(t={}){super(t),this.plugins.some(t=>"cacheWillUpdate"in t)||this.plugins.unshift(u),this.tt=t.networkTimeoutSeconds||0}async U(t,e){const n=[],i=[];let r;if(this.tt){const{id:s,promise:a}=this.et({request:t,logs:n,handler:e});r=s,i.push(a)}const a=this.st({timeoutId:r,request:t,logs:n,handler:e});i.push(a);const o=await e.waitUntil((async()=>await e.waitUntil(Promise.race(i))||await a)());if(!o)throw new s("no-response",{url:t.url});return o}et({request:t,logs:e,handler:s}){let n;return{promise:new Promise(e=>{n=setTimeout(async()=>{e(await s.cacheMatch(t))},1e3*this.tt)}),id:n}}async st({timeoutId:t,request:e,logs:s,handler:n}){let i,r;try{r=await n.fetchAndCachePut(e)}catch(t){t instanceof Error&&(i=t)}return t&&clearTimeout(t),!i&&r||(r=await n.cacheMatch(e)),r}},t.cleanupOutdatedCaches=function(){self.addEventListener("activate",t=>{const e=w();t.waitUntil((async(t,e="-precache-")=>{const s=(await self.caches.keys()).filter(s=>s.includes(e)&&s.includes(self.registration.scope)&&s!==t);return await Promise.all(s.map(t=>self.caches.delete(t))),s})(e).then(t=>{}))})},t.clientsClaim=function(){self.addEventListener("activate",()=>self.clients.claim())},t.precacheAndRoute=function(t,e){!function(t){Z().precache(t)}(t),function(t){const e=Z();h(new tt(e,t))}(e)},t.registerRoute=h});
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\scripts\index.js
+
+import { google } from "googleapis";
+import fs from "fs";
+import path from "path";
+
+const KEY_PATH = path.resolve("../keys/drive-reader.json");
+const ROOT_FOLDER_ID = "1E4TVcYymK5-73b05_39XQW6QYiVf6b6s";
+
+// Opcional: para no reventar con árboles profundos
+const MAX_DEPTH = 50;
+
+const auth = new google.auth.GoogleAuth({
+  keyFile: KEY_PATH,
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+});
+
+const drive = google.drive({ version: "v3", auth });
+
+async function listChildren(folderId) {
+  let pageToken = undefined;
+  const all = [];
+
+  do {
+    const res = await drive.files.list({
+      q: `'${folderId}' in parents and trashed=false`,
+      pageSize: 1000,
+      pageToken,
+      fields: "nextPageToken, files(id, name, mimeType, webViewLink, shortcutDetails)",
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+    });
+
+    all.push(...(res.data.files || []));
+    pageToken = res.data.nextPageToken || undefined;
+  } while (pageToken);
+
+  return all;
+}
+
+function isFolder(f) {
+  return f.mimeType === "application/vnd.google-apps.folder";
+}
+
+function toFileNode(f) {
+  // webViewLink es el link correcto para ver (Docs/Sheets/Slides y binarios)
+  const url =
+    f.webViewLink ||
+    (isFolder(f)
+      ? `https://drive.google.com/drive/folders/${f.id}`
+      : `https://drive.google.com/file/d/${f.id}/preview`);
+
+  return {
+    name: f.name,
+    type: f.mimeType,
+    url,
+  };
+}
+
+async function readFolderTree(folderId, visited, depth) {
+  if (depth > MAX_DEPTH) return [];
+
+  if (visited.has(folderId)) return [];
+  visited.add(folderId);
+
+  const children = await listChildren(folderId);
+
+  // Orden: primero carpetas, luego archivos (mejor UX)
+  children.sort((a, b) => {
+    const af = isFolder(a) ? 0 : 1;
+    const bf = isFolder(b) ? 0 : 1;
+    if (af !== bf) return af - bf;
+    return (a.name || "").localeCompare(b.name || "", "es");
+  });
+
+  const out = [];
+
+  for (const f of children) {
+    // Si aparece un shortcut, lo ignoramos para evitar líos (podés cambiarlo si querés)
+    if (f.mimeType === "application/vnd.google-apps.shortcut") continue;
+
+    if (isFolder(f)) {
+      out.push({
+        name: f.name,
+        type: "folder",
+        id: f.id,
+        url: `https://drive.google.com/drive/folders/${f.id}`,
+        children: await readFolderTree(f.id, visited, depth + 1),
+      });
+    } else {
+      out.push(toFileNode(f));
+    }
+  }
+
+  return out;
+}
+
+async function main() {
+  // Verificación rápida de key
+  if (!fs.existsSync(KEY_PATH)) {
+    throw new Error(`No existe el archivo de credenciales: ${KEY_PATH}`);
+  }
+
+  const visited = new Set();
+  const tree = await readFolderTree(ROOT_FOLDER_ID, visited, 0);
+
+  fs.mkdirSync("data", { recursive: true });
+  fs.writeFileSync("data/drive-tree.json", JSON.stringify(tree, null, 2), "utf-8");
+
+  console.log(`✔ Árbol completo generado. Carpetas visitadas: ${visited.size}`);
+}
+
+main().catch((e) => {
+  console.error("❌ Error:", e?.message || e);
+  process.exit(1);
+});
+
+
+C:\Users\Lenovo\Desktop\ApuntesLeo\utn\scripts\test.js
+
+import { google } from 'googleapis';
+
+import path from 'path';
+
+import fs from 'fs';
+
+// 1. CONFIGURACIÓN DE RUTAS
+const __dirname = path.resolve();
+const KEY_PATH = path.join(__dirname, 'keys', 'drive-read.json');
+const OUTPUT_PATH = path.join(__dirname, 'scripts', 'data', 'drive-tree.json');
+
+// 2. ID DE LA CARPETA PÚBLICA (Viewer)
+const ROOT_FOLDER_ID = "1XTM9vrEeNiXk8YAeh50TPVDzSSigBEjT"; 
+
+async function generateDriveTree() {
+  // Verificar si existen las credenciales
+  if (!fs.existsSync(KEY_PATH)) {
+    console.error(`❌ Error: No existe el archivo en ${KEY_PATH}`);
+    return;
+  }
+
+  const auth = new google.auth.GoogleAuth({
+    keyFile: KEY_PATH,
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  });
+
+  const drive = google.drive({ version: 'v3', auth });
+
+  console.log("🚀 Iniciando escaneo de carpeta pública...");
+
+  async function listFolderContent(folderId) {
+    const nodes = [];
+    let pageToken = undefined;
+
+    try {
+      do {
+        const res = await drive.files.list({
+          // Buscamos archivos cuyo padre sea el ID actual
+          q: `'${folderId}' in parents and trashed = false`,
+          fields: 'nextPageToken, files(id, name, mimeType, webViewLink)',
+          pageSize: 1000,
+          pageToken: pageToken,
+          // Importante para carpetas compartidas/públicas
+          supportsAllDrives: true,
+          includeItemsFromAllDrives: true,
+        });
+
+        for (const file of res.data.files) {
+          const isFolder = file.mimeType === 'application/vnd.google-apps.folder';
+          const node = {
+            id: file.id,
+            name: file.name,
+            type: isFolder ? 'folder' : 'file',
+            url: file.webViewLink,
+          };
+
+          if (isFolder) {
+            console.log(`📁 Explorando: ${file.name}`);
+            node.children = await listFolderContent(file.id); // Recursión
+          }
+          nodes.push(node);
+        }
+        pageToken = res.data.nextPageToken;
+      } while (pageToken);
+
+      return nodes;
+    } catch (err) {
+      console.error(`⚠️ Error leyendo carpeta ${folderId}:`, err.message);
+      return [];
+    }
+  }
+
+  const tree = await listFolderContent(ROOT_FOLDER_ID);
+  
+  // Guardar el resultado para el buscador
+  fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(tree, null, 2));
+  
+  console.log(`✅ Árbol generado con éxito en: ${OUTPUT_PATH}`);
+}
+
+generateDriveTree();
+
+{
+  "name": "utn",
+  "version": "0.1.0",
+  "private": true,
+ 
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "framer-motion": "^12.26.2",
+    "googleapis": "^170.1.0",
+    "next": "16.0.10",
+    "next-pwa": "^5.6.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+proyecto/
+├── .next/
+├── app/
+│   ├── api/
+│   │   ├── folder/
+│   │   └── search/
+│   ├── browse/
+│   │   └── [...segments]/
+│   ├── components/
+│   ├── lib/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── robots.ts
+│   └── sitemap.ts
+├── data1/
+├── node_modules/
+├── public/
+│   ├── data/
+│   │   └── drive-tree-v3.json
+│   ├── icon.png
+│   ├── og.png
+│   ├── sw.js
+│   └── workbox-f52fd911.js
+├── scripts/
+│   ├── data/
+│   │   ├── drive-tree.json
+│   │   ├── index.js
+│   │   └── test.js
+│   └── keys/
+├── .gitignore
+├── documentation.txt
+├── eslint.config.mjs
+├── next-env.d.ts
+└── next.config.js
