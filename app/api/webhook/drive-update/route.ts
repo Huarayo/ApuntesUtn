@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
     // 📖 Leer el JSON generado
     console.log("📖 Leyendo JSON...");
-    const jsonPath = path.join(process.cwd(), "scripts", "data", "drive-tree.json");
+    const jsonPath = path.join(process.cwd(), "scripts", "data", "drive-tree-v3.json");
     console.log("📁 Buscando en:", jsonPath);
     
     if (!fs.existsSync(jsonPath)) {
