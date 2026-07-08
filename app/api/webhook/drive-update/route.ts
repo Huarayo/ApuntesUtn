@@ -3,6 +3,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import fs from "fs";
 import path from "path";
+import { put } from "@vercel/blob";
 
 const execPromise = promisify(exec);
 
@@ -21,10 +22,16 @@ export async function POST(req: Request) {
 
     console.log("📢 Webhook recibido - Actualizando desde Drive");
 
-    // 📡 Ejecutar scripts
+    // 📡 Ejecutar scripts con entorno de Node.js completo
     console.log("📡 Ejecutando index.js...");
     try {
-      const { stdout, stderr } = await execPromise("node scripts/index.js");
+      // 🔥 Usar el entorno de Node.js de Vercel
+      const { stdout, stderr } = await execPromise("node scripts/index.js", {
+        env: {
+          ...process.env,
+          NODE_PATH: path.join(process.cwd(), "node_modules"),
+        },
+      });
       console.log("✅ index.js stdout:", stdout);
       if (stderr) console.warn("⚠️ index.js stderr:", stderr);
     } catch (error) {
@@ -37,7 +44,12 @@ export async function POST(req: Request) {
 
     console.log("📡 Ejecutando merge-drive.js...");
     try {
-      const { stdout, stderr } = await execPromise("node scripts/merge-drive.js");
+      const { stdout, stderr } = await execPromise("node scripts/merge-drive.js", {
+        env: {
+          ...process.env,
+          NODE_PATH: path.join(process.cwd(), "node_modules"),
+        },
+      });
       console.log("✅ merge-drive.js stdout:", stdout);
       if (stderr) console.warn("⚠️ merge-drive.js stderr:", stderr);
     } catch (error) {
@@ -48,7 +60,7 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 📖 Leer el JSON generado
+    // 📖 Leer el JSON COMPLETO (drive-tree-v3.json)
     console.log("📖 Leyendo JSON...");
     const jsonPath = path.join(process.cwd(), "scripts", "data", "drive-tree-v3.json");
     console.log("📁 Buscando en:", jsonPath);
@@ -56,7 +68,7 @@ export async function POST(req: Request) {
     if (!fs.existsSync(jsonPath)) {
       console.error("❌ No existe:", jsonPath);
       return NextResponse.json({ 
-        error: "No se encontró scripts/data/drive-tree.json" 
+        error: "No se encontró scripts/data/drive-tree-v3.json" 
       }, { status: 500 });
     }
     
@@ -64,17 +76,17 @@ export async function POST(req: Request) {
     const tree = JSON.parse(jsonContent);
     console.log(`✅ JSON leído. ${tree.length} nodos`);
 
-    // ☁️ Subir a Vercel Blob (si tenés token)
+    // ☁️ Subir a Vercel Blob
     const hasToken = !!process.env.BLOB_READ_WRITE_TOKEN;
     console.log("🔑 ¿Token de Blob presente?", hasToken);
     
     if (hasToken) {
-      const { put } = await import('@vercel/blob');
       console.log("☁️ Subiendo a Vercel Blob...");
       const { url } = await put("drive-tree.json", JSON.stringify(tree), {
         access: "public",
         addRandomSuffix: false,
         contentType: "application/json",
+        allowOverwrite: true,
       });
       console.log(`✅ JSON actualizado en: ${url}`);
     } else {
