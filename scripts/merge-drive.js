@@ -147,15 +147,6 @@ export async function runMerge() {
 
   // 🔥 8. SINCRONIZAR ESTRUCTURA DE CARPETAS (CREAR CARPETAS NUEVAS)
   console.log("📁 Sincronizando estructura de carpetas...");
-  function normalizeName(name) {
-    return name
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9\s]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
 
   function ensureFolderStructure(currentNodes, driveNodes) {
     for (const dNode of driveNodes) {
@@ -169,7 +160,7 @@ export async function runMerge() {
       // Fallback: si el ID cambió, buscar por nombre normalizado
       if (!match) {
         match = currentNodes.find(
-          n => n.type === "folder" && normalizeName(n.name) === normalizeName(dNode.name)
+          n => n.type === "folder" && n.name === dNode.name
         );
       }
 
@@ -204,9 +195,8 @@ export async function runMerge() {
   function findFolderByPath(nodes, pathParts) {
     let current = nodes;
     for (const part of pathParts) {
-      const normalizedPart = normalizeName(part);
       const found = current.find(node => 
-        node.type === "folder" && normalizeName(node.name) === normalizedPart
+        node.type === "folder" && node.name === part
       );
       if (!found) return null;
       current = found.children || [];
