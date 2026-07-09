@@ -1,10 +1,18 @@
-import { google } from "googleapis";
-import fs from "fs";
-import path from "path";
+// 1. PRIMERO: imports de Node.js
+import fs from 'fs';
 import { fileURLToPath } from 'url';
+import path from 'path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// 2. SEGUNDO: imports de librerías externas
+import { google } from "googleapis";
 
+// 3. TERCERO: dotenv (se ejecuta después de los imports)
+import dotenv from 'dotenv';
+
+// 4. CUARTO: configurar dotenv con la ruta correcta
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 const ROOT_FOLDER_ID = "1b_AndWq4VbixhasOObo7wOZrIKIy08ru";
 const MAX_DEPTH = 50;
 

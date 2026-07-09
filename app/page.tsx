@@ -40,10 +40,7 @@ export default function Home() {
   const tree = useTree();
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
-  // Función para navegar a carpeta
-  const handleFolderClick = (seg: string) => {
-    window.location.href = `/browse/${encodeURIComponent(seg)}`;
-  };
+
   // ✅ Hook SIEMPRE llamado
   const topFolders = useMemo(() => {
     if (!tree) return [];

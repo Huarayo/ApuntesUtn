@@ -204,57 +204,7 @@ export default function AdminPanel() {
   if (loading) return <div style={{ padding: 24 }}>Cargando...</div>;
   if (error) return <div style={{ padding: 24, color: "red" }}>Error: {error}</div>;
 
-  const importFromDrive = async () => {
-    if (!confirm("📤 ¿Importar archivos desde Drive?\n\nEsto ejecutará el script de Drive y agregará los archivos nuevos.")) return;
-    
-    setLoading(true);
-    setError(null);
-    
-    try {
-        // 1. Ejecutar el script
-        const scriptRes = await fetch("/api/admin/run-script", {
-        method: "POST"
-        });
-        
-        if (!scriptRes.ok) {
-        const error = await scriptRes.json();
-        throw new Error(error.error || "Error al ejecutar el script");
-        }
-        
-        // 2. Importar los archivos
-        const importRes = await fetch("/api/admin/import-drive", {
-        method: "POST"
-        });
-        
-        if (!importRes.ok) {
-        const error = await importRes.json();
-        throw new Error(error.error || "Error al importar");
-        }
-        
-        const data = await importRes.json();
-        
-        if (data.imported > 0) {
-        alert(`✅ ${data.message}`);
-        } else {
-        alert("ℹ️ No hay archivos nuevos para importar");
-        }
-        
-        // 3. Recargar el árbol en el panel
-        const treeRes = await fetch("/api/tree");
-        const newTree = await treeRes.json();
-        setTree(newTree);
-        
-    } catch (err: unknown) {
-        if (err instanceof Error) {
-        setError(err.message);
-        alert(`❌ Error: ${err.message}`);
-        } else {
-        setError("Error desconocido");
-        }
-    }
-    
-    setLoading(false);
-    };
+
 
   return (
     <div style={{ padding: 24, maxWidth: 800, margin: "0 auto" }}>
