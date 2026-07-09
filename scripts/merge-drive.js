@@ -189,6 +189,96 @@ export async function runMerge() {
 
   ensureFolderStructure(treeWithoutDeleted, driveTree);
 
+
+// 🔥 8.5. PROCESAR ARCHIVOS CON DRIVEPATH (los que están sueltos en driveTree)
+console.log("📁 Procesando archivos con drivePath...");
+
+function injectFlatNodesByDrivePath(currentTree, driveTree) {
+  // 1. Extraer TODOS los nodos con drivePath
+  function extractDrivePathNodes(nodes, currentPath = []) {
+    let results = [];
+    for (const node of nodes) {
+      if (node.type === "folder") {
+        if (node.children) {
+          const childResults = extractDrivePathNodes(node.children, [...currentPath, node.name]);
+          results = results.concat(childResults);
+        }
+      } else {
+        // Es un archivo → guardar con su ruta
+        results.push({
+          ...node,
+          drivePath: currentPath,
+          folderName: currentPath.length > 0 ? currentPath[currentPath.length - 1] : "Raíz"
+        });
+      }
+    }
+    return results;
+  }
+
+  // 2. Extraer TODOS los archivos con su ruta desde driveTree
+  const allDriveFiles = extractDrivePathNodes(driveTree);
+  
+  // 3. IDs que ya existen en currentTree
+  const existingIds = new Set();
+  function collectExistingIds(nodes) {
+    for (const node of nodes) {
+      if (node.id) existingIds.add(node.id);
+      if (node.children) collectExistingIds(node.children);
+    }
+  }
+  collectExistingIds(currentTree);
+
+  // 4. Filtrar archivos que NO existen en currentTree
+  const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
+
+  let addedCount = 0;
+  let skippedCount = 0;
+
+  // 5. Para cada archivo nuevo, crear carpetas y agregarlo
+  for (const file of newFiles) {
+    // Función que crea carpetas si no existen
+    function findOrCreateFolderByPath(nodes, pathParts) {
+      let current = nodes;
+      for (const part of pathParts) {
+        let found = current.find(node => 
+          node.type === "folder" && node.name === part
+        );
+        if (!found) {
+          console.log(`📁➕ Creando carpeta por drivePath: ${part}`);
+          found = {
+            name: part,
+            type: "folder",
+            source: "drive",
+            children: []
+          };
+          current.push(found);
+        }
+        current = found.children || [];
+      }
+      return current;
+    }
+
+    const targetFolder = findOrCreateFolderByPath(currentTree, file.drivePath);
+    if (targetFolder) {
+      targetFolder.push(file);
+      addedCount++;
+      console.log(`✅ ${file.name} → ${file.drivePath.join("/") || "Raíz"}`);
+    } else {
+      skippedCount++;
+      console.log(`⏭️ ${file.name} → (ruta no existe, omitido)`);
+    }
+  }
+
+  console.log(`✅ Agregados por drivePath: ${addedCount}`);
+  console.log(`⏭️ Omitidos por drivePath: ${skippedCount}`);
+  
+  return currentTree;
+}
+
+// 🔥 EJECUTAR: inyectar archivos con drivePath
+treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
+
+
   // 🔥 9. AGREGAR ARCHIVOS NUEVOS DE DRIVE
   console.log("➕ Agregando archivos nuevos de Drive...");
   
