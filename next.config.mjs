@@ -1,23 +1,23 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const withPWA = require("next-pwa")({
+// ✅ Usar import en lugar de require
+import withPWA from 'next-pwa';
+
+const pwaConfig = withPWA({
   dest: "public",
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
   runtimeCaching: [
-    // ✅ Cache para el árbol de Drive (archivo local en /data/)
     {
-      urlPattern: /^\/data\/drive-tree-.*\.json$/, 
+      urlPattern: /^\/data\/drive-tree-.*\.json$/,
       handler: "CacheFirst",
       options: {
         cacheName: "tree-cache",
         expiration: {
           maxEntries: 5,
-          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 año
+          maxAgeSeconds: 60 * 60 * 24 * 365,
         },
       },
     },
-    // ✅ NUEVO: Cache para Vercel Blob (el archivo que se actualiza con el webhook)
     {
       urlPattern: /^https:\/\/dhfonqeb4oz4dngj\.public\.blob\.vercel-storage\.com\/.*\.json$/,
       handler: "StaleWhileRevalidate",
@@ -25,7 +25,7 @@ const withPWA = require("next-pwa")({
         cacheName: "blob-tree-cache",
         expiration: {
           maxEntries: 5,
-          maxAgeSeconds: 60 * 60 * 24 * 30, // 30 días
+          maxAgeSeconds: 60 * 60 * 24 * 30,
         },
       },
     },
@@ -38,7 +38,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/data/drive-tree-:version.json", 
+        source: "/data/drive-tree-:version.json",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
@@ -47,4 +47,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA(nextConfig);
+export default pwaConfig(nextConfig);
