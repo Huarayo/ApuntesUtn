@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 import { put } from "@vercel/blob";
 
-// 🔥 IMPORTAR DIRECTAMENTE (NO child_process)
+// 🔥 IMPORTAR LAS FUNCIONES
 import { runIndex } from "@/scripts/index";
 import { runMerge } from "@/scripts/merge-drive";
 
@@ -19,54 +17,54 @@ export async function POST(req: Request) {
 
     console.log("📢 Webhook recibido - Actualizando desde Drive");
 
-    // 📡 EJECUTAR SCRIPTS COMO FUNCIONES (no exec)
+    // 📡 EJECUTAR SCRIPTS
     console.log("📡 Ejecutando index.js internamente...");
     await runIndex();
 
     console.log("📡 Ejecutando merge-drive.js internamente...");
     await runMerge();
 
-    // 📖 Leer el JSON COMPLETO (drive-tree-v3.json)
-    console.log("📖 Leyendo JSON...");
-    const jsonPath = path.join(process.cwd(), "scripts", "data", "drive-tree-v3.json");
+    // 📖 LEER EL JSON DESDE BLOB (NO desde disco)
+    console.log("📖 Leyendo JSON desde Blob...");
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!token) {
+      return NextResponse.json({ error: "Falta BLOB_READ_WRITE_TOKEN" }, { status: 500 });
+    }
+
+    const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
+    const treeRes = await fetch(`${BLOB_URL}/drive-tree-v3.json?t=${Date.now()}`);
     
-    if (!fs.existsSync(jsonPath)) {
-      console.error("❌ No existe:", jsonPath);
+    if (!treeRes.ok) {
       return NextResponse.json({ 
-        error: "No se encontró scripts/data/drive-tree-v3.json" 
+        error: "No se pudo leer drive-tree-v3.json desde Blob" 
       }, { status: 500 });
     }
     
-    const jsonContent = fs.readFileSync(jsonPath, "utf-8");
-    const tree = JSON.parse(jsonContent);
+    const tree = await treeRes.json();
     console.log(`✅ JSON leído. ${tree.length} nodos`);
 
-    // ☁️ Subir a Vercel Blob
-    const hasToken = !!process.env.BLOB_READ_WRITE_TOKEN;
-    
-    if (hasToken) {
-      console.log("☁️ Subiendo a Vercel Blob...");
-      const { url } = await put("drive-tree.json", JSON.stringify(tree), {
-        access: "public",
-        addRandomSuffix: false,
-        contentType: "application/json",
-        allowOverwrite: true,
-      });
-      console.log(`✅ JSON actualizado en: ${url}`);
-    } else {
-      console.log("ℹ️ Sin token de Blob - solo guardado local");
-    }
+    // ☁️ SUBIR A VERCEL BLOB (el que ve el sitio)
+    console.log("☁️ Subiendo a Vercel Blob...");
+    const { url } = await put("drive-tree.json", JSON.stringify(tree), {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: "application/json",
+      token: token,
+      allowOverwrite: true,
+    });
+
+    console.log(`✅ JSON actualizado en: ${url}`);
 
     return NextResponse.json({ 
       success: true,
       message: "Actualización completada",
-      nodos: tree.length
+      nodos: tree.length,
+      url: url
     });
 
   } catch (error: unknown) {
     console.error("❌ Error general:", error);
     if (error instanceof Error) {
-      console.error("Stack:", error.stack);
       return NextResponse.json({ 
         error: error.message,
         stack: error.stack
