@@ -1,6 +1,6 @@
-// 🔥 AGREGAR AL FINAL del archivo
+// 🔥 FUNCIÓN EXPORTABLE PARA EL WEBHOOK
 export async function runMerge() {
-  console.log("🔄 Ejecutando merge-drive.js...");
+  console.log("🔄 ===== INICIANDO MERGE =====");
   
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) {
@@ -10,23 +10,23 @@ export async function runMerge() {
   const { put } = await import('@vercel/blob');
   const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
 
-  // 📥 Leer drive-tree.json (foto de Drive - BASURA)
+  // 📥 1. Leer drive-tree.json (BASURA - solo Drive)
   console.log("📥 Leyendo drive-tree.json (solo Drive)...");
   const driveRes = await fetch(`${BLOB_URL}/drive-tree.json?t=${Date.now()}`);
   if (!driveRes.ok) {
     throw new Error("❌ No se pudo leer drive-tree.json desde Blob");
   }
   const driveTree = await driveRes.json();
-  console.log(`✅ drive-tree.json leído. ${driveTree.length} nodos`);
+  console.log(`✅ drive-tree.json leído: ${driveTree.length} nodos`);
 
-  // 📥 Leer drive-tree-v3.json (el IMPORTANTE que CRECE)
+  // 📥 2. Leer drive-tree-v3.json (el IMPORTANTE que CRECE)
   console.log("📥 Leyendo drive-tree-v3.json (el IMPORTANTE)...");
   let currentTree = [];
   try {
     const treeRes = await fetch(`${BLOB_URL}/drive-tree-v3.json?t=${Date.now()}`);
     if (treeRes.ok) {
       currentTree = await treeRes.json();
-      console.log(`✅ drive-tree-v3.json leído. ${currentTree.length} nodos`);
+      console.log(`✅ drive-tree-v3.json leído: ${currentTree.length} nodos`);
     } else {
       console.log("ℹ️ No se encontró drive-tree-v3.json, empezando desde cero");
     }
@@ -34,7 +34,7 @@ export async function runMerge() {
     console.log("ℹ️ Error leyendo drive-tree-v3.json, empezando desde cero");
   }
 
-  // 🔥 EXTRAER IDs DE DRIVE (para saber qué existe)
+  // 🔥 3. EXTRAER IDs DE DRIVE
   console.log("🔍 Extrayendo IDs de Drive...");
   const driveIds = new Set();
   function collectDriveIds(nodes) {
@@ -46,7 +46,7 @@ export async function runMerge() {
   collectDriveIds(driveTree);
   console.log(`✅ ${driveIds.size} IDs de Drive encontrados`);
 
-  // 🔥 ACTUALIZAR NOMBRES DE CARPETAS
+  // 🔥 4. ACTUALIZAR NOMBRES DE CARPETAS
   console.log("📝 Actualizando nombres de carpetas...");
   function updateFolderNames(nodes) {
     const folderMap = new Map();
@@ -76,7 +76,7 @@ export async function runMerge() {
     return nodes;
   }
 
-  // 🔥 ACTUALIZAR NOMBRES DE ARCHIVOS
+  // 🔥 5. ACTUALIZAR NOMBRES DE ARCHIVOS
   console.log("📝 Actualizando nombres de archivos...");
   function updateFileNames(nodes) {
     const fileMap = new Map();
@@ -106,7 +106,7 @@ export async function runMerge() {
     return nodes;
   }
 
-  // 🔥 ELIMINAR ARCHIVOS DE DRIVE QUE YA NO EXISTEN
+  // 🔥 6. ELIMINAR ARCHIVOS DE DRIVE QUE YA NO EXISTEN
   console.log("🗑️ Eliminando archivos borrados de Drive...");
   function removeDeletedNodes(nodes, deletedCount = { value: 0 }) {
     const result = [];
@@ -137,7 +137,7 @@ export async function runMerge() {
     return result;
   }
 
-  // 🔥 APLICAR TODAS LAS TRANSFORMACIONES
+  // 🔥 7. APLICAR TRANSFORMACIONES
   console.log("🔄 Aplicando transformaciones...");
   currentTree = updateFolderNames(currentTree);
   currentTree = updateFileNames(currentTree);
@@ -145,8 +145,8 @@ export async function runMerge() {
   const deletedCount = { value: 0 };
   const treeWithoutDeleted = removeDeletedNodes(currentTree, deletedCount);
 
-  // 🔥 AGREGAR ARCHIVOS NUEVOS DE DRIVE
-  console.log("➕ Agregando archivos nuevos de Drive...");
+  // 🔥 8. SINCRONIZAR ESTRUCTURA DE CARPETAS (CREAR CARPETAS NUEVAS)
+  console.log("📁 Sincronizando estructura de carpetas...");
   function normalizeName(name) {
     return name
       .toLowerCase()
@@ -157,6 +157,50 @@ export async function runMerge() {
       .trim();
   }
 
+  function ensureFolderStructure(currentNodes, driveNodes) {
+    for (const dNode of driveNodes) {
+      if (dNode.type !== "folder") continue;
+
+      // Buscar si la carpeta ya existe en v3 (por ID)
+      let match = currentNodes.find(
+        n => n.type === "folder" && n.id === dNode.id
+      );
+
+      // Fallback: si el ID cambió, buscar por nombre normalizado
+      if (!match) {
+        match = currentNodes.find(
+          n => n.type === "folder" && normalizeName(n.name) === normalizeName(dNode.name)
+        );
+      }
+
+      // Si no existe, CREARLA
+      if (!match) {
+        console.log(`📁➕ Carpeta nueva creada en v3: ${dNode.name}`);
+        match = {
+          name: dNode.name,
+          type: "folder",
+          id: dNode.id,
+          source: "drive",
+          url: dNode.url || `https://drive.google.com/drive/folders/${dNode.id}`,
+          children: [],
+        };
+        currentNodes.push(match);
+      }
+
+      if (!match.children) match.children = [];
+
+      // Recursión: sincronizar subcarpetas
+      if (dNode.children && dNode.children.length > 0) {
+        ensureFolderStructure(match.children, dNode.children);
+      }
+    }
+  }
+
+  ensureFolderStructure(treeWithoutDeleted, driveTree);
+
+  // 🔥 9. AGREGAR ARCHIVOS NUEVOS DE DRIVE
+  console.log("➕ Agregando archivos nuevos de Drive...");
+  
   function findFolderByPath(nodes, pathParts) {
     let current = nodes;
     for (const part of pathParts) {
@@ -215,7 +259,7 @@ export async function runMerge() {
     }
   }
 
-  // 📤 GUARDAR EN VERCEL BLOB (EL IMPORTANTE QUE CRECE)
+  // 📤 10. GUARDAR EN VERCEL BLOB (EL IMPORTANTE QUE CRECE)
   console.log("💾 Guardando árbol COMPLETO en Vercel Blob...");
   const { url } = await put('drive-tree-v3.json', JSON.stringify(treeWithoutDeleted), {
     access: 'public',
@@ -225,14 +269,22 @@ export async function runMerge() {
     allowOverwrite: true,
   });
 
-  // 📊 ESTADÍSTICAS FINALES
-  console.log("📊 ===== ESTADÍSTICAS FINALES =====");
-  console.log(`✅ drive-tree-v3.json guardado en Blob: ${url}`);
+  // 📊 11. ESTADÍSTICAS FINALES
+  console.log("");
+  console.log("=".repeat(50));
+  console.log("📋 RESUMEN DE SINCRONIZACIÓN");
+  console.log("=".repeat(50));
+  console.log(`✅ drive-tree-v3.json guardado en: ${url}`);
   console.log(`📊 Nodos finales: ${treeWithoutDeleted.length}`);
   console.log(`🗑️ Eliminados: ${deletedCount.value}`);
   console.log(`✅ Agregados: ${addedCount}`);
   console.log(`⏭️ Omitidos: ${skippedCount}`);
-  console.log("📊 ================================");
+  console.log("=".repeat(50));
   
   return treeWithoutDeleted;
+}
+
+// ✅ Para ejecutar localmente: node scripts/merge-drive.js
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runMerge().catch(console.error);
 }

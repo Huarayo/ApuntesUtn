@@ -92,7 +92,7 @@ function toFileNode(f) {
     type: f.mimeType,
     id: f.id,
     url,
-    source: "drive"
+    source: "drive" // ✅ MARCA COMO ARCHIVO DE DRIVE
   };
 }
 
@@ -121,7 +121,7 @@ async function readFolderTree(folderId, visited, depth) {
         name: f.name,
         type: "folder",
         id: f.id,
-        source: "drive",
+        source: "drive", // ✅ MARCA COMO CARPETA DE DRIVE
         url: `https://drive.google.com/drive/folders/${f.id}`,
         children: await readFolderTree(f.id, visited, depth + 1),
       });
@@ -140,7 +140,7 @@ export async function runIndex() {
   const visited = new Set();
   const tree = await readFolderTree(ROOT_FOLDER_ID, visited, 0);
 
-  // 🔥 GUARDAR EN VERCEL BLOB
+  // 🔥 GUARDAR EN VERCEL BLOB (BASURA - solo Drive)
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) {
     throw new Error("❌ Falta BLOB_READ_WRITE_TOKEN");
@@ -155,8 +155,9 @@ export async function runIndex() {
     allowOverwrite: true,
   });
 
-  console.log(`✅ Árbol de Drive guardado en Blob: ${url}`);
+  console.log(`✅ Árbol de Drive guardado en Blob (basura): ${url}`);
   console.log(`📁 Carpetas visitadas: ${visited.size}`);
+  console.log(`📊 Nodos totales: ${tree.length}`);
   
   return tree;
 }

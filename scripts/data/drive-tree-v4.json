@@ -21053,7 +21053,7 @@
                     "children": [
                       {
                         "id": "1uAf0L73fRGzn1LZ9KE3Y6UdX9_1cN2IZ",
-                        "name": "superposici- ¦ón de ondas.ppsx",
+                        "name": "superposici- ¦ón de ondas.ppsx",
                         "type": "file",
                         "url": "https://docs.google.com/presentation/d/1uAf0L73fRGzn1LZ9KE3Y6UdX9_1cN2IZ/edit?usp=drivesdk&ouid=107660628628935148774&rtpof=true&sd=true"
                       },
@@ -22994,88 +22994,10 @@
                 "folderName": "EXAMENES"
               },
               {
-                "name": "examen_2-1777208587237.pdf",
-                "type": "application/pdf",
-                "id": "10KUqPdcos-eTpOa6t5xdjqQa4TgY2FqG",
-                "url": "https://drive.google.com/file/d/10KUqPdcos-eTpOa6t5xdjqQa4TgY2FqG/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_3-1777208589123.pdf",
-                "type": "application/pdf",
-                "id": "1bQ2G9S9jb6HunbyeL7ZWW3ZtRM_Ew_a2",
-                "url": "https://drive.google.com/file/d/1bQ2G9S9jb6HunbyeL7ZWW3ZtRM_Ew_a2/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_4-1777208590331.pdf",
-                "type": "application/pdf",
-                "id": "1kpxvsyE5Y-JFOwCoqlmCRC8-Z4hXmfLT",
-                "url": "https://drive.google.com/file/d/1kpxvsyE5Y-JFOwCoqlmCRC8-Z4hXmfLT/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_5-1777208591789.pdf",
-                "type": "application/pdf",
-                "id": "1W_DqrJ8i53KiSKvGDWahumTfIraZPnw7",
-                "url": "https://drive.google.com/file/d/1W_DqrJ8i53KiSKvGDWahumTfIraZPnw7/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_6-1777208593017.pdf",
-                "type": "application/pdf",
-                "id": "15ui_CtLh78kWhZO4heHAQoiPV3V8-mW0",
-                "url": "https://drive.google.com/file/d/15ui_CtLh78kWhZO4heHAQoiPV3V8-mW0/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_7-1777208594165.pdf",
-                "type": "application/pdf",
-                "id": "1JDlAq9o95O8rnPjlxNswRyF9kKGL9w-S",
-                "url": "https://drive.google.com/file/d/1JDlAq9o95O8rnPjlxNswRyF9kKGL9w-S/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_8-1777208595916.pdf",
-                "type": "application/pdf",
-                "id": "1FvaXuVCJNOGB0NX3JqcdUlJ-YqpxKgst",
-                "url": "https://drive.google.com/file/d/1FvaXuVCJNOGB0NX3JqcdUlJ-YqpxKgst/view?usp=drivesdk",
+                "name": "porqueyo",
+                "type": "application/vnd.google-apps.document",
+                "id": "1POlibR51lVJJ76L6c28v1fKfakGSOlm2D2rjHTGkym4",
+                "url": "https://docs.google.com/document/d/1POlibR51lVJJ76L6c28v1fKfakGSOlm2D2rjHTGkym4/edit?usp=drivesdk",
                 "source": "drive",
                 "drivePath": [
                   "BÁSICAS",
@@ -26491,5 +26413,13 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Untitled project",
+    "type": "application/vnd.google-apps.script",
+    "id": "1HltXcQC2HNvlA_yauhYL1bSA1lTXp9R9_f23z4mqN4G28Je2dYpTBFCV",
+    "url": "https://script.google.com/d/1HltXcQC2HNvlA_yauhYL1bSA1lTXp9R9_f23z4mqN4G28Je2dYpTBFCV/edit?usp=drivesdk",
+    "drivePath": [],
+    "folderName": "Raíz"
   }
 ]

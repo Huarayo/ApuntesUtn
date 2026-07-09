@@ -6,3 +6,7 @@ data1
 .env.local
 .env
 public/data
+context.txt
+documentation.txt
+scripts/data
+scripts/upload-to-blob.js

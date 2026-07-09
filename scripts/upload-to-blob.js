@@ -26,7 +26,8 @@ async function uploadToBlob() {
 
     console.log(`☁️ Subiendo ${tree.length} nodos a Vercel Blob...`);
 
-    const { url } = await put('drive-tree.json', JSON.stringify(tree), {
+    // ✅ CAMBIO: Subir a drive-tree-v3.json (el COMPLETO)
+    const { url } = await put('drive-tree-v3.json', JSON.stringify(tree), {
       access: 'public',
       addRandomSuffix: false,
       contentType: 'application/json',
