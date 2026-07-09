@@ -28,7 +28,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
     const url = `${BLOB_URL}/${TREE_PATH}`;
     console.log("🌐 Descargando árbol desde Blob (con SW)...");
 
-    cachedPromise = fetch(url, { cache: "force-cache" })
+    cachedPromise = fetch(url, { cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error(`Error: ${r.status}`);
         return r.json();
@@ -36,6 +36,19 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
       .then((data: TreeNode[]) => {
         cachedTree = data;
         console.log(`✅ Árbol cargado: ${data.length} nodos`);
+        
+        // ✅ CAMBIO 3: Guardar en caché del SW para OFFLINE
+        if (navigator.serviceWorker.controller) {
+          caches.open("blob-tree-cache").then((cache) => {
+            const response = new Response(JSON.stringify(data), {
+              headers: { "Content-Type": "application/json" }
+            });
+            cache.put(url, response);
+            console.log("💾 Árbol guardado en caché del SW (para offline)");
+          });
+        }
+
+        
         return data;
       })
       .catch((err) => {
