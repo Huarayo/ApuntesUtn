@@ -10,3 +10,5 @@ context.txt
 documentation.txt
 scripts/data
 scripts/upload-to-blob.js
+app/api/import-drive/route.ts
+app/api/run-script/route.ts

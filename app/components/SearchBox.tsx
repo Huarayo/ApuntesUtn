@@ -1,10 +1,14 @@
 "use client";
-import { useState, useMemo } from "react";
-import Link from "next/link";
-import FolderIcons from "./icons/FolderIcons"
+import { useState, useMemo, useEffect } from "react";
+import FolderIcons from "./icons/FolderIcons";
 import Folder from "./icons/Folder";
-import { treeData  } from "@/app/lib/config";
-// DEFINICIONES DE TIPOS (Para 0 errores)
+import Link from "next/link";
+
+// Leer vercel blob
+const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
+const TREE_PATH = "drive-tree-v3.json";
+
+// DEFINICIONES DE TIPOS
 interface Node {
   id?: string;
   name: string;
@@ -18,12 +22,19 @@ interface SearchResult {
   name: string;
   href: string;
   isFolder: boolean;
-  normName: string; // <--- Esto quita los errores de tus fotos
+  normName: string;
 }
 
 // FUNCIONES DE UTILIDAD
 function norm(s: string) {
-  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[_-]+/g, " ").replace(/[^a-z0-9\s]+/g, " ").replace(/\s+/g, " ").trim();
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/[^a-z0-9\s]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function cleanName(name: string) {
@@ -31,7 +42,12 @@ function cleanName(name: string) {
 }
 
 function slugify(s: string) {
-  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function buildFlatClient(nodes: Node[], path: string[] = []): SearchResult[] {
@@ -45,10 +61,10 @@ function buildFlatClient(nodes: Node[], path: string[] = []): SearchResult[] {
       id: node.id,
       name: node.name,
       isFolder,
-      href: isFolder 
-        ? "/browse/" + nextPath.map(encodeURIComponent).join("/") 
+      href: isFolder
+        ? "/browse/" + nextPath.map(encodeURIComponent).join("/")
         : (node.url ?? "#"),
-      normName: norm(node.name) // <--- Aquí se crea la propiedad
+      normName: norm(node.name)
     });
 
     if (node.children) {
@@ -58,31 +74,70 @@ function buildFlatClient(nodes: Node[], path: string[] = []): SearchResult[] {
   return out;
 }
 
-export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] | null) => void }) {
+// Cache para no cargar 2 veces
+let cachedTree: Node[] | null = null;
+let cachedPromise: Promise<Node[]> | null = null;
+
+async function loadTree(): Promise<Node[]> {
+  if (cachedTree) return cachedTree;
+
+  if (!cachedPromise) {
+    const url = `${BLOB_URL}/${TREE_PATH}?t=${Date.now()}`;
+    cachedPromise = fetch(url, { cache: "no-store" })
+      .then((r) => {
+        if (!r.ok) throw new Error("Error al cargar el árbol");
+        return r.json();
+      })
+      .then((data: Node[]) => {
+        cachedTree = data;
+        return data;
+      })
+      .catch((err) => {
+        cachedPromise = null;
+        throw err;
+      });
+  }
+
+  return cachedPromise;
+}
+
+export default function SearchBox({ 
+  onSearch
+}: { 
+  onSearch: (r: SearchResult[] | null) => void;
+}) {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [flatData, setFlatData] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Cargamos el índice una sola vez
-  const flatData = useMemo(() => buildFlatClient(treeData as Node[]), []);
+  useEffect(() => {
+    loadTree()
+      .then((tree) => {
+        const flat = buildFlatClient(tree as Node[]);
+        setFlatData(flat);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error cargando el árbol para la búsqueda:", err);
+        setLoading(false);
+      });
+  }, []);
 
-  // Filtramos sugerencias al vuelo (0ms de latencia)
   const suggestions = useMemo(() => {
     const q = query.trim();
-    if (q.length < 2) return [];
+    if (q.length < 2 || loading) return [];
     const nq = norm(q);
     return flatData
-      .filter(item => item.normName.includes(nq)) // <--- Ahora TS sabe que existe normName
+      .filter((item) => item.normName.includes(nq))
       .sort((a, b) => {
-        // Si uno es carpeta y el otro no, la carpeta va primero (-1)
         if (a.isFolder !== b.isFolder) {
           return a.isFolder ? -1 : 1;
         }
-        // Si son del mismo tipo, ordenamos alfabéticamente
         return a.name.localeCompare(b.name, "es", { numeric: true });
       })
       .slice(0, 8);
-      
-  }, [query, flatData]);
+  }, [query, flatData, loading]);
 
   const handleOfficialSearch = () => {
     const q = query.trim();
@@ -91,17 +146,15 @@ export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] |
       return;
     }
     const nq = norm(q);
-    const results = flatData.filter(item => item.normName.includes(nq));
-    
-    /* --- 2. ORDENAMOS ANTES DE ENVIAR --- */
+    const results = flatData.filter((item) => item.normName.includes(nq));
+
     results.sort((a, b) => {
       if (a.isFolder !== b.isFolder) {
         return a.isFolder ? -1 : 1;
       }
       return a.name.localeCompare(b.name, "es", { numeric: true });
     });
-      
-    
+
     onSearch(results);
     setShowDropdown(false);
   };
@@ -111,8 +164,9 @@ export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] |
       <input
         type="text"
         className="homeInput"
-        placeholder="Buscar materias..."
+        placeholder={loading ? "Cargando..." : "Buscar materias..."}
         value={query}
+        disabled={loading}
         onChange={(e) => {
           setQuery(e.target.value);
           setShowDropdown(true);
@@ -121,137 +175,79 @@ export default function SearchBox({ onSearch }: { onSearch: (r: SearchResult[] |
         onKeyDown={(e) => e.key === "Enter" && handleOfficialSearch()}
         onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
       />
-      
-      <button className="search-icon-btn" onClick={handleOfficialSearch}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg></button>
+
+      <button className="search-icon-btn" onClick={handleOfficialSearch}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"
+          />
+        </svg>
+      </button>
 
       {showDropdown && suggestions.length > 0 && (
         <div className="searchResultsBox searchResultsDropdown">
-          {suggestions.map((res) => (
-            <Link key={res.id || res.href} href={res.href} className="searchResultItem" onClick={() => setShowDropdown(false)}>
-              <span>{res.isFolder ? <Folder /> : <FolderIcons name={res.name} size={25} />}</span>
-              
-              <div className="searchResultInfo">
-                <span className="searchResultName">{cleanName(res.name)}</span>
-              </div>
-            </Link>
-          ))}
+          {suggestions.map((res, index) => {
+            const isFolder = res.isFolder;
+            
+            return isFolder ? (
+              // ✅ CARPETA: misma pestaña
+              <Link
+                key={`${res.id || res.href}-${index}`}
+                href={res.href}
+                className="searchResultItem"
+                onClick={() => {
+                  setShowDropdown(false);
+                  setQuery(res.name);
+                }}
+                style={{
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "8px 12px",
+                  textDecoration: "none",
+                  color: "inherit",
+                  width: "100%"
+                }}
+              >
+                <span><Folder /></span>
+                <div className="searchResultInfo">
+                  <span className="searchResultName">{cleanName(res.name)}</span>
+                </div>
+              </Link>
+            ) : (
+            <Link
+            key={`${res.id || res.href}-${index}`}
+            href={res.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="searchResultItem"
+            onClick={() => {
+              setShowDropdown(false);
+              setQuery(res.name);
+            }}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "8px 12px",
+              textDecoration: "none",
+              color: "inherit",
+              width: "100%"
+            }}
+          >
+            <span><FolderIcons name={res.name} size={25} /></span>
+            <div className="searchResultInfo">
+              <span className="searchResultName">{cleanName(res.name)}</span>
+            </div>
+          </Link>
+
+            );
+          })}
         </div>
       )}
     </div>
   );
 }
-
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import treeRaw from "@/scripts/data/drive-tree.json";
-// import type { SearchResponse, SearchResult } from "@/app/lib/searchTypes";
-
-
-// function cleanName(name: string) {
-//   return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
-// }
-
-// export default function SearchBox({
-//   onSearch,
-// }: {
-//   onSearch: (r: SearchResult[] | null) => void;
-// }) {
-//   const [query, setQuery] = useState("");
-//   const [showDropdown, setShowDropdown] = useState(false);
-//   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
-
-//   // helper tipado ✅
-//   async function fetchSearch(q: string, limit: number, signal?: AbortSignal): Promise<SearchResult[]> {
-//     const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=${limit}`, { signal });
-//     if (!res.ok) return [];
-//     const data: SearchResponse = await res.json();
-//     return Array.isArray(data.results) ? data.results : [];
-//   }
-
-//   // ✅ debounce + abort
-//   useEffect(() => {
-//     const q = query.trim();
-//     const controller = new AbortController();
-
-//     const t = setTimeout(async () => {
-//       try {
-//         if (q.length < 2) {
-//           setSuggestions((prev) => (prev.length ? [] : prev));
-//           return;
-//         }
-//         const results = await fetchSearch(q, 6, controller.signal);
-//         setSuggestions(results);
-//       } catch (e: unknown) {
-//         if (e instanceof DOMException && e.name === "AbortError") return;
-//         setSuggestions([]);
-//       }
-//     }, 200);
-
-//     return () => {
-//       clearTimeout(t);
-//       controller.abort();
-//     };
-//   }, [query]);
-
-//   const handleOfficialSearch = async () => {
-//     const q = query.trim();
-//     if (!q) {
-//       onSearch(null);
-//       setShowDropdown(false);
-//       return;
-//     }
-
-//     const results = await fetchSearch(q, 200);
-//     onSearch(results);
-//     setSuggestions(results.slice(0, 6)); // opcional
-//     setShowDropdown(false);
-//   };
-
-//   return (
-//     <div className="homeSearch">
-//       <input
-//         type="text"
-//         className="homeInput"
-//         placeholder="Buscar materias, unidades o TPs..."
-//         value={query}
-//         onChange={(e) => {
-//           setQuery(e.target.value);
-//           setShowDropdown(true);
-//           if (e.target.value === "") onSearch(null);
-//         }}
-//         onKeyDown={(e) => e.key === "Enter" && handleOfficialSearch()}
-//         onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
-//       />
-
-//       <button className="search-icon-btn" onClick={handleOfficialSearch} title="Buscar">
-//         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-//           <circle cx="11" cy="11" r="8" />
-//           <path d="m21 21-4.3-4.3" />
-//         </svg>
-//       </button>
-
-//       {showDropdown && suggestions.length > 0 && (
-//         <div className="searchResultsBox searchResultsDropdown">
-//           {suggestions.map((res) => (
-//             <Link
-//               key={res.id ?? res.href}
-//               href={res.href}
-//               className="searchResultItem"
-//               target={res.isFolder ? "_self" : "_blank"}
-//               rel={res.isFolder ? undefined : "noopener noreferrer"}
-//               onClick={() => setShowDropdown(false)}
-//             >
-//               <span className="searchResultIcon">{res.isFolder ? "📁" : "📄"}</span>
-//               <div className="searchResultInfo">
-//                 <span className="searchResultName">{cleanName(res.name)}</span>
-//                 <span className="searchResultMeta">{res.isFolder ? "Carpeta" : "Documento"}</span>
-//               </div>
-//             </Link>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }

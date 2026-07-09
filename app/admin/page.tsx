@@ -301,19 +301,7 @@ export default function AdminPanel() {
         >
         {isSaving ? "⏳ Guardando..." : "💾 Guardar"}
         </button>
-        <button 
-            onClick={importFromDrive} 
-            style={{
-            padding: "10px 20px",
-            background: "#1976d2",
-            color: "white",
-            border: "none",
-            borderRadius: 8,
-            cursor: "pointer",
-            }}
-        >
-            📤 Importar desde Drive
-        </button>
+
       </div>
 
       <div style={{ border: "1px solid #ddd", borderRadius: 8, padding: 20 }}>

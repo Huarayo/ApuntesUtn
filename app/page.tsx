@@ -40,6 +40,10 @@ export default function Home() {
   const tree = useTree();
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
 
+  // Función para navegar a carpeta
+  const handleFolderClick = (seg: string) => {
+    window.location.href = `/browse/${encodeURIComponent(seg)}`;
+  };
   // ✅ Hook SIEMPRE llamado
   const topFolders = useMemo(() => {
     if (!tree) return [];
@@ -69,7 +73,9 @@ export default function Home() {
         <h1 className="homeTitle">
           Apuntes UTN <span>Mendoza</span>
         </h1>
-        <SearchBox onSearch={(data) => setSearchResults(data)} />
+        <SearchBox 
+        onSearch={(data) => setSearchResults(data)}
+        />
       </section>
 
       {searchResults === null ? (

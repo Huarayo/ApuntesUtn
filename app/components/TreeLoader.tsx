@@ -26,7 +26,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
   // 2️⃣ Descargar (el SW lo intercepta y cachea)
   if (!cachedPromise) {
     const url = `${BLOB_URL}/${TREE_PATH}`;
-    console.log("🌐 Descargando árbol desde Blob (con SW)...");
+    // console.log("🌐 Descargando árbol desde Blob (con SW)...");
 
     cachedPromise = fetch(url, { cache: "no-store" })
       .then((r) => {
@@ -35,7 +35,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
       })
       .then((data: TreeNode[]) => {
         cachedTree = data;
-        console.log(`✅ Árbol cargado: ${data.length} nodos`);
+        // console.log(`✅ Árbol cargado: ${data.length} nodos`);
         
         // ✅ CAMBIO 3: Guardar en caché del SW para OFFLINE
         if (navigator.serviceWorker.controller) {
@@ -44,7 +44,7 @@ async function fetchTreeOnce(): Promise<TreeNode[]> {
               headers: { "Content-Type": "application/json" }
             });
             cache.put(url, response);
-            console.log("💾 Árbol guardado en caché del SW (para offline)");
+            // console.log("💾 Árbol guardado en caché del SW (para offline)");
           });
         }
 
