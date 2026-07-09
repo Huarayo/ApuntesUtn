@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 
 // 🔥 IMPORTAR LAS FUNCIONES
 import { runIndex } from "@/scripts/index";
@@ -20,12 +19,14 @@ export async function POST(req: Request) {
     // 📡 EJECUTAR SCRIPTS
     console.log("📡 Ejecutando index.js internamente...");
     await runIndex();
+    console.log("✅ drive-tree.json actualizado (solo Drive, temporal)");
 
     console.log("📡 Ejecutando merge-drive.js internamente...");
     await runMerge();
+    console.log("✅ drive-tree-v3.json actualizado (COMPLETO, el que CRECE)");
 
-    // 📖 LEER EL JSON DESDE BLOB (NO desde disco)
-    console.log("📖 Leyendo JSON desde Blob...");
+    // 📖 LEER EL JSON COMPLETO DESDE BLOB
+    console.log("📖 Leyendo JSON COMPLETO desde Blob...");
     const token = process.env.BLOB_READ_WRITE_TOKEN;
     if (!token) {
       return NextResponse.json({ error: "Falta BLOB_READ_WRITE_TOKEN" }, { status: 500 });
@@ -41,25 +42,14 @@ export async function POST(req: Request) {
     }
     
     const tree = await treeRes.json();
-    console.log(`✅ JSON leído. ${tree.length} nodos`);
+    console.log(`✅ Árbol COMPLETO leído. ${tree.length} nodos`);
 
-    // ☁️ SUBIR A VERCEL BLOB (el que ve el sitio)
-    console.log("☁️ Subiendo a Vercel Blob...");
-    const { url } = await put("drive-tree.json", JSON.stringify(tree), {
-      access: "public",
-      addRandomSuffix: false,
-      contentType: "application/json",
-      token: token,
-      allowOverwrite: true,
-    });
-
-    console.log(`✅ JSON actualizado en: ${url}`);
-
+    // ✅ DEVOLVER EL ÁRBOL COMPLETO (SIN COPIAR A drive-tree.json)
     return NextResponse.json({ 
       success: true,
       message: "Actualización completada",
       nodos: tree.length,
-      url: url
+      url: `${BLOB_URL}/drive-tree-v3.json`
     });
 
   } catch (error: unknown) {

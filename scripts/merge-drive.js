@@ -10,7 +10,8 @@ export async function runMerge() {
   const { put } = await import('@vercel/blob');
   const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
 
-  // 📥 Leer drive-tree.json (foto de Drive)
+  // 📥 Leer drive-tree.json (foto de Drive - BASURA)
+  console.log("📥 Leyendo drive-tree.json (solo Drive)...");
   const driveRes = await fetch(`${BLOB_URL}/drive-tree.json?t=${Date.now()}`);
   if (!driveRes.ok) {
     throw new Error("❌ No se pudo leer drive-tree.json desde Blob");
@@ -18,7 +19,8 @@ export async function runMerge() {
   const driveTree = await driveRes.json();
   console.log(`✅ drive-tree.json leído. ${driveTree.length} nodos`);
 
-  // 📥 Leer drive-tree-v3.json (tu árbol completo)
+  // 📥 Leer drive-tree-v3.json (el IMPORTANTE que CRECE)
+  console.log("📥 Leyendo drive-tree-v3.json (el IMPORTANTE)...");
   let currentTree = [];
   try {
     const treeRes = await fetch(`${BLOB_URL}/drive-tree-v3.json?t=${Date.now()}`);
@@ -32,7 +34,8 @@ export async function runMerge() {
     console.log("ℹ️ Error leyendo drive-tree-v3.json, empezando desde cero");
   }
 
-  // 🔥 EXTRAER IDs DE DRIVE
+  // 🔥 EXTRAER IDs DE DRIVE (para saber qué existe)
+  console.log("🔍 Extrayendo IDs de Drive...");
   const driveIds = new Set();
   function collectDriveIds(nodes) {
     for (const node of nodes) {
@@ -41,8 +44,10 @@ export async function runMerge() {
     }
   }
   collectDriveIds(driveTree);
+  console.log(`✅ ${driveIds.size} IDs de Drive encontrados`);
 
   // 🔥 ACTUALIZAR NOMBRES DE CARPETAS
+  console.log("📝 Actualizando nombres de carpetas...");
   function updateFolderNames(nodes) {
     const folderMap = new Map();
     function collectFolderNames(driveNodes) {
@@ -72,6 +77,7 @@ export async function runMerge() {
   }
 
   // 🔥 ACTUALIZAR NOMBRES DE ARCHIVOS
+  console.log("📝 Actualizando nombres de archivos...");
   function updateFileNames(nodes) {
     const fileMap = new Map();
     function collectFileNames(driveNodes) {
@@ -101,10 +107,11 @@ export async function runMerge() {
   }
 
   // 🔥 ELIMINAR ARCHIVOS DE DRIVE QUE YA NO EXISTEN
+  console.log("🗑️ Eliminando archivos borrados de Drive...");
   function removeDeletedNodes(nodes, deletedCount = { value: 0 }) {
     const result = [];
     for (const node of nodes) {
-      // ✅ Archivos EXTERNOS: se mantienen
+      // ✅ Archivos EXTERNOS: se mantienen siempre
       if (node.type !== "folder" && node.source !== "drive") {
         result.push(node);
         continue;
@@ -131,6 +138,7 @@ export async function runMerge() {
   }
 
   // 🔥 APLICAR TODAS LAS TRANSFORMACIONES
+  console.log("🔄 Aplicando transformaciones...");
   currentTree = updateFolderNames(currentTree);
   currentTree = updateFileNames(currentTree);
   
@@ -138,6 +146,7 @@ export async function runMerge() {
   const treeWithoutDeleted = removeDeletedNodes(currentTree, deletedCount);
 
   // 🔥 AGREGAR ARCHIVOS NUEVOS DE DRIVE
+  console.log("➕ Agregando archivos nuevos de Drive...");
   function normalizeName(name) {
     return name
       .toLowerCase()
@@ -206,7 +215,8 @@ export async function runMerge() {
     }
   }
 
-  // 📤 GUARDAR EN VERCEL BLOB
+  // 📤 GUARDAR EN VERCEL BLOB (EL IMPORTANTE QUE CRECE)
+  console.log("💾 Guardando árbol COMPLETO en Vercel Blob...");
   const { url } = await put('drive-tree-v3.json', JSON.stringify(treeWithoutDeleted), {
     access: 'public',
     addRandomSuffix: false,
@@ -215,11 +225,14 @@ export async function runMerge() {
     allowOverwrite: true,
   });
 
+  // 📊 ESTADÍSTICAS FINALES
+  console.log("📊 ===== ESTADÍSTICAS FINALES =====");
   console.log(`✅ drive-tree-v3.json guardado en Blob: ${url}`);
   console.log(`📊 Nodos finales: ${treeWithoutDeleted.length}`);
   console.log(`🗑️ Eliminados: ${deletedCount.value}`);
   console.log(`✅ Agregados: ${addedCount}`);
   console.log(`⏭️ Omitidos: ${skippedCount}`);
+  console.log("📊 ================================");
   
   return treeWithoutDeleted;
 }
