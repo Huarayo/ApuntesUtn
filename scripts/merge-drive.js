@@ -1,3 +1,14 @@
+// 🔥 IMPORTACIONES NECESARIAS
+import { fileURLToPath } from 'url';
+import path from 'path';
+import dotenv from 'dotenv';  // ← Importar dotenv
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 🔥 CARGAR .env.local EXPLÍCITAMENTE
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+
 // 🔥 FUNCIÓN EXPORTABLE PARA EL WEBHOOK
 export async function runMerge() {
   console.log("🔄 ===== INICIANDO MERGE =====");
@@ -145,28 +156,20 @@ export async function runMerge() {
   const deletedCount = { value: 0 };
   const treeWithoutDeleted = removeDeletedNodes(currentTree, deletedCount);
 
-  // 🔥 8. SINCRONIZAR ESTRUCTURA DE CARPETAS (CREAR CARPETAS NUEVAS)
-  console.log("📁 Sincronizando estructura de carpetas...");
+  // 🔥 8. CREAR CARPETAS QUE FALTAN (incluyendo las que tienen drivePath)
+  console.log("📁 Creando carpetas que faltan...");
 
+  // Primero: crear carpetas desde la estructura de Drive
   function ensureFolderStructure(currentNodes, driveNodes) {
     for (const dNode of driveNodes) {
       if (dNode.type !== "folder") continue;
 
-      // Buscar si la carpeta ya existe en v3 (por ID)
       let match = currentNodes.find(
-        n => n.type === "folder" && n.id === dNode.id
+        n => n.type === "folder" && (n.id === dNode.id || n.name === dNode.name)
       );
 
-      // Fallback: si el ID cambió, buscar por nombre normalizado
       if (!match) {
-        match = currentNodes.find(
-          n => n.type === "folder" && n.name === dNode.name
-        );
-      }
-
-      // Si no existe, CREARLA
-      if (!match) {
-        console.log(`📁➕ Carpeta nueva creada en v3: ${dNode.name}`);
+        console.log(`📁➕ Carpeta nueva creada: ${dNode.name}`);
         match = {
           name: dNode.name,
           type: "folder",
@@ -180,7 +183,6 @@ export async function runMerge() {
 
       if (!match.children) match.children = [];
 
-      // Recursión: sincronizar subcarpetas
       if (dNode.children && dNode.children.length > 0) {
         ensureFolderStructure(match.children, dNode.children);
       }
@@ -189,111 +191,7 @@ export async function runMerge() {
 
   ensureFolderStructure(treeWithoutDeleted, driveTree);
 
-
-// 🔥 8.5. PROCESAR ARCHIVOS CON DRIVEPATH (los que están sueltos en driveTree)
-console.log("📁 Procesando archivos con drivePath...");
-
-function injectFlatNodesByDrivePath(currentTree, driveTree) {
-  // 1. Extraer TODOS los nodos con drivePath
-  function extractDrivePathNodes(nodes, currentPath = []) {
-    let results = [];
-    for (const node of nodes) {
-      if (node.type === "folder") {
-        if (node.children) {
-          const childResults = extractDrivePathNodes(node.children, [...currentPath, node.name]);
-          results = results.concat(childResults);
-        }
-      } else {
-        // Es un archivo → guardar con su ruta
-        results.push({
-          ...node,
-          drivePath: currentPath,
-          folderName: currentPath.length > 0 ? currentPath[currentPath.length - 1] : "Raíz"
-        });
-      }
-    }
-    return results;
-  }
-
-  // 2. Extraer TODOS los archivos con su ruta desde driveTree
-  const allDriveFiles = extractDrivePathNodes(driveTree);
-  
-  // 3. IDs que ya existen en currentTree
-  const existingIds = new Set();
-  function collectExistingIds(nodes) {
-    for (const node of nodes) {
-      if (node.id) existingIds.add(node.id);
-      if (node.children) collectExistingIds(node.children);
-    }
-  }
-  collectExistingIds(currentTree);
-
-  // 4. Filtrar archivos que NO existen en currentTree
-  const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
-
-  let addedCount = 0;
-  let skippedCount = 0;
-
-  // 5. Para cada archivo nuevo, crear carpetas y agregarlo
-  for (const file of newFiles) {
-    // Función que crea carpetas si no existen
-    function findOrCreateFolderByPath(nodes, pathParts) {
-      let current = nodes;
-      for (const part of pathParts) {
-        let found = current.find(node => 
-          node.type === "folder" && node.name === part
-        );
-        if (!found) {
-          console.log(`📁➕ Creando carpeta por drivePath: ${part}`);
-          found = {
-            name: part,
-            type: "folder",
-            source: "drive",
-            children: []
-          };
-          current.push(found);
-        }
-        current = found.children || [];
-      }
-      return current;
-    }
-
-    const targetFolder = findOrCreateFolderByPath(currentTree, file.drivePath);
-    if (targetFolder) {
-      targetFolder.push(file);
-      addedCount++;
-      console.log(`✅ ${file.name} → ${file.drivePath.join("/") || "Raíz"}`);
-    } else {
-      skippedCount++;
-      console.log(`⏭️ ${file.name} → (ruta no existe, omitido)`);
-    }
-  }
-
-  console.log(`✅ Agregados por drivePath: ${addedCount}`);
-  console.log(`⏭️ Omitidos por drivePath: ${skippedCount}`);
-  
-  return currentTree;
-}
-
-// 🔥 EJECUTAR: inyectar archivos con drivePath
-treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
-
-
-  // 🔥 9. AGREGAR ARCHIVOS NUEVOS DE DRIVE
-  console.log("➕ Agregando archivos nuevos de Drive...");
-  
-  function findFolderByPath(nodes, pathParts) {
-    let current = nodes;
-    for (const part of pathParts) {
-      const found = current.find(node => 
-        node.type === "folder" && node.name === part
-      );
-      if (!found) return null;
-      current = found.children || [];
-    }
-    return current;
-  }
-
+  // Segundo: extraer TODOS los archivos de Drive con su ruta
   function findAllFilesWithPath(nodes, currentPath = []) {
     let results = [];
     for (const node of nodes) {
@@ -303,16 +201,22 @@ treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
           results = results.concat(childResults);
         }
       } else {
+        // Si tiene drivePath nativo, usarlo; si no, usar la ruta calculada
+        const rutaFinal = (node.drivePath && node.drivePath.length > 0) 
+          ? node.drivePath 
+          : currentPath;
         results.push({
           ...node,
-          drivePath: currentPath,
-          folderName: currentPath.length > 0 ? currentPath[currentPath.length - 1] : "Raíz"
+          drivePath: rutaFinal
         });
       }
     }
     return results;
   }
 
+  const allDriveFiles = findAllFilesWithPath(driveTree);
+  
+  // IDs que ya existen
   const existingIds = new Set();
   function collectExistingIds(nodes) {
     for (const node of nodes) {
@@ -322,24 +226,47 @@ treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
   }
   collectExistingIds(treeWithoutDeleted);
 
-  const allDriveFiles = findAllFilesWithPath(driveTree);
+  // Filtrar archivos nuevos
   const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
 
   let addedCount = 0;
   let skippedCount = 0;
+
+  // Agregar archivos nuevos (creando carpetas si es necesario)
   for (const file of newFiles) {
-    const targetFolder = findFolderByPath(treeWithoutDeleted, file.drivePath);
-    if (targetFolder) {
-      targetFolder.push(file);
+    let nivelActual = treeWithoutDeleted;
+    let carpetaEncontrada = true;
+    
+    // Recorrer la ruta y crear carpetas si no existen
+    for (const nombreCarpeta of file.drivePath) {
+      let carpeta = nivelActual.find(n => 
+        n.type === "folder" && n.name === nombreCarpeta
+      );
+      
+      if (!carpeta) {
+        console.log(`📁 Creando carpeta por ruta: ${nombreCarpeta}`);
+        carpeta = {
+          name: nombreCarpeta,
+          type: "folder",
+          source: "drive",
+          children: []
+        };
+        nivelActual.push(carpeta);
+      }
+      
+      nivelActual = carpeta.children || [];
+    }
+    
+    // Verificar si el archivo ya existe en la carpeta
+    const yaExiste = nivelActual.some(n => n.id === file.id);
+    if (!yaExiste) {
+      nivelActual.push(file);
       addedCount++;
       console.log(`✅ ${file.name} → ${file.drivePath.join("/") || "Raíz"}`);
-    } else {
-      skippedCount++;
-      console.log(`⏭️ ${file.name} → (ruta no existe, omitido)`);
     }
   }
 
-  // 📤 10. GUARDAR EN VERCEL BLOB (EL IMPORTANTE QUE CRECE)
+  // 📤 9. GUARDAR EN VERCEL BLOB
   console.log("💾 Guardando árbol COMPLETO en Vercel Blob...");
   const { url } = await put('drive-tree-v3.json', JSON.stringify(treeWithoutDeleted), {
     access: 'public',
@@ -349,7 +276,7 @@ treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
     allowOverwrite: true,
   });
 
-  // 📊 11. ESTADÍSTICAS FINALES
+  // 📊 10. ESTADÍSTICAS FINALES
   console.log("");
   console.log("=".repeat(50));
   console.log("📋 RESUMEN DE SINCRONIZACIÓN");
@@ -358,7 +285,6 @@ treeWithoutDeleted = injectFlatNodesByDrivePath(treeWithoutDeleted, driveTree);
   console.log(`📊 Nodos finales: ${treeWithoutDeleted.length}`);
   console.log(`🗑️ Eliminados: ${deletedCount.value}`);
   console.log(`✅ Agregados: ${addedCount}`);
-  console.log(`⏭️ Omitidos: ${skippedCount}`);
   console.log("=".repeat(50));
   
   return treeWithoutDeleted;
