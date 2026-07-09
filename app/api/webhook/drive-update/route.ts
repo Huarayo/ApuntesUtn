@@ -1,20 +1,17 @@
 import { NextResponse } from "next/server";
-import { exec } from "child_process";
-import { promisify } from "util";
 import fs from "fs";
 import path from "path";
 import { put } from "@vercel/blob";
 
-const execPromise = promisify(exec);
+// 🔥 IMPORTAR DIRECTAMENTE (NO child_process)
+import { runIndex } from "@/scripts/index";
+import { runMerge } from "@/scripts/merge-drive";
 
 export async function POST(req: Request) {
   try {
-    // 🔐 Verificar autenticación
+    // 🔐 Autenticación
     const authHeader = req.headers.get("authorization");
     const secret = process.env.WEBHOOK_SECRET;
-    
-    console.log("🔑 Secret:", secret);
-    console.log("📨 Auth header:", authHeader);
     
     if (!secret || authHeader !== `Bearer ${secret}`) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
@@ -22,48 +19,16 @@ export async function POST(req: Request) {
 
     console.log("📢 Webhook recibido - Actualizando desde Drive");
 
-    // 📡 Ejecutar scripts con entorno de Node.js completo
-    console.log("📡 Ejecutando index.js...");
-    try {
-      // 🔥 Usar el entorno de Node.js de Vercel
-      const { stdout, stderr } = await execPromise("node scripts/index.js", {
-        env: {
-          ...process.env,
-          NODE_PATH: path.join(process.cwd(), "node_modules"),
-        },
-      });
-      console.log("✅ index.js stdout:", stdout);
-      if (stderr) console.warn("⚠️ index.js stderr:", stderr);
-    } catch (error) {
-      console.error("❌ Error en index.js:", error);
-      return NextResponse.json({ 
-        error: "Error en index.js", 
-        details: error instanceof Error ? error.message : String(error)
-      }, { status: 500 });
-    }
+    // 📡 EJECUTAR SCRIPTS COMO FUNCIONES (no exec)
+    console.log("📡 Ejecutando index.js internamente...");
+    await runIndex();
 
-    console.log("📡 Ejecutando merge-drive.js...");
-    try {
-      const { stdout, stderr } = await execPromise("node scripts/merge-drive.js", {
-        env: {
-          ...process.env,
-          NODE_PATH: path.join(process.cwd(), "node_modules"),
-        },
-      });
-      console.log("✅ merge-drive.js stdout:", stdout);
-      if (stderr) console.warn("⚠️ merge-drive.js stderr:", stderr);
-    } catch (error) {
-      console.error("❌ Error en merge-drive.js:", error);
-      return NextResponse.json({ 
-        error: "Error en merge-drive.js", 
-        details: error instanceof Error ? error.message : String(error)
-      }, { status: 500 });
-    }
+    console.log("📡 Ejecutando merge-drive.js internamente...");
+    await runMerge();
 
     // 📖 Leer el JSON COMPLETO (drive-tree-v3.json)
     console.log("📖 Leyendo JSON...");
     const jsonPath = path.join(process.cwd(), "scripts", "data", "drive-tree-v3.json");
-    console.log("📁 Buscando en:", jsonPath);
     
     if (!fs.existsSync(jsonPath)) {
       console.error("❌ No existe:", jsonPath);
@@ -78,7 +43,6 @@ export async function POST(req: Request) {
 
     // ☁️ Subir a Vercel Blob
     const hasToken = !!process.env.BLOB_READ_WRITE_TOKEN;
-    console.log("🔑 ¿Token de Blob presente?", hasToken);
     
     if (hasToken) {
       console.log("☁️ Subiendo a Vercel Blob...");
