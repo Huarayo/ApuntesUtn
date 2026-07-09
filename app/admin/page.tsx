@@ -11,10 +11,7 @@ interface Node {
   source?: string;
 }
 
-// Definir el tipo de error
-interface ErrorType {
-  message: string;
-}
+
 
 export default function AdminPanel() {
   const [tree, setTree] = useState<Node[]>([]);
