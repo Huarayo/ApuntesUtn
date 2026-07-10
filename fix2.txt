@@ -1,0 +1,723 @@
+// 🔥 IMPORTACIONES NECESARIAS
+import { fileURLToPath } from 'url';
+import path from 'path';
+import dotenv from 'dotenv';  // ← Importar dotenv
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 🔥 CARGAR .env.local EXPLÍCITAMENTE
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+
+// 🔥 FUNCIÓN EXPORTABLE PARA EL WEBHOOK
+export async function runMerge() {
+  console.log("🔄 ===== INICIANDO MERGE =====");
+  
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error("❌ Falta BLOB_READ_WRITE_TOKEN");
+  }
+
+  const { put } = await import('@vercel/blob');
+  const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
+
+  // 📥 1. Leer drive-tree.json (BASURA - solo Drive)
+  console.log("📥 Leyendo drive-tree.json (solo Drive)...");
+  const driveRes = await fetch(`${BLOB_URL}/drive-tree.json?t=${Date.now()}`);
+  if (!driveRes.ok) {
+    throw new Error("❌ No se pudo leer drive-tree.json desde Blob");
+  }
+  const driveTree = await driveRes.json();
+  console.log(`✅ drive-tree.json leído: ${driveTree.length} nodos`);
+
+  // 📥 2. Leer drive-tree-v3.json (el IMPORTANTE que CRECE)
+  console.log("📥 Leyendo drive-tree-v3.json (el IMPORTANTE)...");
+  let currentTree = [];
+  try {
+    const treeRes = await fetch(`${BLOB_URL}/drive-tree-v3.json?t=${Date.now()}`);
+    if (treeRes.ok) {
+      currentTree = await treeRes.json();
+      console.log(`✅ drive-tree-v3.json leído: ${currentTree.length} nodos`);
+    } else {
+      console.log("ℹ️ No se encontró drive-tree-v3.json, empezando desde cero");
+    }
+  } catch (error) {
+    console.log("ℹ️ Error leyendo drive-tree-v3.json, empezando desde cero");
+  }
+
+  // 🔥 3. EXTRAER IDs DE DRIVE
+  console.log("🔍 Extrayendo IDs de Drive...");
+  const driveIds = new Set();
+  function collectDriveIds(nodes) {
+    for (const node of nodes) {
+      if (node.id) driveIds.add(node.id);
+      if (node.children) collectDriveIds(node.children);
+    }
+  }
+  collectDriveIds(driveTree);
+  console.log(`✅ ${driveIds.size} IDs de Drive encontrados`);
+
+  // 🔥 4. ACTUALIZAR NOMBRES DE CARPETAS
+  console.log("📝 Actualizando nombres de carpetas...");
+  function updateFolderNames(nodes) {
+    const folderMap = new Map();
+    function collectFolderNames(driveNodes) {
+      for (const node of driveNodes) {
+        if (node.type === "folder" && node.id) {
+          folderMap.set(node.id, node.name);
+        }
+        if (node.children) collectFolderNames(node.children);
+      }
+    }
+    collectFolderNames(driveTree);
+
+    function updateNames(nodes) {
+      for (const node of nodes) {
+        if (node.type === "folder" && node.id && folderMap.has(node.id)) {
+          const newName = folderMap.get(node.id);
+          if (node.name !== newName) {
+            console.log(`📝 Carpeta renombrada: ${node.name} → ${newName}`);
+            node.name = newName;
+          }
+        }
+        if (node.children) updateNames(node.children);
+      }
+    }
+    updateNames(nodes);
+    return nodes;
+  }
+
+  // 🔥 5. ACTUALIZAR NOMBRES DE ARCHIVOS
+  console.log("📝 Actualizando nombres de archivos...");
+  function updateFileNames(nodes) {
+    const fileMap = new Map();
+    function collectFileNames(driveNodes) {
+      for (const node of driveNodes) {
+        if (node.type !== "folder" && node.id) {
+          fileMap.set(node.id, node.name);
+        }
+        if (node.children) collectFileNames(node.children);
+      }
+    }
+    collectFileNames(driveTree);
+
+    function updateNames(nodes) {
+      for (const node of nodes) {
+        if (node.type !== "folder" && node.id && fileMap.has(node.id)) {
+          const newName = fileMap.get(node.id);
+          if (node.name !== newName) {
+            console.log(`📝 Archivo renombrado: ${node.name} → ${newName}`);
+            node.name = newName;
+          }
+        }
+        if (node.children) updateNames(node.children);
+      }
+    }
+    updateNames(nodes);
+    return nodes;
+  }
+
+  // 🔥 6. ELIMINAR ARCHIVOS DE DRIVE QUE YA NO EXISTEN
+  console.log("🗑️ Eliminando archivos borrados de Drive...");
+  function removeDeletedNodes(nodes, deletedCount = { value: 0 }) {
+    const result = [];
+    for (const node of nodes) {
+      // ✅ Archivos EXTERNOS: se mantienen siempre
+      if (node.type !== "folder" && node.source !== "drive") {
+        result.push(node);
+        continue;
+      }
+      // ❌ Archivos de Drive que ya no están en Drive: se eliminan
+      if (node.type !== "folder" && node.id && !driveIds.has(node.id)) {
+        console.log(`🗑️ Eliminado: ${node.name} (ya no está en Drive)`);
+        deletedCount.value++;
+        continue;
+      }
+      // 📁 Carpetas: se mantienen (es estructura)
+      if (node.type === "folder") {
+        if (node.children) {
+          const filteredChildren = removeDeletedNodes(node.children, deletedCount);
+          result.push({ ...node, children: filteredChildren });
+        } else {
+          result.push(node);
+        }
+      } else {
+        result.push(node);
+      }
+    }
+    return result;
+  }
+
+  // 🔥 7. APLICAR TRANSFORMACIONES
+  console.log("🔄 Aplicando transformaciones...");
+  currentTree = updateFolderNames(currentTree);
+  currentTree = updateFileNames(currentTree);
+  
+  const deletedCount = { value: 0 };
+  const treeWithoutDeleted = removeDeletedNodes(currentTree, deletedCount);
+
+  // 🔥 8. CREAR CARPETAS QUE FALTAN (incluyendo las que tienen drivePath)
+  console.log("📁 Creando carpetas que faltan...");
+
+  // Primero: crear carpetas desde la estructura de Drive
+  function ensureFolderStructure(currentNodes, driveNodes) {
+    for (const dNode of driveNodes) {
+      if (dNode.type !== "folder") continue;
+
+      let match = currentNodes.find(
+        n => n.type === "folder" && (n.id === dNode.id || n.name === dNode.name)
+      );
+
+      if (!match) {
+        console.log(`📁➕ Carpeta nueva creada: ${dNode.name}`);
+        match = {
+          name: dNode.name,
+          type: "folder",
+          id: dNode.id,
+          source: "drive",
+          url: dNode.url || `https://drive.google.com/drive/folders/${dNode.id}`,
+          children: [],
+        };
+        currentNodes.push(match);
+      }
+
+      if (!match.children) match.children = [];
+
+      if (dNode.children && dNode.children.length > 0) {
+        ensureFolderStructure(match.children, dNode.children);
+      }
+    }
+  }
+
+  ensureFolderStructure(treeWithoutDeleted, driveTree);
+
+  // Segundo: extraer TODOS los archivos de Drive con su ruta
+  function findAllFilesWithPath(nodes, currentPath = []) {
+    let results = [];
+    for (const node of nodes) {
+      if (node.type === "folder") {
+        if (node.children) {
+          const childResults = findAllFilesWithPath(node.children, [...currentPath, node.name]);
+          results = results.concat(childResults);
+        }
+      } else {
+        // Si tiene drivePath nativo, usarlo; si no, usar la ruta calculada
+        const rutaFinal = (node.drivePath && node.drivePath.length > 0) 
+          ? node.drivePath 
+          : currentPath;
+        results.push({
+          ...node,
+          drivePath: rutaFinal
+        });
+      }
+    }
+    return results;
+  }
+
+  const allDriveFiles = findAllFilesWithPath(driveTree);
+  
+  // IDs que ya existen
+  const existingIds = new Set();
+  function collectExistingIds(nodes) {
+    for (const node of nodes) {
+      if (node.id) existingIds.add(node.id);
+      if (node.children) collectExistingIds(node.children);
+    }
+  }
+  collectExistingIds(treeWithoutDeleted);
+
+  // Filtrar archivos nuevos
+  const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
+
+  let addedCount = 0;
+  let skippedCount = 0;
+
+  // Agregar archivos nuevos (creando carpetas si es necesario)
+  for (const file of newFiles) {
+    let nivelActual = treeWithoutDeleted;
+    let carpetaEncontrada = true;
+    
+    // Recorrer la ruta y crear carpetas si no existen
+    for (const nombreCarpeta of file.drivePath) {
+      let carpeta = nivelActual.find(n => 
+        n.type === "folder" && n.name === nombreCarpeta
+      );
+      
+      if (!carpeta) {
+        console.log(`📁 Creando carpeta por ruta: ${nombreCarpeta}`);
+        carpeta = {
+          name: nombreCarpeta,
+          type: "folder",
+          source: "drive",
+          children: []
+        };
+        nivelActual.push(carpeta);
+      }
+      
+      nivelActual = carpeta.children || [];
+    }
+    
+    // Verificar si el archivo ya existe en la carpeta
+    const yaExiste = nivelActual.some(n => n.id === file.id);
+    if (!yaExiste) {
+      nivelActual.push(file);
+      addedCount++;
+      console.log(`✅ ${file.name} → ${file.drivePath.join("/") || "Raíz"}`);
+    }
+  }
+
+  // 📤 9. GUARDAR EN VERCEL BLOB
+  console.log("💾 Guardando árbol COMPLETO en Vercel Blob...");
+  const { url } = await put('drive-tree-v3.json', JSON.stringify(treeWithoutDeleted), {
+    access: 'public',
+    addRandomSuffix: false,
+    contentType: 'application/json',
+    token: token,
+    allowOverwrite: true,
+  });
+
+  // 📊 10. ESTADÍSTICAS FINALES
+  console.log("");
+  console.log("=".repeat(50));
+  console.log("📋 RESUMEN DE SINCRONIZACIÓN");
+  console.log("=".repeat(50));
+  console.log(`✅ drive-tree-v3.json guardado en: ${url}`);
+  console.log(`📊 Nodos finales: ${treeWithoutDeleted.length}`);
+  console.log(`🗑️ Eliminados: ${deletedCount.value}`);
+  console.log(`✅ Agregados: ${addedCount}`);
+  console.log("=".repeat(50));
+  
+  return treeWithoutDeleted;
+}
+
+// ✅ Para ejecutar localmente: node scripts/merge-drive.js
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runMerge().catch(console.error);
+}
+
+no agrega el drivePath a los nuevos drive json
+🎯 El problema es que findAllFilesWithPath() está generando drivePath correctamente, pero los archivos nuevos NO se están agregando porque existingIds tiene los IDs del árbol actual y los archivos nuevos NO tienen id.
+
+El problema: Cuando index.js guarda drive-tree.json, los archivos tienen id y source: "drive". Pero findAllFilesWithPath() está generando drivePath en un array separado, no en el nodo original.
+
+✅ Solución: Agregar drivePath a los archivos en allDriveFiles
+Reemplazá findAllFilesWithPath por esta versión:
+
+javascript
+// Segundo: extraer TODOS los archivos de Drive con su ruta
+function findAllFilesWithPath(nodes, currentPath = []) {
+  let results = [];
+  for (const node of nodes) {
+    if (node.type === "folder") {
+      if (node.children) {
+        const childResults = findAllFilesWithPath(node.children, [...currentPath, node.name]);
+        results = results.concat(childResults);
+      }
+    } else {
+      // 🔥 CREAR UN NUEVO OBJETO CON drivePath
+      const rutaFinal = (node.drivePath && node.drivePath.length > 0) 
+        ? node.drivePath 
+        : currentPath;
+      
+      results.push({
+        ...node,  // ← COPIA TODAS LAS PROPIEDADES (id, name, type, url, source)
+        drivePath: rutaFinal
+      });
+    }
+  }
+  return results;
+}
+🔍 El problema está en la verificación de existingIds
+Agregá logs para ver qué está pasando:
+
+javascript
+// Filtrar archivos nuevos
+const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
+
+console.log(`📄 Archivos en Drive: ${allDriveFiles.length}`);
+console.log(`📄 IDs existentes: ${existingIds.size}`);
+console.log(`📄 Archivos nuevos: ${newFiles.length}`);
+
+// Si newFiles es 0, mostrar algunos IDs para debug
+if (newFiles.length === 0 && allDriveFiles.length > 0) {
+  console.log("🔍 Primer archivo de Drive:", allDriveFiles[0]);
+  console.log("🔍 ¿Tiene ID?", allDriveFiles[0].id);
+  console.log("🔍 ¿Está en existingIds?", existingIds.has(allDriveFiles[0].id));
+}
+📝 Código completo de la sección 8-9 con logs
+javascript
+// Segundo: extraer TODOS los archivos de Drive con su ruta
+function findAllFilesWithPath(nodes, currentPath = []) {
+  let results = [];
+  for (const node of nodes) {
+    if (node.type === "folder") {
+      if (node.children) {
+        const childResults = findAllFilesWithPath(node.children, [...currentPath, node.name]);
+        results = results.concat(childResults);
+      }
+    } else {
+      // Si tiene drivePath nativo, usarlo; si no, usar la ruta calculada
+      const rutaFinal = (node.drivePath && node.drivePath.length > 0) 
+        ? node.drivePath 
+        : currentPath;
+      results.push({
+        ...node,
+        drivePath: rutaFinal
+      });
+    }
+  }
+  return results;
+}
+
+const allDriveFiles = findAllFilesWithPath(driveTree);
+
+console.log(`📄 Archivos en Drive: ${allDriveFiles.length}`);
+
+// IDs que ya existen
+const existingIds = new Set();
+function collectExistingIds(nodes) {
+  for (const node of nodes) {
+    if (node.id) existingIds.add(node.id);
+    if (node.children) collectExistingIds(node.children);
+  }
+}
+collectExistingIds(treeWithoutDeleted);
+
+console.log(`📄 IDs existentes en v3: ${existingIds.size}`);
+
+// Filtrar archivos nuevos
+const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
+
+console.log(`📄 Archivos nuevos: ${newFiles.length}`);
+
+// Si no hay archivos nuevos, mostrar debug
+if (newFiles.length === 0 && allDriveFiles.length > 0) {
+  console.log("🔍 === DEBUG ===");
+  console.log("🔍 Primer archivo de Drive:", allDriveFiles[0]);
+  console.log("🔍 ID del primer archivo:", allDriveFiles[0].id);
+  console.log("🔍 ¿ID existe en existingIds?", allDriveFiles[0].id ? existingIds.has(allDriveFiles[0].id) : "NO TIENE ID");
+  console.log("🔍 Algunos IDs de existingIds:", Array.from(existingIds).slice(0, 5));
+}
+
+let addedCount = 0;
+let skippedCount = 0;
+
+// Agregar archivos nuevos (creando carpetas si es necesario)
+for (const file of newFiles) {
+  let nivelActual = treeWithoutDeleted;
+  
+  // Recorrer la ruta y crear carpetas si no existen
+  for (const nombreCarpeta of file.drivePath) {
+    let carpeta = nivelActual.find(n => 
+      n.type === "folder" && n.name === nombreCarpeta
+    );
+    
+    if (!carpeta) {
+      console.log(`📁 Creando carpeta por ruta: ${nombreCarpeta}`);
+      carpeta = {
+        name: nombreCarpeta,
+        type: "folder",
+        source: "drive",
+        children: []
+      };
+      nivelActual.push(carpeta);
+    }
+    
+    nivelActual = carpeta.children || [];
+  }
+  
+  // Verificar si el archivo ya existe en la carpeta
+  const yaExiste = nivelActual.some(n => n.id === file.id);
+  if (!yaExiste) {
+    nivelActual.push(file);
+    addedCount++;
+    console.log(`✅ ${file.name} → ${file.drivePath.join("/") || "Raíz"}`);
+  }
+}
+🚀 Probá y decime qué ves en los logs
+bash
+node scripts/merge-drive.js
+Buscá estas líneas:
+
+text
+📄 Archivos en Drive: X
+📄 IDs existentes en v3: Y
+📄 Archivos nuevos: Z
+Si Z = 0, el problema es que los IDs de Drive ya existen en v3 o los archivos no tienen ID. 😊
+
+// 1. PRIMERO: imports de Node.js
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// 2. SEGUNDO: imports de librerías externas
+import { google } from "googleapis";
+
+// 3. TERCERO: dotenv (se ejecuta después de los imports)
+import dotenv from 'dotenv';
+
+// 4. CUARTO: configurar dotenv con la ruta correcta
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+const ROOT_FOLDER_ID = "1b_AndWq4VbixhasOObo7wOZrIKIy08ru";
+const MAX_DEPTH = 50;
+
+// 🔥 FUNCIÓN DE AUTENTICACIÓN
+async function getAuth() {
+  console.log("🔍 ===== INICIANDO AUTENTICACIÓN =====");
+  
+  const keyJson = process.env.GOOGLE_DRIVE_KEY;
+  
+  if (keyJson) {
+    console.log("🔑 Usando clave desde variable de entorno GOOGLE_DRIVE_KEY");
+    try {
+      const credentials = JSON.parse(keyJson);
+      return new google.auth.GoogleAuth({
+        credentials,
+        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+      });
+    } catch (error) {
+      console.error("❌ Error parseando GOOGLE_DRIVE_KEY:", error.message);
+    }
+  }
+
+  const KEY_PATH = path.resolve("keys/drive-reader.json");
+  if (fs.existsSync(KEY_PATH)) {
+    console.log("📁 Usando clave desde archivo local:", KEY_PATH);
+    return new google.auth.GoogleAuth({
+      keyFile: KEY_PATH,
+      scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+    });
+  }
+
+  throw new Error(`
+❌ No se encontró la clave de Google Drive.
+📌 Para LOCAL: Asegurate que existe keys/drive-reader.json
+📌 Para VERCEL: Agregá GOOGLE_DRIVE_KEY como variable de entorno
+  `);
+}
+
+let auth = null;
+let drive = null;
+
+async function getDrive() {
+  if (!auth) {
+    auth = await getAuth();
+    drive = google.drive({ version: "v3", auth });
+  }
+  return drive;
+}
+
+async function listChildren(folderId) {
+  const drive = await getDrive();
+  let pageToken = undefined;
+  const all = [];
+
+  do {
+    const res = await drive.files.list({
+      q: `'${folderId}' in parents and trashed=false`,
+      pageSize: 1000,
+      pageToken,
+      fields: "nextPageToken, files(id, name, mimeType, webViewLink, shortcutDetails)",
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+    });
+
+    all.push(...(res.data.files || []));
+    pageToken = res.data.nextPageToken || undefined;
+  } while (pageToken);
+
+  return all;
+}
+
+function isFolder(f) {
+  return f.mimeType === "application/vnd.google-apps.folder";
+}
+
+function toFileNode(f) {
+  const url =
+    f.webViewLink ||
+    (isFolder(f)
+      ? `https://drive.google.com/drive/folders/${f.id}`
+      : `https://drive.google.com/file/d/${f.id}/preview`);
+
+  return {
+    name: f.name,
+    type: f.mimeType,
+    id: f.id,
+    url,
+    source: "drive" // ✅ MARCA COMO ARCHIVO DE DRIVE
+  };
+}
+
+async function readFolderTree(folderId, visited, depth) {
+  if (depth > MAX_DEPTH) return [];
+
+  if (visited.has(folderId)) return [];
+  visited.add(folderId);
+
+  const children = await listChildren(folderId);
+
+  children.sort((a, b) => {
+    const af = isFolder(a) ? 0 : 1;
+    const bf = isFolder(b) ? 0 : 1;
+    if (af !== bf) return af - bf;
+    return (a.name || "").localeCompare(b.name || "", "es");
+  });
+
+  const out = [];
+
+  for (const f of children) {
+    if (f.mimeType === "application/vnd.google-apps.shortcut") continue;
+
+    if (isFolder(f)) {
+      out.push({
+        name: f.name,
+        type: "folder",
+        id: f.id,
+        source: "drive", // ✅ MARCA COMO CARPETA DE DRIVE
+        url: `https://drive.google.com/drive/folders/${f.id}`,
+        children: await readFolderTree(f.id, visited, depth + 1),
+      });
+    } else {
+      out.push(toFileNode(f));
+    }
+  }
+
+  return out;
+}
+
+// 🔥 FUNCIÓN PRINCIPAL EXPORTABLE (la que usa el webhook)
+export async function runIndex() {
+  console.log("🚀 Iniciando escaneo de Google Drive...");
+  
+  const visited = new Set();
+  const tree = await readFolderTree(ROOT_FOLDER_ID, visited, 0);
+
+  // 🔥 GUARDAR EN VERCEL BLOB (BASURA - solo Drive)
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error("❌ Falta BLOB_READ_WRITE_TOKEN");
+  }
+
+  const { put } = await import('@vercel/blob');
+  const { url } = await put('drive-tree.json', JSON.stringify(tree), {
+    access: 'public',
+    addRandomSuffix: false,
+    contentType: 'application/json',
+    token: token,
+    allowOverwrite: true,
+  });
+
+  console.log(`✅ Árbol de Drive guardado en Blob (basura): ${url}`);
+  console.log(`📁 Carpetas visitadas: ${visited.size}`);
+  console.log(`📊 Nodos totales: ${tree.length}`);
+  
+  return tree;
+}
+
+// ✅ Para ejecutar localmente: node scripts/index.js
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runIndex().catch(console.error);
+}
+
+mira esto es el que genera el drive arbol
+🎯 El código de index.js está PERFECTO. Genera drive-tree.json con:
+
+id ✅
+
+source: "drive" ✅
+
+name, type, url ✅
+
+Estructura anidada con children ✅
+
+🔍 Si el webhook no está agregando archivos nuevos, el problema está en merge-drive.js.
+Probá ejecutar localmente para ver qué pasa:
+
+bash
+node scripts/merge-drive.js
+🧪 Agregá estos logs en merge-drive.js para diagnosticar:
+En la sección donde se filtran archivos nuevos, agregá:
+
+javascript
+// Filtrar archivos nuevos
+const newFiles = allDriveFiles.filter(file => !existingIds.has(file.id));
+
+console.log(`📄 Archivos en Drive: ${allDriveFiles.length}`);
+console.log(`📄 IDs existentes en v3: ${existingIds.size}`);
+console.log(`📄 Archivos nuevos: ${newFiles.length}`);
+
+// 🔥 DEBUG: Mostrar los primeros 3 archivos de Drive
+if (allDriveFiles.length > 0) {
+  console.log("🔍 Primeros 3 archivos de Drive:");
+  allDriveFiles.slice(0, 3).forEach((f, i) => {
+    console.log(`  ${i+1}. ${f.name} (ID: ${f.id})`);
+  });
+}
+
+// 🔥 DEBUG: Mostrar algunos IDs existentes
+if (existingIds.size > 0) {
+  console.log("🔍 Algunos IDs existentes en v3:");
+  Array.from(existingIds).slice(0, 3).forEach(id => {
+    console.log(`  - ${id}`);
+  });
+}
+📋 Posibles causas si newFiles.length === 0
+Causa	Solución
+allDriveFiles está vacío	drive-tree.json no se generó correctamente
+existingIds tiene todos los IDs	Los archivos ya están en v3
+Los archivos no tienen id	index.js no está generando IDs
+drive-tree.json no se subió a Blob	El webhook no ejecutó runIndex()
+🚀 Ejecutá y decime qué ves en los logs
+bash
+node scripts/merge-drive.js
+Buscá estas líneas:
+
+text
+📄 Archivos en Drive: X
+📄 IDs existentes en v3: Y
+📄 Archivos nuevos: Z
+Si Z = 0, entonces todos los archivos ya están en v3. 😊
+
+pero no hace falta el drivePath se agrega al json v3 pero sin eso
+🎯 ¡EXACTO! El drivePath es SOLO para los archivos que están en drive-tree.json, para que merge-drive.js sepa dónde colocarlos en drive-tree-v3.json.
+
+El drivePath NO debe aparecer en el JSON final drive-tree-v3.json, solo se usa internamente para saber dónde poner los archivos.
+
+📊 Flujo correcto
+text
+1. index.js → genera drive-tree.json (con children anidados)
+   ↓
+2. merge-drive.js → LEE drive-tree.json
+   ↓
+3. findAllFilesWithPath() → genera drivePath (solo en memoria)
+   ↓
+4. Agrega archivos al árbol usando drivePath
+   ↓
+5. GUARDA drive-tree-v3.json (SIN drivePath)
+El drivePath es temporal, solo existe en memoria durante el merge.
+
+✅ Tu código ya está bien
+Si los archivos se están agregando a drive-tree-v3.json, está funcionando correctamente.
+
+Verificá en el navegador:
+
+text
+https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com/drive-tree-v3.json
+Los archivos deberían aparecer en la estructura anidada (carpetas → subcarpetas → archivos).
+
+📋 Resumen
+Archivo	Tiene drivePath	¿Por qué?
+drive-tree.json (Drive)	❌ No	Es un árbol anidado normal
+merge-drive.js (memoria)	✅ Sí	Temporal, para saber dónde colocar
+drive-tree-v3.json (final)	❌ No	Solo estructura anidada
+¡Todo está bien! 🚀
+
+🧪 Si querés confirmar que funciona
+Ejecutá localmente y buscá en los logs:
+
+text
+✅ archivo.pdf → BÁSICAS/1° AÑO/ANÁLISIS MATEMÁTICO I
+Eso significa que se agregó correctamente. 😊

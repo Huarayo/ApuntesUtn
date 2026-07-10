@@ -117,36 +117,49 @@ export async function runMerge() {
     return nodes;
   }
 
-  // 🔥 6. ELIMINAR ARCHIVOS DE DRIVE QUE YA NO EXISTEN
-  console.log("🗑️ Eliminando archivos borrados de Drive...");
-  function removeDeletedNodes(nodes, deletedCount = { value: 0 }) {
-    const result = [];
-    for (const node of nodes) {
-      // ✅ Archivos EXTERNOS: se mantienen siempre
-      if (node.type !== "folder" && node.source !== "drive") {
-        result.push(node);
-        continue;
-      }
-      // ❌ Archivos de Drive que ya no están en Drive: se eliminan
-      if (node.type !== "folder" && node.id && !driveIds.has(node.id)) {
-        console.log(`🗑️ Eliminado: ${node.name} (ya no está en Drive)`);
-        deletedCount.value++;
-        continue;
-      }
-      // 📁 Carpetas: se mantienen (es estructura)
-      if (node.type === "folder") {
-        if (node.children) {
-          const filteredChildren = removeDeletedNodes(node.children, deletedCount);
-          result.push({ ...node, children: filteredChildren });
-        } else {
-          result.push(node);
+// 🔥 6. ELIMINAR ARCHIVOS Y CARPETAS DE DRIVE QUE YA NO EXISTEN
+console.log("🗑️ Eliminando archivos borrados de Drive...");
+function removeDeletedNodes(nodes, deletedCount = { value: 0 }) {
+  const result = [];
+
+  for (const node of nodes) {
+    // 1. Si es un ARCHIVO (no carpeta)
+    if (node.type !== "folder") {
+      if (node.source === "drive") {
+        // Si es de Drive y ya no existe en el Drive original -> Se elimina
+        if (node.id && !driveIds.has(node.id)) {
+          console.log(`🗑️ Archivo eliminado: ${node.name} (ya no está en Drive)`);
+          deletedCount.value++;
+          continue; // Saltamos este archivo, NO lo agregamos a result
         }
-      } else {
-        result.push(node);
       }
+      // Archivos externos o archivos de Drive que sí existen se quedan
+      result.push(node);
+    } 
+    // 2. Si es una CARPETA
+    else {
+      // Procesamos recursivamente sus hijos primero
+      const filteredChildren = node.children ? removeDeletedNodes(node.children, deletedCount) : [];
+      
+      if (node.source === "drive") {
+        // Si la carpeta es de Drive, comprobamos si fue borrada en Drive
+        // PERO ojo: si adentro tiene archivos externos guardados por los usuarios, NO queremos borrarla.
+        const tieneHijosExternos = filteredChildren.some(child => child.source !== "drive");
+        const existeEnDrive = node.id && driveIds.has(node.id);
+
+        if (!existeEnDrive && !tieneHijosExternos) {
+          console.log(`🗑️ Carpeta eliminada: ${node.name} (vacía y ya no está en Drive)`);
+          deletedCount.value++;
+          continue; // Saltamos la carpeta entera
+        }
+      }
+
+      // Si la carpeta se queda, la agregamos con sus hijos ya filtrados
+      result.push({ ...node, children: filteredChildren });
     }
-    return result;
   }
+  return result;
+}
 
   // 🔥 7. APLICAR TRANSFORMACIONES
   console.log("🔄 Aplicando transformaciones...");
