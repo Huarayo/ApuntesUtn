@@ -93,7 +93,7 @@ export default function SiteHeader() {
             <button
               onClick={toggleTheme}
               className="btn-scheme"
-              aria-label="Cambiar tema"
+              aria-label="Cambiar Tema"
             >
 {/* 3. Envolvé tus iconos del tema con esta condición: */}
               {montado ? (
