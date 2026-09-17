@@ -10,13 +10,13 @@ type Node = {
 };
 function norm(s: string){
   return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") //sacar tildes
-    .replace(/[_-]+/g, " ")  //_ y - a espacio
-    .replace(/[^a-z0-9\s]+/g, " ") //otros simbolos
-    .replace(/\s+/g, " ")
-    .trim();
+    // .toLowerCase()
+    // .normalize("NFD")
+    // .replace(/[\u0300-\u036f]/g, "") //sacar tildes
+    // .replace(/[_-]+/g, " ")  //_ y - a espacio
+    // .replace(/[^a-z0-9\s]+/g, " ") //otros simbolos
+    // .replace(/\s+/g, " ")
+    // .trim();
 }
 
 

@@ -28,17 +28,11 @@ interface SearchResult {
 // FUNCIONES DE UTILIDAD
 function norm(s: string) {
   return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[_-]+/g, " ")
-    .replace(/[^a-z0-9\s]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+
 }
 
 function cleanName(name: string) {
-  return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+  return name;
 }
 
 function slugify(s: string) {
@@ -174,7 +168,7 @@ export default function SearchBox({
         }}
         onKeyDown={(e) => e.key === "Enter" && handleOfficialSearch()}
         onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
-      />
+      ></input>
 
       <button className="search-icon-btn" onClick={handleOfficialSearch}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

@@ -8,7 +8,12 @@ data1
 public/data
 context.txt
 documentation.txt
-scripts/data
+documentation v2.txt
+scripts/data/drive-tree.json
 scripts/upload-to-blob.js
 app/api/import-drive/route.ts
 app/api/run-script/route.ts
+fix.txt
+fix2.txt
+fix3.txt
+scripts/scripts

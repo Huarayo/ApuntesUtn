@@ -33,7 +33,7 @@ function segOfFolder(n: TreeNode) {
 }
 
 function cleanName(name: string) {
-  return name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+  return name;
 }
 
 export default function Home() {

@@ -1,4 +1,3 @@
-// ✅ Usar import en lugar de require
 import withPWA from 'next-pwa';
 
 const pwaConfig = withPWA({
@@ -37,12 +36,23 @@ const nextConfig = {
   reactStrictMode: true,
   async headers() {
     return [
+      // Tus reglas de caché actuales
       {
         source: "/data/drive-tree-:version.json",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      // Nuevas cabeceras de seguridad globales
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }
+        ],
+      }
     ];
   },
 };

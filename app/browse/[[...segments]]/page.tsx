@@ -17,12 +17,10 @@ interface Node {
 }
 
 // --- HELPERS ---
-const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
 
 const slugify = (s: string) =>
   s
     .toLowerCase()
-    .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
@@ -74,7 +72,7 @@ export async function generateMetadata({
   const getRealName = (seg: string) => {
     const { id } = parseSeg(decodeURIComponent(seg));
     const raw = findName(tree, id);
-    return raw ? cleanName(raw) : null;
+    return raw;
   };
 
   const nombreActual = getRealName(segments[segments.length - 1]);

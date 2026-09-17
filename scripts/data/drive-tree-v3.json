@@ -19,7 +19,7 @@
             "children": [
               {
                 "id": "1qP3yPf6fRjY_Dc7czw2yUxje7nsuJHoR",
-                "name": "COLORES Y SEÑALES DE SEGURIDAD.doc",
+                "name": "COLORES Y SEÑALES DE SEGURIDAD djfkd.doc",
                 "type": "file",
                 "url": "https://docs.google.com/document/d/1qP3yPf6fRjY_Dc7czw2yUxje7nsuJHoR/edit?usp=drivesdk&ouid=107660628628935148774&rtpof=true&sd=true"
               },
@@ -6029,13 +6029,13 @@
                           },
                           {
                             "id": "1dayxIB9VyL6G4lCOygtLDECcmiilrbEZ",
-                            "name": "WhatsApp Image 2024-08-17 at 15.05.46 (2).jpeg",
+                            "name": "2024-08-17[PARTE 2]",
                             "type": "file",
                             "url": "https://drive.google.com/file/d/1dayxIB9VyL6G4lCOygtLDECcmiilrbEZ/view?usp=drivesdk"
                           },
                           {
                             "id": "1SaVUuFBK8zYrx8Mh4YEj4jQs-kU_hDu9",
-                            "name": "WhatsApp Image 2024-08-17 at 15.05.46 (1).jpeg",
+                            "name": "2024-08-17 [PARTE1].jpeg",
                             "type": "file",
                             "url": "https://drive.google.com/file/d/1SaVUuFBK8zYrx8Mh4YEj4jQs-kU_hDu9/view?usp=drivesdk"
                           },
@@ -6044,12 +6044,6 @@
                             "name": "WhatsApp Image 2024-08-17 at 15.05.46.jpeg",
                             "type": "file",
                             "url": "https://drive.google.com/file/d/1vM9OvsfJJjFG725ug05Ab6h6jbVKvgZl/view?usp=drivesdk"
-                          },
-                          {
-                            "id": "10ML_5emX6deOcK6LlFjDj0CmX4D5SJ0G",
-                            "name": "WhatsApp Image 2024-08-17 at 15.05.45 (2).jpeg",
-                            "type": "file",
-                            "url": "https://drive.google.com/file/d/10ML_5emX6deOcK6LlFjDj0CmX4D5SJ0G/view?usp=drivesdk"
                           },
                           {
                             "id": "18L2x3FLMjO7PTT721QjSJspIKT1Ud2RM",
@@ -19104,7 +19098,7 @@
                 "children": [
                   {
                     "id": "1DTWG7WyY8Ol4dBczlmaKjWnlMRHVMUHg",
-                    "name": "IMG-20250621-WA0001.jpg",
+                    "name": "2025 Recuperatorio",
                     "type": "file",
                     "url": "https://drive.google.com/file/d/1DTWG7WyY8Ol4dBczlmaKjWnlMRHVMUHg/view?usp=drivesdk"
                   },
@@ -19127,7 +19121,7 @@
                     "url": "https://drive.google.com/file/d/1Y4KdbD-nhpvSnBm7SDWwVGAZcWWdTVja/view?usp=drivesdk"
                   },
                   {
-                    "name": "IMG-20250628-WA0033.jpg",
+                    "name": "2024 - TEMA 1.jpg",
                     "type": "image/jpeg",
                     "id": "1CWQQMq5lBtLSH8RG0_aYwpGC--NhAqJt",
                     "url": "https://drive.google.com/file/d/1CWQQMq5lBtLSH8RG0_aYwpGC--NhAqJt/view?usp=drivesdk",
@@ -19204,6 +19198,30 @@
                     "url": "https://drive.google.com/file/d/1WtJcnWsFYKNplzeZxdLq6_J9Bcy1gsA-/view?usp=drivesdk"
                   }
                 ]
+              },
+              {
+                "name": "Parcial 2",
+                "type": "folder",
+                "id": "1_d8VqDldAxbDRd15nN592mdLQMPbfThQ",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1_d8VqDldAxbDRd15nN592mdLQMPbfThQ",
+                "children": []
+              },
+              {
+                "name": "Papelera",
+                "type": "folder",
+                "id": "14GhKbgOjdm_2qiZiouUAqTQ_UQt0agri",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/14GhKbgOjdm_2qiZiouUAqTQ_UQt0agri",
+                "children": []
+              },
+              {
+                "name": "Parcial 1",
+                "type": "folder",
+                "id": "14PbitfdFYWPiH-pse48YKALYKs_3r70Y",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/14PbitfdFYWPiH-pse48YKALYKs_3r70Y",
+                "children": []
               }
             ]
           },
@@ -22293,6 +22311,14 @@
                     "folderName": "Parcial1"
                   }
                 ]
+              },
+              {
+                "name": "Parcial 2",
+                "type": "folder",
+                "id": "1pbh3ddOnY4r1qTRWw40yhnhyPic1L0_t",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1pbh3ddOnY4r1qTRWw40yhnhyPic1L0_t",
+                "children": []
               }
             ]
           },
@@ -22994,97 +23020,147 @@
                 "folderName": "EXAMENES"
               },
               {
-                "name": "examen_2-1777208587237.pdf",
-                "type": "application/pdf",
-                "id": "10KUqPdcos-eTpOa6t5xdjqQa4TgY2FqG",
-                "url": "https://drive.google.com/file/d/10KUqPdcos-eTpOa6t5xdjqQa4TgY2FqG/view?usp=drivesdk",
+                "name": "Primer Parcial",
+                "type": "folder",
+                "id": "1y9H9FoHjcf2SSiPOexFAflKrSHVB0oW8",
                 "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
+                "url": "https://drive.google.com/drive/folders/1y9H9FoHjcf2SSiPOexFAflKrSHVB0oW8",
+                "children": []
               },
               {
-                "name": "examen_3-1777208589123.pdf",
-                "type": "application/pdf",
-                "id": "1bQ2G9S9jb6HunbyeL7ZWW3ZtRM_Ew_a2",
-                "url": "https://drive.google.com/file/d/1bQ2G9S9jb6HunbyeL7ZWW3ZtRM_Ew_a2/view?usp=drivesdk",
+                "name": "Segundo Parcial",
+                "type": "folder",
+                "id": "1_2IvrMHOmny79btNsutg__lnQ5nGiSDJ",
                 "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
+                "url": "https://drive.google.com/drive/folders/1_2IvrMHOmny79btNsutg__lnQ5nGiSDJ",
+                "children": []
               },
               {
-                "name": "examen_4-1777208590331.pdf",
-                "type": "application/pdf",
-                "id": "1kpxvsyE5Y-JFOwCoqlmCRC8-Z4hXmfLT",
-                "url": "https://drive.google.com/file/d/1kpxvsyE5Y-JFOwCoqlmCRC8-Z4hXmfLT/view?usp=drivesdk",
+                "name": "Globales",
+                "type": "folder",
+                "id": "12Z8CQ_wYCd2YAXtRuRQmJwYZBnI6QNDF",
                 "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_5-1777208591789.pdf",
-                "type": "application/pdf",
-                "id": "1W_DqrJ8i53KiSKvGDWahumTfIraZPnw7",
-                "url": "https://drive.google.com/file/d/1W_DqrJ8i53KiSKvGDWahumTfIraZPnw7/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_6-1777208593017.pdf",
-                "type": "application/pdf",
-                "id": "15ui_CtLh78kWhZO4heHAQoiPV3V8-mW0",
-                "url": "https://drive.google.com/file/d/15ui_CtLh78kWhZO4heHAQoiPV3V8-mW0/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_7-1777208594165.pdf",
-                "type": "application/pdf",
-                "id": "1JDlAq9o95O8rnPjlxNswRyF9kKGL9w-S",
-                "url": "https://drive.google.com/file/d/1JDlAq9o95O8rnPjlxNswRyF9kKGL9w-S/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
-              },
-              {
-                "name": "examen_8-1777208595916.pdf",
-                "type": "application/pdf",
-                "id": "1FvaXuVCJNOGB0NX3JqcdUlJ-YqpxKgst",
-                "url": "https://drive.google.com/file/d/1FvaXuVCJNOGB0NX3JqcdUlJ-YqpxKgst/view?usp=drivesdk",
-                "source": "drive",
-                "drivePath": [
-                  "BÁSICAS",
-                  "ANÁLISIS MATEMÁTICO II",
-                  "EXAMENES"
-                ],
-                "folderName": "EXAMENES"
+                "url": "https://drive.google.com/drive/folders/12Z8CQ_wYCd2YAXtRuRQmJwYZBnI6QNDF",
+                "children": []
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "ÁLGEHRA Y GEOMETRÍA ANALÍTICA",
+        "type": "folder",
+        "id": "1ASqwihx0Iur_gL_GMbDf9DV9O2N2RdXX",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/1ASqwihx0Iur_gL_GMbDf9DV9O2N2RdXX",
+        "children": [
+          {
+            "name": "EXÁMENES",
+            "type": "folder",
+            "id": "1fz8o-CJTOMuLby9vJFODns09XE6Qm9kh",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1fz8o-CJTOMuLby9vJFODns09XE6Qm9kh",
+            "children": [
+              {
+                "name": "Globales",
+                "type": "folder",
+                "id": "196a7gMskfsc1Xx1ueM07cU96z_ptmcGq",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/196a7gMskfsc1Xx1ueM07cU96z_ptmcGq",
+                "children": []
+              },
+              {
+                "name": "Parcial 2",
+                "type": "folder",
+                "id": "1E3Y9RndpuUKBg6gVfRqwBeP5hPLizeUX",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1E3Y9RndpuUKBg6gVfRqwBeP5hPLizeUX",
+                "children": []
+              },
+              {
+                "name": "Parcial 1",
+                "type": "folder",
+                "id": "1Us7fLCr3zXFMr4N8VLwaDJIgyB3OO4SL",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1Us7fLCr3zXFMr4N8VLwaDJIgyB3OO4SL",
+                "children": []
+              },
+              {
+                "name": "Finales",
+                "type": "folder",
+                "id": "1JMENzUnc4Q3uGrZNqaEEnin4OU-M5t3-",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1JMENzUnc4Q3uGrZNqaEEnin4OU-M5t3-",
+                "children": []
+              },
+              {
+                "name": "Papelera",
+                "type": "folder",
+                "id": "1TPna-j0DFykVow1zNJFyWHSrWz5ZR9Hb",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1TPna-j0DFykVow1zNJFyWHSrWz5ZR9Hb",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "INGLÉS I",
+        "type": "folder",
+        "id": "1Iqtff8lqMWFfjOrMkN7D2viGPO268rpn",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/1Iqtff8lqMWFfjOrMkN7D2viGPO268rpn",
+        "children": [
+          {
+            "name": "EXÁMENES",
+            "type": "folder",
+            "id": "10CmcVbkcYWGsTm4DX7K0nShaWz5ywN-X",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/10CmcVbkcYWGsTm4DX7K0nShaWz5ywN-X",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "LEGISLACIÓN",
+        "type": "folder",
+        "id": "13f66L3OIVYJVZuY4PtPGlvLUtaM0Q66W",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/13f66L3OIVYJVZuY4PtPGlvLUtaM0Q66W",
+        "children": [
+          {
+            "name": "EXÁMENES",
+            "type": "folder",
+            "id": "1yfX2YXB4GTRRYZtvFQ7oaiebyVkQLiWc",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1yfX2YXB4GTRRYZtvFQ7oaiebyVkQLiWc",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "INGENIERÍA Y SOCIEDAD",
+        "type": "folder",
+        "id": "1ufCuEn3mMrD6H-7LL9D4LrTfmyypikXJ",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/1ufCuEn3mMrD6H-7LL9D4LrTfmyypikXJ",
+        "children": [
+          {
+            "name": "EXÁMENES",
+            "type": "folder",
+            "id": "1bUUd6_BTCffa4r76yTwyhRfrWkwn2UCL",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1bUUd6_BTCffa4r76yTwyhRfrWkwn2UCL",
+            "children": []
+          },
+          {
+            "name": "PARCIAL 2",
+            "type": "folder",
+            "id": "1MPwqUmP8yhStPj7LqCv4B658gIKv7nAE",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1MPwqUmP8yhStPj7LqCv4B658gIKv7nAE",
+            "children": []
           }
         ]
       }
@@ -25553,6 +25629,14 @@
         "name": "Plan-Electromecanica-2023.pdf",
         "type": "file",
         "url": "https://drive.google.com/file/d/1oBr2RttvHoUxllWbmvK2QwL5_fMmjAPS/view?usp=drivesdk"
+      },
+      {
+        "name": "EXÁMENES",
+        "type": "folder",
+        "id": "1RUq8qg15YjpD4vPbXKqv7PbpD-cTHvhW",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/1RUq8qg15YjpD4vPbXKqv7PbpD-cTHvhW",
+        "children": []
       }
     ]
   },
@@ -25589,6 +25673,272 @@
                   "Arquitectura De Computadoras"
                 ],
                 "folderName": "Arquitectura De Computadoras"
+              },
+              {
+                "name": "1_Representación_Numérica_y_Codificación",
+                "type": "folder",
+                "id": "1usKhNRKGrfGQnOT8GPw-3wgxHBD9HsSD",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1usKhNRKGrfGQnOT8GPw-3wgxHBD9HsSD",
+                "children": [
+                  {
+                    "name": "Ejercicios Resueltos",
+                    "type": "folder",
+                    "id": "1hxwULFY1BXxFKpSopg7qkZnpGZv5u22h",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1hxwULFY1BXxFKpSopg7qkZnpGZv5u22h",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "2_Sistemas_Digitales",
+                "type": "folder",
+                "id": "1m1QrdOrHCMcptFWlxCQTWNg1By-MBqr1",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1m1QrdOrHCMcptFWlxCQTWNg1By-MBqr1",
+                "children": [
+                  {
+                    "name": "Complementario",
+                    "type": "folder",
+                    "id": "1VYU1cSSLYhg9psP7cqoV9ompINxTT3YV",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1VYU1cSSLYhg9psP7cqoV9ompINxTT3YV",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "2024",
+                "type": "folder",
+                "id": "1pjOFJWf2r3_0aEd5ypfHqsO1mLMfYSSf",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1pjOFJWf2r3_0aEd5ypfHqsO1mLMfYSSf",
+                "children": [
+                  {
+                    "name": "Unidad 1",
+                    "type": "folder",
+                    "id": "1YKhwdJkabVuK1uyZ7rLmb07DTK2De1H-",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1YKhwdJkabVuK1uyZ7rLmb07DTK2De1H-",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "14_wu0OwQGiN-hSjYUzwGY3wh7gM_1PJv",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/14_wu0OwQGiN-hSjYUzwGY3wh7gM_1PJv",
+                        "children": []
+                      },
+                      {
+                        "name": "Tp",
+                        "type": "folder",
+                        "id": "1n0ilL0TWEfBjIRhvC6Quz0mgAnMSlN_0",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1n0ilL0TWEfBjIRhvC6Quz0mgAnMSlN_0",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 2",
+                    "type": "folder",
+                    "id": "1NTmJ0jsF_jHTxfCTUXvjDFmyZWlfcXq5",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1NTmJ0jsF_jHTxfCTUXvjDFmyZWlfcXq5",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "1Z-AZd9K2hSeQLDWIh3yeCPqJzR7hLxYw",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1Z-AZd9K2hSeQLDWIh3yeCPqJzR7hLxYw",
+                        "children": []
+                      },
+                      {
+                        "name": "TP",
+                        "type": "folder",
+                        "id": "1J4MJhQX75zguwY8JBRjtkGPWZzM9qstU",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1J4MJhQX75zguwY8JBRjtkGPWZzM9qstU",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 3",
+                    "type": "folder",
+                    "id": "1BntpZAnLa_otQ0jwYJvL_kY0Qh2kG1By",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1BntpZAnLa_otQ0jwYJvL_kY0Qh2kG1By",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "1R_Z8tLSPUWhs0HQJVNs4qIxoWvMTYc0u",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1R_Z8tLSPUWhs0HQJVNs4qIxoWvMTYc0u",
+                        "children": []
+                      },
+                      {
+                        "name": "TP",
+                        "type": "folder",
+                        "id": "1Zbq4gfdBRviD_16drPv02nO34_mmM74u",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1Zbq4gfdBRviD_16drPv02nO34_mmM74u",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 4",
+                    "type": "folder",
+                    "id": "1je8T8STpjZ7Y2Ns3hq8hnBBZ_9Rysyhn",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1je8T8STpjZ7Y2Ns3hq8hnBBZ_9Rysyhn",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "1yjRrVfMOd3gYTzZhnPqKYafU7n2CZBqn",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1yjRrVfMOd3gYTzZhnPqKYafU7n2CZBqn",
+                        "children": []
+                      },
+                      {
+                        "name": "TP",
+                        "type": "folder",
+                        "id": "1IUshPSKyE2FRb9Z-GqI05KyTyIgxRG6x",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1IUshPSKyE2FRb9Z-GqI05KyTyIgxRG6x",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 5",
+                    "type": "folder",
+                    "id": "1OvxdjRQXbkBJ-_OCJ6aMUHQauJBOxwOl",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1OvxdjRQXbkBJ-_OCJ6aMUHQauJBOxwOl",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "1fzH4r1zpaKP-Z8mpCBt7mNM4oCxVfJNw",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1fzH4r1zpaKP-Z8mpCBt7mNM4oCxVfJNw",
+                        "children": []
+                      },
+                      {
+                        "name": "TP",
+                        "type": "folder",
+                        "id": "1laGoFtz_4XxDRGMc8Z9R1XD9-h7Hgfs1",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1laGoFtz_4XxDRGMc8Z9R1XD9-h7Hgfs1",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 6",
+                    "type": "folder",
+                    "id": "1PR685pBVvSBL8cNLiGKlO910COC93MYV",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1PR685pBVvSBL8cNLiGKlO910COC93MYV",
+                    "children": [
+                      {
+                        "name": "Complemento",
+                        "type": "folder",
+                        "id": "1auFFci2hEoteJco8xf1AIZsBoCUTWU9t",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1auFFci2hEoteJco8xf1AIZsBoCUTWU9t",
+                        "children": []
+                      },
+                      {
+                        "name": "TP",
+                        "type": "folder",
+                        "id": "1OCpUSHsP0zkUgbDj41gTQbe37PYGglfx",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1OCpUSHsP0zkUgbDj41gTQbe37PYGglfx",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 7",
+                    "type": "folder",
+                    "id": "18dJoeGxDLknDIQFQFtKpLweM61qmm1Yt",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/18dJoeGxDLknDIQFQFtKpLweM61qmm1Yt",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "3_Memorias_Electrónicas",
+                "type": "folder",
+                "id": "13QS8uUcQ0uZoj_zTQdIJO55EFggIQ5Ti",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/13QS8uUcQ0uZoj_zTQdIJO55EFggIQ5Ti",
+                "children": [
+                  {
+                    "name": "Complemento",
+                    "type": "folder",
+                    "id": "11z_ANIAymA0GiIc_B1PCCiZFdscLnggG",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/11z_ANIAymA0GiIc_B1PCCiZFdscLnggG",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "4_Arquitectura_Basica",
+                "type": "folder",
+                "id": "16lUEALGtgSKbDAN5WUAr4nADlU51QDmn",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/16lUEALGtgSKbDAN5WUAr4nADlU51QDmn",
+                "children": []
+              },
+              {
+                "name": "5_Arquitectura_Convencional",
+                "type": "folder",
+                "id": "1iSety3iUFd4WLWNEJEqA4I7iifPv2lCL",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1iSety3iUFd4WLWNEJEqA4I7iifPv2lCL",
+                "children": []
+              },
+              {
+                "name": "6_Arquitectura_Avanzada",
+                "type": "folder",
+                "id": "1ryJBgXsj0e5VtumxBR9-jDz5eF9LlAjR",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1ryJBgXsj0e5VtumxBR9-jDz5eF9LlAjR",
+                "children": []
+              },
+              {
+                "name": "7_Entradas_y_Salidas",
+                "type": "folder",
+                "id": "19Ta_HhcpzOENE-T-I_DI8uTWydpj2u-0",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/19Ta_HhcpzOENE-T-I_DI8uTWydpj2u-0",
+                "children": []
+              },
+              {
+                "name": "chuletas",
+                "type": "folder",
+                "id": "1i4xk1XAwadGF8Tka__W93YCLMpXL26-y",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1i4xk1XAwadGF8Tka__W93YCLMpXL26-y",
+                "children": []
+              },
+              {
+                "name": "LibroPorPartes",
+                "type": "folder",
+                "id": "1ZxTvTM3hRjXXN7ShsTpBEkf64QLfBJgG",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1ZxTvTM3hRjXXN7ShsTpBEkf64QLfBJgG",
+                "children": []
               }
             ]
           },
@@ -25842,6 +26192,14 @@
                       "2_Sistemas"
                     ],
                     "folderName": "2_Sistemas"
+                  },
+                  {
+                    "name": "TP",
+                    "type": "folder",
+                    "id": "1MTAK4sAEFudK7BcmmOZ1bvioWwbMz7R4",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1MTAK4sAEFudK7BcmmOZ1bvioWwbMz7R4",
+                    "children": []
                   }
                 ]
               },
@@ -26485,6 +26843,647 @@
                   "Sistema y Proceso de Negocio"
                 ],
                 "folderName": "Sistema y Proceso de Negocio"
+              }
+            ]
+          },
+          {
+            "name": "Algoritmo y Estructura de Datos",
+            "type": "folder",
+            "id": "1VVJanYKUXWzV3IG9OeGhkUY7e9sDv6WO",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1VVJanYKUXWzV3IG9OeGhkUY7e9sDv6WO",
+            "children": [
+              {
+                "name": "C++",
+                "type": "folder",
+                "id": "1QHCU_9zcnTFBA8gKPln81GxKGREhLyNN",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1QHCU_9zcnTFBA8gKPln81GxKGREhLyNN",
+                "children": [
+                  {
+                    "name": ".vscode",
+                    "type": "folder",
+                    "id": "1P_pnQxOHEJKb7QYQ0TZJaYDkaDKb5H9B",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1P_pnQxOHEJKb7QYQ0TZJaYDkaDKb5H9B",
+                    "children": []
+                  },
+                  {
+                    "name": "misCodigos",
+                    "type": "folder",
+                    "id": "15b5woIayueHoWJp8IbI0VsYNuKgS7wZh",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/15b5woIayueHoWJp8IbI0VsYNuKgS7wZh",
+                    "children": [
+                      {
+                        "name": ".vscode",
+                        "type": "folder",
+                        "id": "1Dub8W9oj8jNbXWwu8j1ceJhEIBfcK9Dh",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1Dub8W9oj8jNbXWwu8j1ceJhEIBfcK9Dh",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "pdf",
+                    "type": "folder",
+                    "id": "1v7tkUjbtxmxVCed5DSa7VM3-lsvbDQR6",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1v7tkUjbtxmxVCed5DSa7VM3-lsvbDQR6",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad1",
+                    "type": "folder",
+                    "id": "1Lys-6VPakt-K7Qa1QBVwfJmC0i_NyWts",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1Lys-6VPakt-K7Qa1QBVwfJmC0i_NyWts",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad2",
+                    "type": "folder",
+                    "id": "1yncFYhr3-X-vyGcXsdHenIJK9NGT3i30",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1yncFYhr3-X-vyGcXsdHenIJK9NGT3i30",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad3",
+                    "type": "folder",
+                    "id": "1Hie8w2GexxCHY83_e87P8ReQqPW52Hy2",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1Hie8w2GexxCHY83_e87P8ReQqPW52Hy2",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Contenido",
+                "type": "folder",
+                "id": "1UF4dpSiKgjMTNkKPbZOv2_xnmh8T04-P",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1UF4dpSiKgjMTNkKPbZOv2_xnmh8T04-P",
+                "children": [
+                  {
+                    "name": "1_Fundamentos",
+                    "type": "folder",
+                    "id": "1VarZTmbBl8rhuxBAU2oHcslK1pOMqlfB",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1VarZTmbBl8rhuxBAU2oHcslK1pOMqlfB",
+                    "children": []
+                  },
+                  {
+                    "name": "2_Contenidos_y_Repasos",
+                    "type": "folder",
+                    "id": "1xIQ66jl507ZJRIFtfbhGLEr4v6Lxf6k-",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1xIQ66jl507ZJRIFtfbhGLEr4v6Lxf6k-",
+                    "children": [
+                      {
+                        "name": "ppt",
+                        "type": "folder",
+                        "id": "1WxX7auYkSwsTXjQK5xix-yNerYlU77c2",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1WxX7auYkSwsTXjQK5xix-yNerYlU77c2",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "3_AyE_Trabajos_Prácticos",
+                    "type": "folder",
+                    "id": "1HxV40Hjf0PkPCOZ9q0QXZggy1NMAUdhw",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1HxV40Hjf0PkPCOZ9q0QXZggy1NMAUdhw",
+                    "children": []
+                  },
+                  {
+                    "name": "EjerciciosHechos",
+                    "type": "folder",
+                    "id": "1cS2kkzItSptHs4MGc8OerlkDSfO06HUb",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1cS2kkzItSptHs4MGc8OerlkDSfO06HUb",
+                    "children": [
+                      {
+                        "name": "Clase3",
+                        "type": "folder",
+                        "id": "10eHd_WLoQbGzFhS5hz91NAslU-7MNLaI",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/10eHd_WLoQbGzFhS5hz91NAslU-7MNLaI",
+                        "children": []
+                      },
+                      {
+                        "name": "Clase4",
+                        "type": "folder",
+                        "id": "17UOXT3b4GNLbxzt8I_ZWLoF-XesFTZRO",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/17UOXT3b4GNLbxzt8I_ZWLoF-XesFTZRO",
+                        "children": []
+                      },
+                      {
+                        "name": "Clase5",
+                        "type": "folder",
+                        "id": "1N8yj8N1MuRjs1KtZxBhxOVd-C6vJKL5v",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1N8yj8N1MuRjs1KtZxBhxOVd-C6vJKL5v",
+                        "children": []
+                      },
+                      {
+                        "name": "EjerciciosProfe",
+                        "type": "folder",
+                        "id": "1y4Ul7d8Vb4Wrpt50d9b28vJ5LGap7-7j",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1y4Ul7d8Vb4Wrpt50d9b28vJ5LGap7-7j",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Teoría",
+                "type": "folder",
+                "id": "1QC70zl7Nhiye2dRviU1f3_jUC-Rt9qlJ",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1QC70zl7Nhiye2dRviU1f3_jUC-Rt9qlJ",
+                "children": []
+              },
+              {
+                "name": "Unidad 1 - Algoritmos, análisis y diseño",
+                "type": "folder",
+                "id": "1z_Zsdo-1H3-19q5JNcFza8ZSGVSdvhMs",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1z_Zsdo-1H3-19q5JNcFza8ZSGVSdvhMs",
+                "children": []
+              },
+              {
+                "name": "Unidad 2 - Tipos de datos, operaciones y expresiones",
+                "type": "folder",
+                "id": "1wNTgFnZ5FIOOL1fGa42ETmfAUgYyNOSI",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1wNTgFnZ5FIOOL1fGa42ETmfAUgYyNOSI",
+                "children": []
+              },
+              {
+                "name": "Unidad 3 - Construcción de Algoritmos",
+                "type": "folder",
+                "id": "17P846W_G0tFaxmte8yfjA5NZm02yR2Er",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/17P846W_G0tFaxmte8yfjA5NZm02yR2Er",
+                "children": []
+              },
+              {
+                "name": "Unidad 4 - Subprogramas_Funciones_y_Subrutinas",
+                "type": "folder",
+                "id": "1IoE2jvs9dTrkUTGYHehDHdufRyLR1yff",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1IoE2jvs9dTrkUTGYHehDHdufRyLR1yff",
+                "children": []
+              },
+              {
+                "name": "Unidad 5 - Recursividad",
+                "type": "folder",
+                "id": "17_Vc15ggnlnWgqm5YYYWaR6bTt7Gu_mc",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/17_Vc15ggnlnWgqm5YYYWaR6bTt7Gu_mc",
+                "children": []
+              },
+              {
+                "name": "Unidad 6 - Arreglos",
+                "type": "folder",
+                "id": "1lI9E80TVXLi9Ju3I3wcEjm9kyX-skw3s",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1lI9E80TVXLi9Ju3I3wcEjm9kyX-skw3s",
+                "children": [
+                  {
+                    "name": "ppt",
+                    "type": "folder",
+                    "id": "18YQ8LB8KhW8MckhWnjsEJVuRJ9kLXbZy",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/18YQ8LB8KhW8MckhWnjsEJVuRJ9kLXbZy",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Unidad 7 - Registro y Archivos",
+                "type": "folder",
+                "id": "1H324lERkAMkZwKAM29kpJu8O8UKPw34H",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1H324lERkAMkZwKAM29kpJu8O8UKPw34H",
+                "children": [
+                  {
+                    "name": "ppt",
+                    "type": "folder",
+                    "id": "19lJE9j3pR040Y7s3TpW_LOwetgF_1zq3",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/19lJE9j3pR040Y7s3TpW_LOwetgF_1zq3",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "Unidad 8 - Tipo de Datos Abstractos Fundamentales",
+                "type": "folder",
+                "id": "1s8H8MMd_eWBw4YOTFWPXx2YaCP-dz9HT",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1s8H8MMd_eWBw4YOTFWPXx2YaCP-dz9HT",
+                "children": [
+                  {
+                    "name": "ppt",
+                    "type": "folder",
+                    "id": "1I6i9viTSHI9W2m_1kizUC6NTVKZiPi4a",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1I6i9viTSHI9W2m_1kizUC6NTVKZiPi4a",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "CAMPUS",
+                "type": "folder",
+                "id": "1R25G5O9-H23ClGciZ_2YHjF2dPF9K38B",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1R25G5O9-H23ClGciZ_2YHjF2dPF9K38B",
+                "children": [
+                  {
+                    "name": "C++",
+                    "type": "folder",
+                    "id": "1QHCU_9zcnTFBA8gKPln81GxKGREhLyNN",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1QHCU_9zcnTFBA8gKPln81GxKGREhLyNN",
+                    "children": [
+                      {
+                        "name": ".vscode",
+                        "type": "folder",
+                        "id": "1P_pnQxOHEJKb7QYQ0TZJaYDkaDKb5H9B",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1P_pnQxOHEJKb7QYQ0TZJaYDkaDKb5H9B",
+                        "children": []
+                      },
+                      {
+                        "name": "misCodigos",
+                        "type": "folder",
+                        "id": "15b5woIayueHoWJp8IbI0VsYNuKgS7wZh",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/15b5woIayueHoWJp8IbI0VsYNuKgS7wZh",
+                        "children": [
+                          {
+                            "name": ".vscode",
+                            "type": "folder",
+                            "id": "1Dub8W9oj8jNbXWwu8j1ceJhEIBfcK9Dh",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/1Dub8W9oj8jNbXWwu8j1ceJhEIBfcK9Dh",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "name": "pdf",
+                        "type": "folder",
+                        "id": "1v7tkUjbtxmxVCed5DSa7VM3-lsvbDQR6",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1v7tkUjbtxmxVCed5DSa7VM3-lsvbDQR6",
+                        "children": []
+                      },
+                      {
+                        "name": "Unidad1",
+                        "type": "folder",
+                        "id": "1Lys-6VPakt-K7Qa1QBVwfJmC0i_NyWts",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1Lys-6VPakt-K7Qa1QBVwfJmC0i_NyWts",
+                        "children": []
+                      },
+                      {
+                        "name": "Unidad2",
+                        "type": "folder",
+                        "id": "1yncFYhr3-X-vyGcXsdHenIJK9NGT3i30",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1yncFYhr3-X-vyGcXsdHenIJK9NGT3i30",
+                        "children": []
+                      },
+                      {
+                        "name": "Unidad3",
+                        "type": "folder",
+                        "id": "1Hie8w2GexxCHY83_e87P8ReQqPW52Hy2",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1Hie8w2GexxCHY83_e87P8ReQqPW52Hy2",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Contenido",
+                    "type": "folder",
+                    "id": "1UF4dpSiKgjMTNkKPbZOv2_xnmh8T04-P",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1UF4dpSiKgjMTNkKPbZOv2_xnmh8T04-P",
+                    "children": [
+                      {
+                        "name": "1_Fundamentos",
+                        "type": "folder",
+                        "id": "1VarZTmbBl8rhuxBAU2oHcslK1pOMqlfB",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1VarZTmbBl8rhuxBAU2oHcslK1pOMqlfB",
+                        "children": []
+                      },
+                      {
+                        "name": "2_Contenidos_y_Repasos",
+                        "type": "folder",
+                        "id": "1xIQ66jl507ZJRIFtfbhGLEr4v6Lxf6k-",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1xIQ66jl507ZJRIFtfbhGLEr4v6Lxf6k-",
+                        "children": [
+                          {
+                            "name": "ppt",
+                            "type": "folder",
+                            "id": "1WxX7auYkSwsTXjQK5xix-yNerYlU77c2",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/1WxX7auYkSwsTXjQK5xix-yNerYlU77c2",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "name": "3_AyE_Trabajos_Prácticos",
+                        "type": "folder",
+                        "id": "1HxV40Hjf0PkPCOZ9q0QXZggy1NMAUdhw",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1HxV40Hjf0PkPCOZ9q0QXZggy1NMAUdhw",
+                        "children": []
+                      },
+                      {
+                        "name": "EjerciciosHechos",
+                        "type": "folder",
+                        "id": "1cS2kkzItSptHs4MGc8OerlkDSfO06HUb",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1cS2kkzItSptHs4MGc8OerlkDSfO06HUb",
+                        "children": [
+                          {
+                            "name": "Clase3",
+                            "type": "folder",
+                            "id": "10eHd_WLoQbGzFhS5hz91NAslU-7MNLaI",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/10eHd_WLoQbGzFhS5hz91NAslU-7MNLaI",
+                            "children": []
+                          },
+                          {
+                            "name": "Clase4",
+                            "type": "folder",
+                            "id": "17UOXT3b4GNLbxzt8I_ZWLoF-XesFTZRO",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/17UOXT3b4GNLbxzt8I_ZWLoF-XesFTZRO",
+                            "children": []
+                          },
+                          {
+                            "name": "Clase5",
+                            "type": "folder",
+                            "id": "1N8yj8N1MuRjs1KtZxBhxOVd-C6vJKL5v",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/1N8yj8N1MuRjs1KtZxBhxOVd-C6vJKL5v",
+                            "children": []
+                          },
+                          {
+                            "name": "EjerciciosProfe",
+                            "type": "folder",
+                            "id": "1y4Ul7d8Vb4Wrpt50d9b28vJ5LGap7-7j",
+                            "source": "drive",
+                            "url": "https://drive.google.com/drive/folders/1y4Ul7d8Vb4Wrpt50d9b28vJ5LGap7-7j",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Teoría",
+                    "type": "folder",
+                    "id": "1QC70zl7Nhiye2dRviU1f3_jUC-Rt9qlJ",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1QC70zl7Nhiye2dRviU1f3_jUC-Rt9qlJ",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 1 - Algoritmos, análisis y diseño",
+                    "type": "folder",
+                    "id": "1z_Zsdo-1H3-19q5JNcFza8ZSGVSdvhMs",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1z_Zsdo-1H3-19q5JNcFza8ZSGVSdvhMs",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 2 - Tipos de datos, operaciones y expresiones",
+                    "type": "folder",
+                    "id": "1wNTgFnZ5FIOOL1fGa42ETmfAUgYyNOSI",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1wNTgFnZ5FIOOL1fGa42ETmfAUgYyNOSI",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 3 - Construcción de Algoritmos",
+                    "type": "folder",
+                    "id": "17P846W_G0tFaxmte8yfjA5NZm02yR2Er",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/17P846W_G0tFaxmte8yfjA5NZm02yR2Er",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 4 - Subprogramas_Funciones_y_Subrutinas",
+                    "type": "folder",
+                    "id": "1IoE2jvs9dTrkUTGYHehDHdufRyLR1yff",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1IoE2jvs9dTrkUTGYHehDHdufRyLR1yff",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 5 - Recursividad",
+                    "type": "folder",
+                    "id": "17_Vc15ggnlnWgqm5YYYWaR6bTt7Gu_mc",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/17_Vc15ggnlnWgqm5YYYWaR6bTt7Gu_mc",
+                    "children": []
+                  },
+                  {
+                    "name": "Unidad 6 - Arreglos",
+                    "type": "folder",
+                    "id": "1lI9E80TVXLi9Ju3I3wcEjm9kyX-skw3s",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1lI9E80TVXLi9Ju3I3wcEjm9kyX-skw3s",
+                    "children": [
+                      {
+                        "name": "ppt",
+                        "type": "folder",
+                        "id": "18YQ8LB8KhW8MckhWnjsEJVuRJ9kLXbZy",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/18YQ8LB8KhW8MckhWnjsEJVuRJ9kLXbZy",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 7 - Registro y Archivos",
+                    "type": "folder",
+                    "id": "1H324lERkAMkZwKAM29kpJu8O8UKPw34H",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1H324lERkAMkZwKAM29kpJu8O8UKPw34H",
+                    "children": [
+                      {
+                        "name": "ppt",
+                        "type": "folder",
+                        "id": "19lJE9j3pR040Y7s3TpW_LOwetgF_1zq3",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/19lJE9j3pR040Y7s3TpW_LOwetgF_1zq3",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unidad 8 - Tipo de Datos Abstractos Fundamentales",
+                    "type": "folder",
+                    "id": "1s8H8MMd_eWBw4YOTFWPXx2YaCP-dz9HT",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1s8H8MMd_eWBw4YOTFWPXx2YaCP-dz9HT",
+                    "children": [
+                      {
+                        "name": "ppt",
+                        "type": "folder",
+                        "id": "1I6i9viTSHI9W2m_1kizUC6NTVKZiPi4a",
+                        "source": "drive",
+                        "url": "https://drive.google.com/drive/folders/1I6i9viTSHI9W2m_1kizUC6NTVKZiPi4a",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "EXÁMENES",
+                "type": "folder",
+                "id": "1WaOzUoubgl351uckTCI1aAEZ3-Rlmx62",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1WaOzUoubgl351uckTCI1aAEZ3-Rlmx62",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "LÓGICA Y ESTRUCTURAS DISCRETAS",
+            "type": "folder",
+            "id": "1boU0p2_bi-BKk8Md1I_yAbAHyAf8UZ64",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1boU0p2_bi-BKk8Md1I_yAbAHyAf8UZ64",
+            "children": [
+              {
+                "name": "EXÁMENES",
+                "type": "folder",
+                "id": "1FRE2Wq8PJa0-T-wwdKuvgIoWObfJc3HU",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1FRE2Wq8PJa0-T-wwdKuvgIoWObfJc3HU",
+                "children": [
+                  {
+                    "name": "Parcial 2",
+                    "type": "folder",
+                    "id": "1ly-PSXYQ8TFqI2Pfvk61l1Y7Uui5PvVM",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1ly-PSXYQ8TFqI2Pfvk61l1Y7Uui5PvVM",
+                    "children": []
+                  },
+                  {
+                    "name": "Papelera",
+                    "type": "folder",
+                    "id": "11-7yhmMG__oVdkvArMuqox4v7p36C0IU",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/11-7yhmMG__oVdkvArMuqox4v7p36C0IU",
+                    "children": []
+                  },
+                  {
+                    "name": "Parcial 1",
+                    "type": "folder",
+                    "id": "1cUnWck0cOhPh7uKpEfJtDNwu8QLUZDOm",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1cUnWck0cOhPh7uKpEfJtDNwu8QLUZDOm",
+                    "children": []
+                  },
+                  {
+                    "name": "Globales",
+                    "type": "folder",
+                    "id": "1om1Xr0tGQmtUpDD4wP91ABEXQ64pGxbc",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1om1Xr0tGQmtUpDD4wP91ABEXQ64pGxbc",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "2° AÑO",
+        "type": "folder",
+        "id": "1-0FD6volMAWUMwMIJv8lQs0C9pZii1Bk",
+        "source": "drive",
+        "url": "https://drive.google.com/drive/folders/1-0FD6volMAWUMwMIJv8lQs0C9pZii1Bk",
+        "children": [
+          {
+            "name": "ANÁLISIS DE SISTEMAS DE INFORMACIÓN",
+            "type": "folder",
+            "id": "11e-o4zl66SZX8-uJyUgzq1Rn2j82kteL",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/11e-o4zl66SZX8-uJyUgzq1Rn2j82kteL",
+            "children": [
+              {
+                "name": "EXÁMENES",
+                "type": "folder",
+                "id": "1MTTvMqTd6EQr9m8fT7IZzDTmoL43rZkc",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1MTTvMqTd6EQr9m8fT7IZzDTmoL43rZkc",
+                "children": [
+                  {
+                    "name": "Primer Parcial",
+                    "type": "folder",
+                    "id": "1-0st-lnqNrc9jnW3ixQjF7cwy9GCH0gN",
+                    "source": "drive",
+                    "url": "https://drive.google.com/drive/folders/1-0st-lnqNrc9jnW3ixQjF7cwy9GCH0gN",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PARADIGMA DE PROGRAMACIÓN",
+            "type": "folder",
+            "id": "1oCxM1H6p5QTYa3_1DMyTEmsAYazOK6Zn",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1oCxM1H6p5QTYa3_1DMyTEmsAYazOK6Zn",
+            "children": [
+              {
+                "name": "EXÁMENES",
+                "type": "folder",
+                "id": "1sLEl60nqZGvtNoaB1Rx6Oax1YhMAI0EA",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1sLEl60nqZGvtNoaB1Rx6Oax1YhMAI0EA",
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "SINTAXIS Y SEMÁNTICA DE LOS LENGUAJES",
+            "type": "folder",
+            "id": "1pFrDH4-XC7hJSPFU6poVi5qOX_8bgYev",
+            "source": "drive",
+            "url": "https://drive.google.com/drive/folders/1pFrDH4-XC7hJSPFU6poVi5qOX_8bgYev",
+            "children": [
+              {
+                "name": "EXÁMENES",
+                "type": "folder",
+                "id": "1efJ2r3NKBqCLDpEnRJlrDgZBdzfxZihk",
+                "source": "drive",
+                "url": "https://drive.google.com/drive/folders/1efJ2r3NKBqCLDpEnRJlrDgZBdzfxZihk",
+                "children": []
               }
             ]
           }

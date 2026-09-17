@@ -14,7 +14,7 @@ export interface Node {
 }
 
 // --- HELPERS (Todos con export) ---
-export const cleanName = (name: string) => name.replace(/_/g, " ").replace(/^\d+[._\s]+/, "");
+export const cleanName = (name: string) => name;
 
 export const slugify = (s: string) =>
   s

@@ -4,7 +4,7 @@ import path from "path";
 
 // 🔥 URL de Vercel Blob (la que usás en TreeLoader.tsx)
 const BLOB_URL = "https://dhfonqeb4oz4dngj.public.blob.vercel-storage.com";
-const TREE_PATH = "drive-tree.json";
+const TREE_PATH = "drive-tree-v3.json";
 
 export async function GET() {
   try {

@@ -34,6 +34,9 @@ export async function POST(req: Request) {
     console.log(`✅ runIndex() completado en ${Date.now() - indexStart}ms`);
     console.log("✅ drive-tree.json actualizado (solo Drive, temporal)");
 
+    console.log("Ejecutando merge en 60 segundos")
+    await new Promise((resolve)=> setTimeout(resolve, 60000))
+
     console.log("📡 Ejecutando merge-drive.js internamente...");
     const mergeStart = Date.now();
     const tree = await runMerge(); // ✅ GUARDA EL ÁRBOL COMPLETO

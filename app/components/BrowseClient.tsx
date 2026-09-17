@@ -136,7 +136,11 @@ const { sortedTreeNodes, currentFiles } = useMemo(() => {
   });  
 
   // 3. Filtramos los archivos para el carrusel
-  const files = sorted.filter(node => !isFolder(node));
+  const files = sorted.filter(node => {
+    if(isFolder(node)) return false;
+    const match = node.name.match(/\[PARTE\s*(\d+)\]/i);
+    return !match || match[1] === "1";
+  });
 
   return { sortedTreeNodes: sorted, currentFiles: files };
 }, [currentTreeNode, fullTree]);
